@@ -1,0 +1,13 @@
+AppBundle\Entity\Stage:
+    stage{1..5}:
+        nom (unique): '<sentence($nbWords = 1)>'
+        description (unique): '<sentence($nbWords = 5)>'
+        prestataire: '@prestataire<numberBetween(1, 5)>'
+
+
+
+
+
+
+
+

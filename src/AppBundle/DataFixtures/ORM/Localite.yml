@@ -1,0 +1,5 @@
+AppBundle\Entity\Localite:
+    localite{1..5}:
+        localite: '<lastName()>'
+        codePostal: '@code*'
+

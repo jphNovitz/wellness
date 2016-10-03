@@ -1,0 +1,7 @@
+AppBundle\Entity\Commune:
+    commune{1..5}:
+        commune: <sentence($nbWords = 2)>
+
+
+
+

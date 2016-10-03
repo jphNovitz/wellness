@@ -1,0 +1,20 @@
+AppBundle\Entity\Prestataire:
+    prestataire{1..5}:
+        nom: <company()>
+        email: <email()>
+        tel: <phoneNumber()>
+        adresseNum: <randomDigitNotNull()>
+        adresseRue: <streetName()>
+        banni: false
+        confirmation: false
+        password: <password()>
+        essais: 3
+        tva: BE<randomNumber($nbDigits = 9)>
+        siteweb: <url()>
+        localite: '@localite*'
+        image: '@image*'
+        categories: ['@categorie<numberBetween(1, 3)>']
+
+
+
+

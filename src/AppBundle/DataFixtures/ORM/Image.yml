@@ -1,0 +1,8 @@
+AppBundle\Entity\Image:
+    image{1..10}:
+        url: '<imageUrl($width = 640, $height = 480)>'
+        description: '<sentence($nbWords = 4)>'
+
+
+
+

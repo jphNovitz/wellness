@@ -1,0 +1,12 @@
+AppBundle\Entity\Categorie:
+    categorie{1..5}:
+        nom: '<sentence($nbWords = 1)>'
+        description: '<sentence($nbWords = 5)>'
+
+
+
+
+
+
+
+

@@ -1,0 +1,21 @@
+AppBundle\Entity\Internaute:
+    prestataire{1..5}:
+        nom: <lastName()>
+        prenom: <firstName()>
+        email: <email()>
+        adresseNum: <randomDigitNotNull()>
+        adresseRue: <streetName()>
+        banni: false
+        confirmation: false
+        password: <password()>
+        essais: 3
+        newsletter: <boolean()>
+        localite: '@localite*'
+        image: '@image*'
+        commentaires: '@commentaire*'
+
+
+
+
+
+

@@ -1,0 +1,13 @@
+AppBundle\Entity\Promotion:
+    promotion{1..5}:
+        nom (unique): '<sentence($nbWords = 1)>'
+        description: '<sentence($nbWords = 6)>'
+        categories: ['@categorie<numberBetween(1, 5)>']
+        prestataire: '@prestataire<numberBetween(1, 5)>'
+
+
+
+
+
+
+

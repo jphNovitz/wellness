@@ -1,0 +1,12 @@
+AppBundle\Entity\Commentaire:
+    commentaire{1..3}:
+        cote: '<randomDigitNotNull>'
+        titre: '<sentence($nbWords = 2)>'
+        contenu: '<sentence($nbWords = 5)>'
+        prestataire: '@prestataire*'
+
+
+
+
+
+
