@@ -9,11 +9,11 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/admin", name="admin_home")
      */
     public function indexAction(Request $request)
     {
-        // ici viendra le code qui renvoie vers la vue  homepage
+        // ici viendra le code qui renvoie vers la vue  admin
         return $this->render('default/index.html.twig');
     }
 
@@ -25,14 +25,4 @@ class DefaultController extends Controller
         // ici viendra le code qui renvoie vers la vue contact
         return $this->render('default/contact.html.twig');
     }
-
-    /**
-     * @Route("/contact", name="about")
-     */
-    public function aboutAction(Request $request)
-    {
-        // ici viendra le code qui renvoie vers la vue about
-        return $this->render('default/contact.html.twig');
-    }
-
 }
