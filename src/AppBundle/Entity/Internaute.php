@@ -44,11 +44,17 @@ class Internaute extends Utilisateur
     private $newsletter;
 
     /**
-     *
-     * @ORM\Column(name="commentaire", nullable=true)
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Commentaire", mappedBy="internaute")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Abus", mappedBy="internaute")
+     * @ORM\JoinColumn(name="internaute_id", referencedColumnName="id")
      */
-    private $commentaires;
+    private $abus;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Position", mappedBy="internaute")
+     * @ORM\JoinColumn(name="internaute_id", referencedColumnName="id")
+     */
+    private $Position;
+
 
     public function __construct() {
         $this->commentaires = new ArrayCollection();
@@ -144,26 +150,70 @@ class Internaute extends Utilisateur
 
 
     /**
-     * Set commentaires
+     * Add abus
      *
-     * @param string $commentaires
+     * @param \AppBundle\Entity\Abus $abus
      *
      * @return Internaute
      */
-    public function setCommentaires($commentaires)
+    public function addAbus(\AppBundle\Entity\Abus $abus)
     {
-        $this->commentaires = $commentaires;
+        $this->abus[] = $abus;
 
         return $this;
     }
 
     /**
-     * Get commentaires
+     * Remove abus
      *
-     * @return string
+     * @param \AppBundle\Entity\Abus $abus
      */
-    public function getCommentaires()
+    public function removeAbus(\AppBundle\Entity\Abus $abus)
     {
-        return $this->commentaires;
+        $this->abus->removeElement($abus);
+    }
+
+    /**
+     * Get abus
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAbus()
+    {
+        return $this->abus;
+    }
+
+    /**
+     * Add position
+     *
+     * @param \AppBundle\Entity\Position $position
+     *
+     * @return Internaute
+     */
+    public function addPosition(\AppBundle\Entity\Position $position)
+    {
+        $this->Position[] = $position;
+
+        return $this;
+    }
+
+    /**
+     * Remove position
+     *
+     * @param \AppBundle\Entity\Position $position
+     */
+    public function removePosition(\AppBundle\Entity\Position $position)
+    {
+        $this->Position->removeElement($position);
+    }
+
+    /**
+     * Get position
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPosition()
+    {
+        return $this->Position;
     }
 }

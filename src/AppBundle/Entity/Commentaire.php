@@ -49,29 +49,43 @@ class Commentaire
      */
     private $encodageDate;
 
+    /*
+     * L'entité commentaire est lié à Internaute et Prestataire mais n'appairait pas dans ces tables
+     * pour moi c'est la table commentaire qui est au centre
+     * l'internaute qui poste et le prestataire ne sont que des infos
+     */
+
     /**
      *
-     * @ORM\Column(name="internaute", nullable=true)
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Commentaire", mappedBy="commentaires")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Internaute")
+     * @ORM\JoinColumn(name="internaute_id", referencedColumnName="id")
      */
     private $internaute;
 
     /**
      *
-     * @ORM\Column(name="prestataire", nullable=true)
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Prestataire", inversedBy="commentaires", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Prestataire")
+     * @ORM\JoinColumn(name="prestataire_id", referencedColumnName="id")
      */
     private $prestataire;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Abus", mappedBy="commentaire")
+     * @ORM\JoinColumn(name="abus_id", referencedColumnName="id")
+     */
+    private $abus;
 
     public function __construct()
     {
         $this->setencodageDate(new \DateTime());
     }
 
+
+
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -95,7 +109,7 @@ class Commentaire
     /**
      * Get cote
      *
-     * @return int
+     * @return integer
      */
     public function getCote()
     {
@@ -174,19 +188,14 @@ class Commentaire
         return $this->encodageDate;
     }
 
-    public function __toString()
-    {
-        return $this->contenu;
-    }
-
     /**
      * Set internaute
      *
-     * @param string $internaute
+     * @param \AppBundle\Entity\Internaute $internaute
      *
      * @return Commentaire
      */
-    public function setInternaute($internaute)
+    public function setInternaute(\AppBundle\Entity\Internaute $internaute = null)
     {
         $this->internaute = $internaute;
 
@@ -196,7 +205,7 @@ class Commentaire
     /**
      * Get internaute
      *
-     * @return string
+     * @return \AppBundle\Entity\Internaute
      */
     public function getInternaute()
     {
@@ -206,11 +215,11 @@ class Commentaire
     /**
      * Set prestataire
      *
-     * @param string $prestataire
+     * @param \AppBundle\Entity\Prestataire $prestataire
      *
      * @return Commentaire
      */
-    public function setPrestataire($prestataire)
+    public function setPrestataire(\AppBundle\Entity\Prestataire $prestataire = null)
     {
         $this->prestataire = $prestataire;
 
@@ -220,10 +229,44 @@ class Commentaire
     /**
      * Get prestataire
      *
-     * @return string
+     * @return \AppBundle\Entity\Prestataire
      */
     public function getPrestataire()
     {
         return $this->prestataire;
+    }
+
+    /**
+     * Add abus
+     *
+     * @param \AppBundle\Entity\Abus $abus
+     *
+     * @return Commentaire
+     */
+    public function addAbus(\AppBundle\Entity\Abus $abus)
+    {
+        $this->abus[] = $abus;
+
+        return $this;
+    }
+
+    /**
+     * Remove abus
+     *
+     * @param \AppBundle\Entity\Abus $abus
+     */
+    public function removeAbus(\AppBundle\Entity\Abus $abus)
+    {
+        $this->abus->removeElement($abus);
+    }
+
+    /**
+     * Get abus
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAbus()
+    {
+        return $this->abus;
     }
 }

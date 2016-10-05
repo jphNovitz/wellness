@@ -4,6 +4,15 @@ AppBundle\Entity\Commentaire:
         titre: '<sentence($nbWords = 2)>'
         contenu: '<sentence($nbWords = 5)>'
         prestataire: '@prestataire*'
+        internaute: '@internaute*'
+
+AppBundle\Entity\Abus:
+    abus{1..2}:
+        description (unique): '<sentence($nbWords = 5)>'
+        commentaire: '@commentaire*'
+        internaute: '@internaute*'
+
+
 
 
 

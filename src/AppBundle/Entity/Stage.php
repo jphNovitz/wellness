@@ -58,7 +58,7 @@ class Stage
     private $fin;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Prestataire", inversedBy="stages")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Prestataire")
      */
     private $prestataire;
 
@@ -208,5 +208,53 @@ class Stage
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * Set info
+     *
+     * @param string $info
+     *
+     * @return Stage
+     */
+    public function setInfo($info)
+    {
+        $this->info = $info;
+
+        return $this;
+    }
+
+    /**
+     * Get info
+     *
+     * @return string
+     */
+    public function getInfo()
+    {
+        return $this->info;
+    }
+
+    /**
+     * Set prestataire
+     *
+     * @param \AppBundle\Entity\Prestataire $prestataire
+     *
+     * @return Stage
+     */
+    public function setPrestataire(\AppBundle\Entity\Prestataire $prestataire = null)
+    {
+        $this->prestataire = $prestataire;
+
+        return $this;
+    }
+
+    /**
+     * Get prestataire
+     *
+     * @return \AppBundle\Entity\Prestataire
+     */
+    public function getPrestataire()
+    {
+        return $this->prestataire;
     }
 }

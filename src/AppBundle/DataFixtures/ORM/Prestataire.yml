@@ -1,19 +1,43 @@
+AppBundle\Entity\CodePostal:
+    code{1..5}:
+        code: 'BE<randomNumber($nbDigits = 6)>'
+
+AppBundle\Entity\Commune:
+    commune{1..5}:
+        commune: <sentence($nbWords = 2)>
+
+AppBundle\Entity\Localite:
+    localite{1..5}:
+        localite: '<lastName()>'
+        commune: '@commune*'
+        codePostal: '@code*'
+
+AppBundle\Entity\Image:
+    image{1..5}:
+        url: '<imageUrl($width = 120, $height = 120)>'
+        description: '<sentence($nbWords = 4)>'
+        imageType: 'logo'
+    image{6..10}:
+            url: '<imageUrl($width = 120, $height = 120)>'
+            description: '<sentence($nbWords = 4)>'
+            imageType: 'photo'
+
 AppBundle\Entity\Prestataire:
     prestataire{1..5}:
-        nom: <company()>
-        email: <email()>
-        tel: <phoneNumber()>
-        adresseNum: <randomDigitNotNull()>
-        adresseRue: <streetName()>
+        nom (unique): <company()>
+        email  (unique): <email()>
+        tel  (unique): <phoneNumber()>
+        adresseNum  (unique): <randomDigitNotNull()>
+        adresseRue  (unique): <streetName()>
         banni: false
         confirmation: false
-        password: <password()>
+        password  (unique): <password()>
         essais: 3
-        tva: BE<randomNumber($nbDigits = 9)>
-        siteweb: <url()>
+        tva  (unique): BE<randomNumber($nbDigits = 9)>
+        siteweb  (unique): <url()>
         localite: '@localite*'
         image: '@image*'
-        categories: ['@categorie<numberBetween(1, 3)>']
+       # categories: ['@categorie<numberBetween(1, 3)>']
 
 
 

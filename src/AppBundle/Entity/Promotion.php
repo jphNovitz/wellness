@@ -51,13 +51,13 @@ class Promotion
     private $fin;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Categorie", inversedBy="promotions")
-     * @ORM\JoinTable(name="promotions_categories")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Categorie" )
+     * @ORM\JoinColumn(name="categorie_id", referencedColumnName="id")
      */
-    private $categories;
+    private $categorie;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Prestataire", inversedBy="promotions")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Prestataire")
      */
     private $prestataire;
 
@@ -69,10 +69,12 @@ class Promotion
         $categories=new ArrayCollection();
     }
 
+
+
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -176,36 +178,50 @@ class Promotion
     }
 
     /**
-     * Add category
+     * Set categorie
      *
-     * @param \AppBundle\Entity\Categorie $category
+     * @param \AppBundle\Entity\Categorie $categorie
      *
      * @return Promotion
      */
-    public function addCategory(\AppBundle\Entity\Categorie $category)
+    public function setCategorie(\AppBundle\Entity\Categorie $categorie = null)
     {
-        $this->categories[] = $category;
+        $this->categorie = $categorie;
 
         return $this;
     }
 
     /**
-     * Remove category
+     * Get categorie
      *
-     * @param \AppBundle\Entity\Categorie $category
+     * @return \AppBundle\Entity\Categorie
      */
-    public function removeCategory(\AppBundle\Entity\Categorie $category)
+    public function getCategorie()
     {
-        $this->categories->removeElement($category);
+        return $this->categorie;
     }
 
     /**
-     * Get categories
+     * Set prestataire
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @param \AppBundle\Entity\Prestataire $prestataire
+     *
+     * @return Promotion
      */
-    public function getCategories()
+    public function setPrestataire(\AppBundle\Entity\Prestataire $prestataire = null)
     {
-        return $this->categories;
+        $this->prestataire = $prestataire;
+
+        return $this;
+    }
+
+    /**
+     * Get prestataire
+     *
+     * @return \AppBundle\Entity\Prestataire
+     */
+    public function getPrestataire()
+    {
+        return $this->prestataire;
     }
 }

@@ -1,9 +1,21 @@
+AppBundle\Entity\Image:
+    image{1..5}:
+        url: '<imageUrl($width = 120, $height = 120)>'
+        description: '<sentence($nbWords = 4)>'
+        imageType: 'photo'
+
+AppBundle\Entity\Categorie:
+    categorie{1..5}:
+        nom: '<sentence($nbWords = 1)>'
+        description: '<sentence($nbWords = 5)>'
+        image: '@image*'
+
 AppBundle\Entity\Promotion:
     promotion{1..5}:
         nom (unique): '<sentence($nbWords = 1)>'
         description: '<sentence($nbWords = 6)>'
-        categories: ['@categorie<numberBetween(1, 5)>']
-        prestataire: '@prestataire<numberBetween(1, 5)>'
+        categorie: '@categorie*'
+        prestataire: '@prestataire*'
 
 
 

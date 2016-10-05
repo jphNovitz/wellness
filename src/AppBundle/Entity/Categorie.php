@@ -56,16 +56,11 @@ class Categorie
      */
     private $prestataires;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Promotion", mappedBy="categories")
-     * @ORM\JoinTable(name="promotions_categories")
-     */
-    private $promotions;
 
     /**
      * @var string
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image",cascade={"persist","remove"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Image", cascade={"persist","remove"})
      */
     private $image;
 
@@ -74,13 +69,15 @@ class Categorie
         $this->enAvant=false;
         $this->valide=false;
         $this->prestataires=new ArrayCollection();
-        $this->promotions=new ArrayCollection();
+
     }
+
+
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -152,7 +149,7 @@ class Categorie
     /**
      * Get enAvant
      *
-     * @return bool
+     * @return boolean
      */
     public function getEnAvant()
     {
@@ -176,16 +173,12 @@ class Categorie
     /**
      * Get valide
      *
-     * @return bool
+     * @return boolean
      */
     public function getValide()
     {
         return $this->valide;
     }
-
-
-
-
 
     /**
      * Add prestataire
@@ -221,39 +214,6 @@ class Categorie
         return $this->prestataires;
     }
 
-    /**
-     * Add promotion
-     *
-     * @param \AppBundle\Entity\Promotions $promotion
-     *
-     * @return Categorie
-     */
-    public function addPromotion(\AppBundle\Entity\Promotions $promotion)
-    {
-        $this->promotions[] = $promotion;
-
-        return $this;
-    }
-
-    /**
-     * Remove promotion
-     *
-     * @param \AppBundle\Entity\Promotions $promotion
-     */
-    public function removePromotion(\AppBundle\Entity\Promotions $promotion)
-    {
-        $this->promotions->removeElement($promotion);
-    }
-
-    /**
-     * Get promotions
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPromotions()
-    {
-        return $this->promotions;
-    }
 
     /**
      * Set image

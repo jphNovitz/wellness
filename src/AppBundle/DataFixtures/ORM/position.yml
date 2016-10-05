@@ -1,0 +1,11 @@
+AppBundle\Entity\Bloc:
+    bloc{1..5}:
+        nom (unique): '<sentence($nbWords = 1)>'
+        description: '<sentence($nbWords = 3)>'
+
+AppBundle\Entity\Position:
+    position{1..5}:
+        bloc: '@bloc*'
+        internaute: '@internaute*'
+        ordre (unique): '<numberBetween(1,5)>'
+

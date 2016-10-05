@@ -31,20 +31,24 @@ class Localite
     /**
      * @var string
      *
-     * @ORM\Column(name="codepostal", type="string", length=6, unique=false)
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\CodePostal",cascade={"persist"})
+     * @ORM\JoinColumn(name="code_postal_id", referencedColumnName="id")
      */
     private $codePostal;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="commune", type="string", length=100, nullable=true, unique=true)
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Commune",cascade={"persist"})
+     * @ORM\JoinColumn(name="commune_id", referencedColumnName="id")
      */
     private $commune;
 
-
+/*
+ * ici je choisi de ne pas mettre de propriété Utilisateur car pour moi la localité n'est qu'une information pour l'utilisateur.
+ * donc la localité n'a pas connaissance des utilisateur
+ *
+ */
 
 
     public function __toString()
@@ -52,10 +56,12 @@ class Localite
         return $this->getLocalite();
     }
 
+
+
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -89,11 +95,11 @@ class Localite
     /**
      * Set codePostal
      *
-     * @param string $codePostal
+     * @param \AppBundle\Entity\CodePostal $codePostal
      *
      * @return Localite
      */
-    public function setCodePostal($codePostal)
+    public function setCodePostal(\AppBundle\Entity\CodePostal $codePostal = null)
     {
         $this->codePostal = $codePostal;
 
@@ -103,7 +109,7 @@ class Localite
     /**
      * Get codePostal
      *
-     * @return string
+     * @return \AppBundle\Entity\CodePostal
      */
     public function getCodePostal()
     {
@@ -113,11 +119,11 @@ class Localite
     /**
      * Set commune
      *
-     * @param string $commune
+     * @param \AppBundle\Entity\Commune $commune
      *
      * @return Localite
      */
-    public function setCommune($commune)
+    public function setCommune(\AppBundle\Entity\Commune $commune = null)
     {
         $this->commune = $commune;
 
@@ -127,7 +133,7 @@ class Localite
     /**
      * Get commune
      *
-     * @return string
+     * @return \AppBundle\Entity\Commune
      */
     public function getCommune()
     {

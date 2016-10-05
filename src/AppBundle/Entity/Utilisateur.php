@@ -86,8 +86,8 @@ class Utilisateur
     /**
      * @var string
      *
-     * @ORM\Column(name="localite", type="string", nullable=true)
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Localite",cascade={"persist"})
+     * @ORM\JoinColumn(name="localite_id", referencedColumnName="id")
      */
     private $localite;
 

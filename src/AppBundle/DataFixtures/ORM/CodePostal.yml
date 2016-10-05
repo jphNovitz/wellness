@@ -1,7 +1,0 @@
-AppBundle\Entity\CodePostal:
-    code{1..5}:
-        code: 'BE<randomNumber($nbDigits = 6)>'
-
-
-
-

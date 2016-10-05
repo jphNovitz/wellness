@@ -35,11 +35,18 @@ class Image
      */
     private $description;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="imageType", type="string", length=20, nullable=true)
+     */
+    private $imageType;
+
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -93,4 +100,30 @@ class Image
     {
         return $this->description;
     }
+
+    /**
+     * Set imageType
+     *
+     * @param string $imageType
+     *
+     * @return Image
+     */
+    public function setImageType($imageType)
+    {
+        $this->imageType = $imageType;
+
+        return $this;
+    }
+
+    /**
+     * Get imageType
+     *
+     * @return string
+     */
+    public function getImageType()
+    {
+        return $this->imageType;
+    }
+
+
 }

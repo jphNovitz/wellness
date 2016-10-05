@@ -1,8 +1,9 @@
 AppBundle\Entity\Stage:
-    stage{1..5}:
+    stage{1..10}:
         nom (unique): '<sentence($nbWords = 1)>'
         description (unique): '<sentence($nbWords = 5)>'
-        prestataire: '@prestataire<numberBetween(1, 5)>'
+        info (unique): '<sentence($nbWords = 3)>'
+        prestataire: '@prestataire*'
 
 
 

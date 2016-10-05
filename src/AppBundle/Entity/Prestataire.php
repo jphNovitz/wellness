@@ -50,12 +50,7 @@ class Prestataire extends Utilisateur
      */
     private $tva;
 
-    /**
-     *
-     * @ORM\Column(name="commentaire", nullable=true)
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Commentaire", mappedBy="prestataire")
-     */
-    private $commentaire;
+
 
     /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Categorie", inversedBy="prestataires")
@@ -65,17 +60,10 @@ class Prestataire extends Utilisateur
 
     /**
      *
-     * @ORM\Column(name="stages", nullable=true)
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\stage", mappedBy="prestataire")
+     * @ORM\Column(name="images", nullable=true)
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Image", mappedBy="prestataire")
      */
-    private $stages;
-
-    /**
-     *
-     * @ORM\Column(name="promotions", nullable=true)
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\promotion", mappedBy="prestataire")
-     */
-    private $promotions;
+    private $images;
 
     public function __construct()
     {
@@ -83,22 +71,14 @@ class Prestataire extends Utilisateur
         $this->categories= new ArrayCollection();
     }
 
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+
 
     /**
      * Set nom
      *
      * @param string $nom
      *
-     * @return Utilisateur
+     * @return Prestataire
      */
     public function setNom($nom)
     {
@@ -116,8 +96,6 @@ class Prestataire extends Utilisateur
     {
         return $this->nom;
     }
-
-
 
     /**
      * Set siteWeb
@@ -191,36 +169,30 @@ class Prestataire extends Utilisateur
         return $this->tva;
     }
 
-    public function __toString()
-    {
-        return $this->getNom();
-    }
 
     /**
-     * Set commentaire
+     * Set images
      *
-     * @param string $commentaire
+     * @param string $images
      *
      * @return Prestataire
      */
-    public function setCommentaire($commentaire)
+    public function setImages($images)
     {
-        $this->commentaire = $commentaire;
+        $this->images = $images;
 
         return $this;
     }
 
     /**
-     * Get commentaire
+     * Get images
      *
      * @return string
      */
-    public function getCommentaire()
+    public function getImages()
     {
-        return $this->commentaire;
+        return $this->images;
     }
-
-
 
     /**
      * Add category
