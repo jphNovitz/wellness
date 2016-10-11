@@ -4,7 +4,7 @@ AppBundle\Entity\CodePostal:
 
 AppBundle\Entity\Commune:
     commune{1..5}:
-        commune: <sentence($nbWords = 2)>
+        commune: '<sentence($nbWords = 2)>'
 
 AppBundle\Entity\Localite:
     localite{1..5}:
@@ -24,17 +24,17 @@ AppBundle\Entity\Image:
 
 AppBundle\Entity\Prestataire:
     prestataire{1..5}:
-        nom (unique): <company()>
-        email  (unique): <email()>
-        tel  (unique): <phoneNumber()>
-        adresseNum  (unique): <randomDigitNotNull()>
-        adresseRue  (unique): <streetName()>
+        nom (unique): '<company()>'
+        email  (unique): '<email()>'
+        tel  (unique): '<phoneNumber()>'
+        adresseNum  (unique): '<randomDigitNotNull()>'
+        adresseRue  (unique): '<streetName()>'
         banni: false
         confirmation: false
-        password  (unique): <password()>
+        password  (unique): '<password()>'
         essais: 3
-        tva  (unique): BE<randomNumber($nbDigits = 9)>
-        siteweb  (unique): <url()>
+        tva  (unique): 'BE<randomNumber($nbDigits = 9)>'
+        siteweb  (unique): '<url()>'
         localite: '@localite*'
         image: '@image*'
        # categories: ['@categorie<numberBetween(1, 3)>']

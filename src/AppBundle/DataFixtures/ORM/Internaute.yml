@@ -4,7 +4,7 @@ AppBundle\Entity\CodePostal:
 
 AppBundle\Entity\Commune:
     commune{1..10}:
-        commune: <sentence($nbWords = 2)>
+        commune: '<sentence($nbWords = 2)>'
 
 AppBundle\Entity\Localite:
     localite{1..10}:
@@ -21,16 +21,16 @@ AppBundle\Entity\Image:
 
 AppBundle\Entity\Internaute:
     internaute{1..10}:
-        nom (unique): <lastName()>
-        prenom (unique): <firstName()>
-        email (unique): <email()>
-        adresseNum: <randomDigitNotNull()>
-        adresseRue (unique): <streetName()>
-        banni: false
-        confirmation: false
-        password (unique): <password()>
+        nom (unique): '<lastName()>'
+        prenom (unique): '<firstName()>'
+        email (unique): '<email()>'
+        adresseNum: '<randomDigitNotNull()>'
+        adresseRue (unique): '<streetName()>'
+        banni: 'false'
+        confirmation: 'false'
+        password (unique): '<password()>'
         essais: 3
-        newsletter: <boolean()>
+        newsletter: '<boolean()>'
         localite (unique): '@localite*'
         image (unique): '@image*'
 
