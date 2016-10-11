@@ -27,12 +27,12 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/contact", name="about")
+     * @Route("/about", name="about")
      */
     public function aboutAction(Request $request)
     {
         // ici viendra le code qui renvoie vers la vue about
-        return $this->render('default/contact.html.twig');
+        return $this->render('default/about.html.twig');
     }
 
 }
