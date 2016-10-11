@@ -1,13 +1,47 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+
+<head>
+    {% block head %}
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+
+        <link href="http://fonts.googleapis.com/css?family=Nunito:300,400,700" rel="stylesheet" type="text/css">
+
+        <link href="{{ asset('assets/libraries/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet"
+              type="text/css">
+
+        <link href={{ asset('assets/libraries/owl.carousel/assets/owl.carousel.css') }} rel="stylesheet"
+              type="text/css">
+        <link href={{ asset('assets/libraries/colorbox/example1/colorbox.css') }} rel="stylesheet" type="text/css">
+        <link href={{ asset('assets/libraries/bootstrap-select/bootstrap-select.min.css') }} rel="stylesheet"
+              type="text/css">
+        <link href={{ asset('assets/libraries/bootstrap-fileinput/fileinput.min.css') }} rel="stylesheet"
+              type="text/css">
+        <link href={{ asset('assets/css/superlist.css') }} rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" type="image/x-icon" href="assets/favicon.png">
+
+        <title> {% block title %} BASE {% endblock %} </title>
+    {% endblock %}
+</head>
+
+
+<body>
+<div class="page-wrapper">
+
+    {% include 'partials/header.html.twig' %}
+    {% block body %}
+
+
+
+    {% endblock %}
+
+        {% include 'partials/footer.html.twig' %}
+    {% block javascripts %}
+
+    {% endblock %}
+</div>
+</body>
 </html>
