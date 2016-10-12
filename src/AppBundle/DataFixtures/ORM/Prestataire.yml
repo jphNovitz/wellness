@@ -1,15 +1,16 @@
 AppBundle\Entity\CodePostal:
-    code{1..5}:
-        code: 'BE<randomNumber($nbDigits = 6)>'
+    code{1..100}:
+        code (unique): 'BE<randomNumber($nbDigits = 6)>'
 
 AppBundle\Entity\Commune:
-    commune{1..5}:
-        commune: '<sentence($nbWords = 2)>'
+    commune{1..100}:
+        #commune: '<sentence($nbWords = 2)>'
+        commune(unique): '<city()>'
 
 AppBundle\Entity\Localite:
-    localite{1..5}:
-        localite: '<lastName()>'
-        commune: '@commune*'
+    localite{1..50}:
+        localite (unique): '<word()>'
+        commune (unique): '@commune*'
         codePostal: '@code*'
 
 AppBundle\Entity\Image:

@@ -1,22 +1,22 @@
-AppBundle\Entity\CodePostal:
-    code{1..10}:
-        code: 'BE<randomNumber($nbDigits = 6)>'
+#AppBundle\Entity\CodePostal:
+ #   code{1..10}:
+  #      code: 'BE<randomNumber($nbDigits = 6)>'
 
-AppBundle\Entity\Commune:
-    commune{1..10}:
-        commune: '<sentence($nbWords = 2)>'
+#AppBundle\Entity\Commune:
+ #   commune{1..10}:
+  #      commune (unique): '<city>'
 
-AppBundle\Entity\Localite:
-    localite{1..10}:
-        localite: '<lastName()>'
-        commune: '@commune*'
-        codePostal: '@code*'
+#AppBundle\Entity\Localite:
+ #   localite{1..10}:
+  #      localite: '<lastName()>'
+   #     commune: '@commune*'
+    #    codePostal: '@code*'
 
-AppBundle\Entity\Image:
-    image{1..10}:
-        url: '<imageUrl($width = 120, $height = 120)>'
-        description: '<sentence($nbWords = 4)>'
-        imageType: 'avatar'
+#AppBundle\Entity\Image:
+ #   image{1..50}:
+  #      url: '<imageUrl($width = 120, $height = 120)>'
+   #     description: '<sentence($nbWords = 4)>'
+    #    imageType: 'avatar'
 
 
 AppBundle\Entity\Internaute:
@@ -31,7 +31,7 @@ AppBundle\Entity\Internaute:
         password (unique): '<password()>'
         essais: 3
         newsletter: '<boolean()>'
-        localite (unique): '@localite*'
+        localite: '@localite*'
         image (unique): '@image*'
 
 

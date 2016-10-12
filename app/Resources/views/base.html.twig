@@ -30,15 +30,35 @@
 
 <body>
 <div class="page-wrapper">
-
     {% include 'partials/header.html.twig' %}
-    {% block body %}
+    <div class="main">
+        <div class="main-inner">
+            <div class="container">
+                <div class="content">
+                    {% block document_title %}
+
+                    <div class="document-title">
+                        <h1>{% block document_title_h1 %}Row Version {% endblock %}</h1>
+
+                        <ul class="breadcrumb">
+                            {% block document_title_list %}
+                                <li><a href="#">Superlist</a></li>
+                                <li><a href="#">Listing</a></li>
+                            {% endblock %}
+                        </ul>
+                    </div><!-- /.document-title -->
+                    {% endblock %}
+                    {% block body %}
 
 
 
-    {% endblock %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
 
-        {% include 'partials/footer.html.twig' %}
+    {% include 'partials/footer.html.twig' %}
     {% block javascripts %}
 
     {% endblock %}

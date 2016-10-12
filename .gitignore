@@ -1,4 +1,3 @@
-/app/config/parameters.yml
 /build/
 /phpunit.xml
 /var/*
@@ -15,3 +14,5 @@ var/logs/.gitkeep
 /vendor/
 /web/bundles/
 .idea/*
+/web/assets/img/
+/web/assets/scss/

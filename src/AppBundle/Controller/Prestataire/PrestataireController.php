@@ -9,12 +9,27 @@ use Symfony\Component\HttpFoundation\Request;
 class PrestataireController extends Controller
 {
     /**
-     * @Route("/prestataires", name="prestataire_liste")
+     * @Route("/prestataire", name="prestataire_liste")
      */
-    public function ListAction(Request $request)
+    public function listAction(Request $request)
     {
-        // ici viendra le code qui renvoie vers la liste des Prestataires
-        return $this->render('public/prestataires/prestataires-liste.html.twig');
+        $manager = $this->getDoctrine()->getManager();
+        $repo = $manager->getRepository('AppBundle\Entity\Prestataire');
+        $prestataires = $repo->findAll();
+
+        return $this->render('public/prestataires/prestataires-liste.html.twig', ['prestataires' => $prestataires]);
+    }
+
+    /**
+     * @Route("/prestataire/menu", name="prestataire_menu")
+     */
+    public function menuAction(Request $request)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $repo = $manager->getRepository('AppBundle\Entity\Prestataire');
+        $prestataires = $repo->findNames();
+
+        return $this->render('public/prestataires/prestataires-menu.html.twig', ['prestataires' => $prestataires]);
     }
 
     /**

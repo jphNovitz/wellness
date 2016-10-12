@@ -51,7 +51,7 @@ class Categorie
     private $valide;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Categorie", mappedBy="categories")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Prestataire", mappedBy="categories")
      * @ORM\JoinTable(name="prestataires_categories")
      */
     private $prestataires;
