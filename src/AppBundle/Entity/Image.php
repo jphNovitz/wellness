@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -41,6 +42,12 @@ class Image
      * @ORM\Column(name="imageType", type="string", length=20, nullable=true)
      */
     private $imageType;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Prestataire", inversedBy="images")
+     */
+    private $prestataire;
+
 
 
     /**
@@ -125,5 +132,27 @@ class Image
         return $this->imageType;
     }
 
+    /**
+     * Set prestataire
+     *
+     * @param \AppBundle\Entity\Prestataire $prestataire
+     *
+     * @return Image
+     */
+    public function setPrestataire(\AppBundle\Entity\Prestataire $prestataire = null)
+    {
+        $this->prestataire = $prestataire;
 
+        return $this;
+    }
+
+    /**
+     * Get prestataire
+     *
+     * @return \AppBundle\Entity\Prestataire
+     */
+    public function getPrestataire()
+    {
+        return $this->prestataire;
+    }
 }

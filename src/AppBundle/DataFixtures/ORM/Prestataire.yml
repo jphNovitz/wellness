@@ -9,26 +9,16 @@ AppBundle\Entity\Commune:
 
 AppBundle\Entity\Localite:
     localite{1..50}:
-        localite (unique): '<word()>'
+        localite (unique): '<citySuffix()><word()>'
         commune (unique): '@commune*'
         codePostal: '@code*'
 
-AppBundle\Entity\Image:
-    image{1..5}:
-        url: '<imageUrl($width = 120, $height = 120)>'
-        description: '<sentence($nbWords = 4)>'
-        imageType: 'logo'
-    image{6..10}:
-            url: '<imageUrl($width = 120, $height = 120)>'
-            description: '<sentence($nbWords = 4)>'
-            imageType: 'photo'
-
 AppBundle\Entity\Prestataire:
-    prestataire{1..5}:
+    prestataire{1..20}:
         nom (unique): '<company()>'
         email  (unique): '<email()>'
         tel  (unique): '<phoneNumber()>'
-        adresseNum  (unique): '<randomDigitNotNull()>'
+        adresseNum: '<randomDigitNotNull()>'
         adresseRue  (unique): '<streetName()>'
         banni: false
         confirmation: false
@@ -37,9 +27,18 @@ AppBundle\Entity\Prestataire:
         tva  (unique): 'BE<randomNumber($nbDigits = 9)>'
         siteweb  (unique): '<url()>'
         localite: '@localite*'
-        image: '@image*'
-       # categories: ['@categorie<numberBetween(1, 3)>']
 
+AppBundle\Entity\Image:
+    image{1..20}:
+        url: 'https://www.fillmurray.com/<numberBetween(250,400)>/300'
+        description: '<sentence($nbWords = 10)>'
+        imageType: 'logo'
+        prestataire: '@prestataire<current()>'
+    image{21..50}:
+        url: 'https://www.fillmurray.com/<numberBetween(250,400)>/300'
+        description: '<sentence($nbWords = 10)>'
+        imageType: 'logo'
+        prestataire: '@prestataire*'
 
 
 

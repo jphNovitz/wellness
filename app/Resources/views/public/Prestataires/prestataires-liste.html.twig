@@ -17,21 +17,39 @@
         {% for prestataire in prestataires %}
 
 
+
+
             <div class="card-row">
                 <div class="card-row-inner">
-                    <!-- row image enlevé -->
+                    {% for image in prestataire.images %}
+                        {% if loop.last %}
+
+                            <div class="card-row-image" data-background-image="{{ image.url }}">
+                                <div class="card-row-label"><a href="listing-detail.html">Vacation</a></div>
+                                <!-- /.card-row-label -->
+
+                                <div class="card-row-price">$100 / night</div><!-- -->
+
+                            </div><!-- /.card-row-image -->
+                        {% endif %}
+                    {% endfor %}
 
                     <div class="card-row-body">
                         <h2 class="card-row-title"><a href="listing-detail.html">{{ prestataire.nom }}</a></h2>
-                        <div class="card-row-content"><p>Visitez notre site: <a href="{{ prestataire.siteWeb }}"> {{ prestataire.siteWeb }}</a></p></div>
+                        <div class="card-row-content">
+                            <p>{{ prestataire.adresseRue|capitalize }} {{ prestataire.adresseNum }}
+                            <br />{{ prestataire.localite.codePostal }} {{ prestataire.localite.localite|capitalize }}
+                            <br />{{ prestataire.localite.commune|capitalize }}</p>
+                            <p>Visitez notre site: <a
+                                        href="{{ prestataire.siteWeb }}"> {{ prestataire.siteWeb }}</a></p></div>
                         <!-- /.card-row-content -->
                     </div><!-- /.card-row-body -->
 
                     <div class="card-row-properties">
                         <dl>
 
-                            <dt>{{ prestataire.email  }} </dt>
-                            <dt>{{ prestataire.tel  }} </dt>
+                            <dt>{{ prestataire.email }} </dt>
+                            <dt>{{ prestataire.tel }} </dt>
                             <dt>{{ prestataire.localite.commune }}</dt>
                         </dl>
 

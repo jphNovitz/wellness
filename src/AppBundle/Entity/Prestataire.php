@@ -51,7 +51,6 @@ class Prestataire extends Utilisateur
     private $tva;
 
 
-
     /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Categorie", inversedBy="prestataires")
      * @ORM\JoinTable(name="prestataires_categories")
@@ -59,8 +58,6 @@ class Prestataire extends Utilisateur
     private $categories;
 
     /**
-     *
-     * @ORM\Column(name="images", nullable=true)
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Image", mappedBy="prestataire")
      */
     private $images;
@@ -68,7 +65,8 @@ class Prestataire extends Utilisateur
     public function __construct()
     {
         $this->setDateInscription(new \DateTime());
-        $this->categories= new ArrayCollection();
+        $this->categories = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
 
@@ -169,31 +167,6 @@ class Prestataire extends Utilisateur
         return $this->tva;
     }
 
-
-    /**
-     * Set images
-     *
-     * @param string $images
-     *
-     * @return Prestataire
-     */
-    public function setImages($images)
-    {
-        $this->images = $images;
-
-        return $this;
-    }
-
-    /**
-     * Get images
-     *
-     * @return string
-     */
-    public function getImages()
-    {
-        return $this->images;
-    }
-
     /**
      * Add category
      *
@@ -226,5 +199,39 @@ class Prestataire extends Utilisateur
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * Add image
+     *
+     * @param \AppBundle\Entity\Image $image
+     *
+     * @return Prestataire
+     */
+    public function addImage(\AppBundle\Entity\Image $image)
+    {
+        $this->images[] = $image;
+
+        return $this;
+    }
+
+    /**
+     * Remove image
+     *
+     * @param \AppBundle\Entity\Image $image
+     */
+    public function removeImage(\AppBundle\Entity\Image $image)
+    {
+        $this->images->removeElement($image);
+    }
+
+    /**
+     * Get images
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getImages()
+    {
+        return $this->images;
     }
 }

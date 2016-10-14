@@ -32,7 +32,13 @@ AppBundle\Entity\Internaute:
         essais: 3
         newsletter: '<boolean()>'
         localite: '@localite*'
-        image (unique): '@image*'
+
+#AppBundle\Entity\Image:
+ #   image{6..15}:
+  #      url: '<imageUrl($width = 120, $height = 120)>'
+   #     description: '<sentence($nbWords = 4)>'
+    #    imageType: 'logo'
+     #   internaute: '@internaute*'
 
 
 
