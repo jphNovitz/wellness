@@ -10,9 +10,20 @@ namespace AppBundle\Repository;
  */
 class PrestataireRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findNames(){
-        $em=$this->getEntityManager();
-        $noms=$em->createQuery('SELECT p.id, p.nom FROM AppBundle:Prestataire p');
+    public function findNames($max)
+    {
+        $em = $this->getEntityManager();
+        $noms = $em->createQuery('SELECT p.id, p.nom FROM AppBundle:Prestataire p 
+                                  ORDER BY p.dateInscription DESC')
+                    ->setMaxResults($max);
         return $noms->getResult();
     }
+
+    /**
+     * Requete pour séléctionner  id et nom de l'entite PRestataire dans la base de données
+     * Les résultats sont classés par date d'inscription en ordre descendant
+     * limitation du nombre de résultat car cette requete est faite pour un menu
+     *  -> le résultat doit être léger
+     *  -> je ne sais pas afficher touts les prestataires dans un menu déroulant
+     */
 }

@@ -12,8 +12,8 @@
     </li>
     <li class="active">
         <a href="{{ path('prestataire_liste') }}">Prestataires <i class="fa fa-chevron-down"></i></a>
-        {{ render(controller("AppBundle:Prestataire/Prestataire:menu")) }}
-
+        {{ render(controller("AppBundle:Prestataire/Prestataire:menu", { 'max': 5 })) }}
+{# j'appelle l'Action du menu PrestataireController qui me renvoie la vue prestataires-menu pour completer mon menu deroulant#}
 
     </li>
 
