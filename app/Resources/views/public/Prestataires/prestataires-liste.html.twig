@@ -1,62 +1,36 @@
-{% extends 'base.html.twig' %}
+{% embed '_layouts/liste.html.twig'  with {entites: prestataires} %}
 
-{# modifications HEAD #}
-{% block title %} Liste des Prestataires - annuaire Wellness {% endblock %}
-{# fin modifications HEAD #}
- {# document title#}
+    {% block document_title_h1 %} {{ parent() }}Prestataires {% endblock %}
 
-    {% block document_title_h1 %}prestataires {% endblock %} {# titre de la page #}
-    {% block document_title_list %} {# liens --> liste horizontale <li> #}
+    {% block boucle_images %}
+        {% for image in entite.images %}
+            {% if loop.last %}
 
+                <div class="card-row-image" data-background-image="{{ image.url }}">
+                    <div class="card-row-label"><a href="listing-detail.html">Vacation</a></div>
+                    <!-- /.card-row-label -->
+
+                    <div class="card-row-price">$100 / night</div><!-- -->
+
+                </div><!-- /.card-row-image -->
+            {% endif %}
+        {% endfor %}
     {% endblock %}
 
-    {# end document title#}
-{% block body %}
+    {% block card_row_content_1 %}{{ entite.adresseRue|capitalize }} {{ entite.adresseNum }} {% endblock %}
 
-    <div class="cards-row">
-        {% for prestataire in prestataires %}
+     {% block card_row_content_2 %}<br/> {{ entite.localite.codePostal }} {{ entite.localite.localite|capitalize }} {% endblock %}
 
+    {% block card_row_content_3 %} <br/>{{ entite.localite.commune|capitalize }} {% endblock %}
+    {% block card_row_content_4 %} <p>Visitez notre site: <a href="{{ entite.siteWeb }}"> {{ entite.siteWeb }}</a></p> {% endblock %}
 
+    {% block card_row_properties %}
+        <dl>
 
+            <dt>{{ entite.email }} </dt>
+            <dt>{{ entite.tel }} </dt>
+            <dt>{{ entite.localite.commune }}</dt>
+        </dl>
+    {% endblock %}
 
-            <div class="card-row">
-                <div class="card-row-inner">
-                    {% for image in prestataire.images %}
-                        {% if loop.last %}
-
-                            <div class="card-row-image" data-background-image="{{ image.url }}">
-                                <div class="card-row-label"><a href="listing-detail.html">Vacation</a></div>
-                                <!-- /.card-row-label -->
-
-                                <div class="card-row-price">$100 / night</div><!-- -->
-
-                            </div><!-- /.card-row-image -->
-                        {% endif %}
-                    {% endfor %}
-
-                    <div class="card-row-body">
-                        <h2 class="card-row-title"><a href="listing-detail.html">{{ prestataire.nom }}</a></h2>
-                        <div class="card-row-content">
-                            <p>{{ prestataire.adresseRue|capitalize }} {{ prestataire.adresseNum }}
-                            <br />{{ prestataire.localite.codePostal }} {{ prestataire.localite.localite|capitalize }}
-                            <br />{{ prestataire.localite.commune|capitalize }}</p>
-                            <p>Visitez notre site: <a
-                                        href="{{ prestataire.siteWeb }}"> {{ prestataire.siteWeb }}</a></p></div>
-                        <!-- /.card-row-content -->
-                    </div><!-- /.card-row-body -->
-
-                    <div class="card-row-properties">
-                        <dl>
-
-                            <dt>{{ prestataire.email }} </dt>
-                            <dt>{{ prestataire.tel }} </dt>
-                            <dt>{{ prestataire.localite.commune }}</dt>
-                        </dl>
-
-                    </div><!-- /.card-row-properties -->
-                </div><!-- /.card-row-inner -->
-            </div><!-- /.card-row -->
-
-        {% endfor %}
-    </div>
-{% endblock %}
+{% endembed %}

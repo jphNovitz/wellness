@@ -10,4 +10,13 @@ namespace AppBundle\Repository;
  */
 class CategorieRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function findNames($max)
+    {
+        $em = $this->getEntityManager();
+        $noms = $em->createQuery('SELECT c.id, c.nom FROM AppBundle:Categorie c 
+                                  ORDER BY c.id DESC')
+            ->setMaxResults($max);
+        return $noms->getResult();
+    }
 }

@@ -1,9 +1,0 @@
-<ul class="sub-menu">
-    {% for prestataire in prestataires %}
-        <li><a href="">{{ prestataire.nom }}</a></li>
-    {% endfor %}
-        <li>  <a href="{{ path('prestataire_liste') }}"> > Plus de prestataires < </a> </li>
-</ul>
-
-{# Je boucle sur les prestataires recus  - une fois sorti de la boucle j'ajoute un lien vers la  page liste des prestataires #}
-

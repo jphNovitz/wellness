@@ -1,9 +1,31 @@
-{% extends 'base.html.twig' %}
-{# modifications HEAD #}
-{% block title %} Liste des Services- Annuaire Wellness {% endblock %}
-{# fin modifications HEAD #}
+{% embed '_layouts/liste.html.twig'  with {entites: services} %}
 
-{% block body %}
-    Liste des Services
-{% endblock %}
+    {% block document_title_h1 %} {{ parent() }}Services {% endblock %}
 
+    {% block boucle_images %}
+
+        <div class="card-row-image" data-background-image="{{ entite.image.url }}">
+            <div class="card-row-label"><a href="listing-detail.html">Vacation</a></div>
+            <!-- /.card-row-label -->
+
+            <div class="card-row-price">$100 / night</div><!-- -->
+
+        </div><!-- /.card-row-image -->
+    {% endblock %}
+    {% block card_row_content_1 %}{{ entite.description }}
+
+        <br/>
+        {% if entite.prestataires is empty %}Pour l'instant personne ne propose cette prestation
+        {% else %} Cette prestation est disponible chez
+            {% for prestataire in entite.prestataires %}
+                {{ prestataire.nom }} {% if loop.last==false %}, {% else %} .{% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endblock %}
+    {% block card_row_content_2 %} {% endblock %}
+    {% block card_row_content_3 %} {% endblock %}
+    {% block card_row_content_4 %} {% endblock %}
+
+    {% block card_row_properties %} {% endblock %}
+
+{% endembed %}

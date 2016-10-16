@@ -2,55 +2,41 @@
 <html>
 
 <head>
-    {% block head %}
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 
-        <link href="http://fonts.googleapis.com/css?family=Nunito:300,400,700" rel="stylesheet" type="text/css">
+    {% include'_partials/_head-meta.html.twig' %}
+    {# toutes les balises meta  generales se trouvent dans le fichier _head-meta.html.twig C'est dans ce fichier qu'il faudra aller pour modificer les balises style #}
+    <title> {% block title %} BASE  {% endblock %} - Annuaire Wellness </title>
 
-        <link href="{{ asset('assets/libraries/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet"
-              type="text/css">
-
-        <link href={{ asset('assets/libraries/owl.carousel/assets/owl.carousel.css') }} rel="stylesheet"
-              type="text/css">
-        <link href={{ asset('assets/libraries/colorbox/example1/colorbox.css') }} rel="stylesheet" type="text/css">
-        <link href={{ asset('assets/libraries/bootstrap-select/bootstrap-select.min.css') }} rel="stylesheet"
-              type="text/css">
-        <link href={{ asset('assets/libraries/bootstrap-fileinput/fileinput.min.css') }} rel="stylesheet"
-              type="text/css">
-        <link href={{ asset('assets/css/superlist.css') }} rel="stylesheet" type="text/css">
-
-        <link rel="shortcut icon" type="image/x-icon" href="assets/favicon.png">
-
-        <title> {% block title %} BASE {% endblock %} </title>
-    {% endblock %}
 </head>
 
 
 <body>
 <div class="page-wrapper">
-    {% include 'partials/header.html.twig' %}
+
+    {# haut de page contien le logo les liens vers reseaux sociaux et menu #}
+    {% include '_partials/_header.html.twig' %}
+
     <div class="main">
         <div class="main-inner">
             <div class="container">
                 <div class="content">
+                    {# Document-title
+                    Affiche le nom de la page en grand dans un encadré en haut de la page
+                    En dessous il u a une liste horozontale pour les liens #}
                     {% block document_title %}
+                        <div class="document-title">
+                            <h1>{% block document_title_h1 %}Titre de la page {% endblock %}</h1>
 
-                    <div class="document-title">
-                        <h1>{% block document_title_h1 %}Row Version {% endblock %}</h1>
-
-                        <ul class="breadcrumb">
-                            {% block document_title_list %}
-                                <li><a href="#">Superlist</a></li>
-                                <li><a href="#">Listing</a></li>
-                            {% endblock %}
-                        </ul>
-                    </div><!-- /.document-title -->
+                            <ul class="breadcrumb">
+                                {% block document_title_list %}
+                                    <li><a href="#">un lien</a></li>
+                                    <li><a href="#">un autre lien</a></li>
+                                {% endblock %}
+                            </ul>
+                        </div><!-- /.document-title -->
                     {% endblock %}
+
                     {% block body %}
-
-
 
                     {% endblock %}
                 </div>
@@ -58,10 +44,13 @@
         </div>
     </div>
 
-    {% include 'partials/footer.html.twig' %}
-    {% block javascripts %}
 
-    {% endblock %}
+    {# c'est ici qu'il faudra aller pour modifier les fichiers javascripts #}
+    {% include '_partials/_scripts.html.twig' %}
+
+    {# pied de page #}
+    {% include '_partials/_footer.html.twig' %}
+
 </div>
 </body>
 </html>

@@ -1,14 +1,10 @@
-AppBundle\Entity\Image:
-    image{1..5}:
-        url: '<imageUrl($width = 120, $height = 120)>'
-        description: '<sentence($nbWords = 4)>'
-        imageType: 'photo'
+#AppBundle\Entity\Image:
+ #   image{1..5}:
+  #      url: '<imageUrl($width = 120, $height = 120)>'
+   #     description: '<sentence($nbWords = 4)>'
+    #    imageType: 'photo'
 
-AppBundle\Entity\Categorie:
-    categorie{1..5}:
-        nom: '<sentence($nbWords = 1)>'
-        description: '<sentence($nbWords = 5)>'
-        image: '@image*'
+
 
 AppBundle\Entity\Promotion:
     promotion{1..5}:

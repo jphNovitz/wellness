@@ -14,7 +14,7 @@ class PrestataireRepository extends \Doctrine\ORM\EntityRepository
     {
         $em = $this->getEntityManager();
         $noms = $em->createQuery('SELECT p.id, p.nom FROM AppBundle:Prestataire p 
-                                  ORDER BY p.dateInscription DESC')
+                                  ORDER BY p.id DESC')
                     ->setMaxResults($max);
         return $noms->getResult();
     }

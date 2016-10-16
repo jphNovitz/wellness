@@ -29,7 +29,7 @@ class PrestataireController extends Controller
         $repo = $manager->getRepository('AppBundle\Entity\Prestataire');
         $prestataires = $repo->findNames($max);
 
-        return $this->render('public/prestataires/prestataires-menu.html.twig', ['prestataires' => $prestataires]);
+        return $this->render('_partials/_menu-elements.html.twig', ['elements' => $prestataires, 'chemin' => 'prestataire_liste']);
     }
 
     /**

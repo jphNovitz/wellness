@@ -9,12 +9,27 @@ use Symfony\Component\HttpFoundation\Request;
 class ServiceController extends Controller
 {
     /**
-     * @Route("/services", name="service_liste")
+     * @Route("/service/menu", name="service_menu")
      */
-    public function ListAction(Request $request)
+    public function menuAction(Request $request, $max)
     {
-        // ici viendra le code qui renvoie vers la liste des services
-        return $this->render('public/services/service-liste.html.twig');
+        $manager = $this->getDoctrine()->getManager();
+        $repo = $manager->getRepository('AppBundle\Entity\Categorie');
+        $categories= $repo->findNames($max);
+
+        return $this->render('_partials/_menu-elements.html.twig', ['elements' => $categories, 'chemin' => 'service_liste']);
+    }
+
+    /**
+     * @Route("/service", name="service_liste")
+     */
+    public function listAction(Request $request)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $repo = $manager->getRepository('AppBundle\Entity\Categorie');
+        $categorie = $repo->findAll();
+
+        return $this->render('public/Services/service-liste.html.twig', ['services' => $categorie]);
     }
 
     /**
