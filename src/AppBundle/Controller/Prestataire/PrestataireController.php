@@ -9,15 +9,21 @@ use Symfony\Component\HttpFoundation\Request;
 class PrestataireController extends Controller
 {
     /**
+     * @Route("/prestataire/list/{pres}", name="prestataire_liste")
      * @Route("/prestataire", name="prestataire_liste")
      */
-    public function listAction(Request $request)
+    public function listAction(Request $request, $pres="grille")
     {
         $manager = $this->getDoctrine()->getManager();
         $repo = $manager->getRepository('AppBundle\Entity\Prestataire');
         $prestataires = $repo->findAll();
 
+        if ($pres == "liste"){
+
         return $this->render('public/prestataires/prestataires-liste.html.twig', ['prestataires' => $prestataires]);
+        }
+        else  return $this->render('public/prestataires/prestataires-grille.html.twig', ['prestataires' => $prestataires]);
+
     }
 
     /**

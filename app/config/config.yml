@@ -71,7 +71,7 @@ swiftmailer:
 hautelook_alice:
     db_drivers:
         orm: ~
-    locale: fr_FR
+    locale: fr_BE
     #    seed: 1
     persist_once: false
-    loading_limit: 5
+    loading_limit: 10

@@ -21,15 +21,19 @@ class ServiceController extends Controller
     }
 
     /**
+     * @Route("/service/list/{pres}", name="service_liste")
      * @Route("/service", name="service_liste")
      */
-    public function listAction(Request $request)
+    public function listAction(Request $request, $pres="grille")
     {
         $manager = $this->getDoctrine()->getManager();
         $repo = $manager->getRepository('AppBundle\Entity\Categorie');
         $categorie = $repo->findAll();
 
-        return $this->render('public/Services/service-liste.html.twig', ['services' => $categorie]);
+        if ($pres=="liste"){
+            return $this->render('public/Services/services-liste.html.twig', ['services' => $categorie]);
+        }
+        else  return $this->render('public/Services/services-grille.html.twig', ['services' => $categorie]);
     }
 
     /**

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{# document title#}  {% block document_title_h1 %}Liste {% endblock %}  {# end document title#}
+
+    {% block body %}
+
+        <div class="cards-simple-wrapper">
+
+        <div class="row">
+        {% block boucle %}
+
+
+        {% endblock %}
+
+        </div><!-- /.cards-simple-wrapper -->
+        </div>
+
+    {% endblock %}
