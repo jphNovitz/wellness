@@ -7,3 +7,7 @@
  {% block document_title %}
 
  {% endblock %}
+
+{% block body %}
+{{  render(controller('AppBundle:Admin/Slider:view')) }}
+{% endblock %}

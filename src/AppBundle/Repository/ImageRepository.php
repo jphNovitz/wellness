@@ -10,4 +10,13 @@ namespace AppBundle\Repository;
  */
 class ImageRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findFrontImages($nbre = 5)
+    {
+        $em = $this->getEntityManager();
+        $images = $em->createQuery("SELECT i FROM AppBundle:Image i where i.imageType='photo' ")
+            ->setMaxResults($nbre);
+        return $images->getResult();
+
+
+    }
 }

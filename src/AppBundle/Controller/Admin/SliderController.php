@@ -11,6 +11,19 @@ class SliderController extends Controller
 
 
     /**
+     * @Route("/admin/slider/view", name="admin_slider_view")
+     */
+    public function viewAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('AppBundle\Entity\Image');
+        $images_slider = $repo->findFrontImages();
+
+
+        return $this->render('admin/slider/slider-view.html.twig', ['images'=>$images_slider]);
+    }
+
+    /**
      * @Route("/admin/slider/new", name="admin_slider_create")
      */
     public function createAction(Request $request)
