@@ -29,13 +29,14 @@ class PrestataireController extends Controller
     /**
      * @Route("/prestataire/menu", name="prestataire_menu")
      */
-    public function menuAction(Request $request, $max)
+    public function menuAction(Request $request, $max,$class="")
     {
         $manager = $this->getDoctrine()->getManager();
         $repo = $manager->getRepository('AppBundle\Entity\Prestataire');
         $prestataires = $repo->findNames($max);
 
-        return $this->render('_partials/_menu-elements.html.twig', ['elements' => $prestataires, 'chemin' => 'prestataire_liste']);
+        return $this->render('_partials/_menu-elements.html.twig',
+            ['elements' => $prestataires, 'chemin' => 'prestataire_liste', 'class'=>$class]);
     }
 
     /**

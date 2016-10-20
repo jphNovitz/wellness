@@ -12,14 +12,14 @@
     </li>
     <li class="active">
         <a href="{{ path('prestataire_liste') }}">Prestataires <i class="fa fa-chevron-down"></i></a>
-        {{ render(controller("AppBundle:Prestataire/Prestataire:menu", { 'max': 5 })) }}
+        {{ render(controller("AppBundle:Prestataire/Prestataire:menu", { 'max': 5, 'class':'sub-menu' })) }}
 {# j'appelle l'Action du menu PrestataireController qui me renvoie la vue prestataires-menu pour completer mon menu deroulant#}
 
     </li>
 
     <li>
         <a href="{{ path('service_liste') }}">Service <i class="fa fa-chevron-down"></i></a>
-        {{ render(controller("AppBundle:Service/Service:menu", { 'max': 5 })) }}
+        {{ render(controller("AppBundle:Service/Service:menu", { 'max': 5, 'class':'sub-menu' })) }}
         {# j'appelle l'Action du menu ServiceController qui me renvoie la vue _menu-elements pour completer mon menu deroulant#}
 
     </li>
