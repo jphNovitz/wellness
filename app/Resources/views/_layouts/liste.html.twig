@@ -2,7 +2,7 @@
 
 
     {# modifications HEAD #}
-    {% block title %} Liste de Quelque chose{% endblock %}
+    {% block title %} Liste des {% endblock %}
     {# fin modifications HEAD #}
 
     {# document title#}
@@ -12,56 +12,5 @@
     {# end document title#}
     {% block body %}
 
-        <div class="cards-row">
-            {% for entite in entites %}
 
-                <div class="card-row">
-                    <div class="card-row-inner">
-                        {% block cadre_image %}
-                            {# exemple ci dessous à modifier en fonction des entités/relation/elements à afficher
-                            {% for image in entite.images %}
-                                {% if loop.last %}
-
-                                    <div class="card-row-image" data-background-image="{{ image.url }}">
-                                        <div class="card-row-label"><a href="listing-detail.html">Vacation</a></div>
-                                        <!-- /.card-row-label -->
-
-                                        <div class="card-row-price">$100 / night</div><!-- -->
-
-                                    </div><!-- /.card-row-image -->
-                                {% endif %}
-                            {% endfor %}
-                            #}
-                        {% endblock %}
-
-                        <div class="card-row-body">
-                            <h2 class="card-row-title"><a href="listing-detail.html"></a></h2>
-                            <div class="card-row-content">
-
-                                <p>
-                                    {% block card_row_content_1 %}{% endblock %}
-                                    <br/> {% block card_row_content_2 %}{% endblock %}
-                                    <br/> {% block card_row_content_3 %}{% endblock %}
-                                </p>
-                                {% block card_row_content_4 %}{% endblock %}
-
-                            </div>
-                            <!-- /.card-row-content -->
-                        </div><!-- /.card-row-body -->
-
-                        <div class="card-row-properties">
-                            {% block card_row_properties %}
-                                {#  utiliser la structure:
-                                 <dl>
-                                      <dt></dt>
-                                  </dl>
-                                  #}
-                            {% endblock %}
-
-                        </div><!-- /.card-row-properties -->
-                    </div><!-- /.card-row-inner -->
-                </div><!-- /.card-row -->
-
-            {% endfor %}
-        </div>
     {% endblock %}

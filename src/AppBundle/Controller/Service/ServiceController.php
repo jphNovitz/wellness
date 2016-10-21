@@ -23,7 +23,6 @@ class ServiceController extends Controller
 
     /**
      * @Route("/service/list/{pres}", name="service_liste")
-     * @Route("/service", name="service_liste")
      */
     public function listAction(Request $request, $pres = "grille")
     {

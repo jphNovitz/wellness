@@ -12,17 +12,24 @@
     {{ render(controller('AppBundle:Admin/Slider:view')) }}
     <div class="row">
         <div class="col-sm-4 col-lg-9">
+            <div class="content">
+                <div class="cards-row">
+                    {{ render(controller("AppBundle:Prestataire/Prestataire:last",{ 'pres': 'liste', 'n':4})) }}
+                </div><!-- /.cards-row -->
+            </div><!-- /.content -->
         </div><!-- /.col-* -->
         <div class="col-sm-4 col-lg-3">
             <div class="sidebar">
                 <div class="widget">
                     <h2 class="widgettitle">Services</h2>
 
-                        {{ render(controller("AppBundle:Service/Service:menu", { 'max': 10, 'class':'menu' })) }}
+                    {{ render(controller("AppBundle:Service/Service:menu", { 'max': 10, 'class':'menu' })) }}
 
                 </div><!-- /.sidebar -->
             </div><!-- /.widget -->
         </div><!-- /.col-* -->
     </div><!-- /.row -->
+
+
 
 {% endblock %}

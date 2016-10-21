@@ -1,51 +1,15 @@
-{% embed '_layouts/grille.html.twig'  with {entites: prestataires} %}
+{% embed '_layouts/grille.html.twig'  %}
+    {% block title %} {{ parent() }} Prestataires (Grille) {% endblock %}
 
+    {% block document_title_h1 %} {{ parent() }}Prestataires {% endblock %}
 
-    {# modifications HEAD #}  {% block title %} Liste des prestataires - grille {% endblock %}  {# fin modifications HEAD #}
-
-    {# document title#}
-
-    {% block document_title_h1 %}{{ parent() }} prestataires {% endblock %}
-
-    {# end document title#}
-    {% block body %}
-
-
-         {% for key in 1..entites|length-1 %}
-            <div class="col-sm-6 col-md-4 col-lg-3">
-
-                <div class="card-simple"
-                     data-background-image=" {% block cadre_background %} {{ entites[key].images.last().url }} {% endblock %}">
-
-                    <div class="card-simple-background">
-                        <div class="card-simple-content">
-                            <h2>
-                                <a href="listing-detail.html">{% block cadre_centre %}{{ entites[key].nom }} {% endblock %}</a>
-                            </h2>
-                            <div class="card-simple-rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div><!-- /.card-rating -->
-
-                            <div class="card-simple-actions">
-                                <a href="#" class="fa fa-star-o"></a>
-                                <a href="listing-detail.html" class="fa fa-search"></a>
-                                <a href="#" class="fa fa-heart-o"></a>
-                            </div><!-- /.card-simple-actions -->
-                        </div><!-- /.card-simple-content -->
-
-                        <div class="card-simple-label">{% block cadre_haut %} {{ entites[key].localite.commune }}{% endblock %}</div>
-
-                        <div class="card-simple-price">{% block cadre_bas %}{{ entites[key].tel }}{% endblock %}</div>
-
-                    </div><!-- /.card-simple-background -->
-                </div><!-- /.card-simple -->
-
-
-            </div><!-- /.col-* -->
-        {%  endfor %}
+    {% block document_title_list %}
+        <li><a href="{{ path('prestataire_liste', {'pres':'liste'}) }}">Liste</a></li>
+        <li><a href="{{ path('prestataire_liste', {'pres':'grille'}) }}">Grille</a></li>
     {% endblock %}
+
+    {% block body %}
+        {{ render(controller("AppBundle:Prestataire/Prestataire:last", { 'pres': 4})) }}
+    {% endblock %}
+
 {% endembed %}

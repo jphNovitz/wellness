@@ -13,8 +13,7 @@ class PrestataireRepository extends \Doctrine\ORM\EntityRepository
     public function findNames($max)
     {
         $em = $this->getEntityManager();
-        $noms = $em->createQuery('SELECT p.id, p.nom FROM AppBundle:Prestataire p 
-                                  ORDER BY p.id DESC')
+        $noms = $em->createQuery('SELECT p.id, p.nom FROM AppBundle:Prestataire p ORDER BY p.id DESC')
                     ->setMaxResults($max);
         return $noms->getResult();
     }
@@ -26,4 +25,12 @@ class PrestataireRepository extends \Doctrine\ORM\EntityRepository
      *  -> le résultat doit être léger
      *  -> je ne sais pas afficher touts les prestataires dans un menu déroulant
      */
+
+    public function findLastN($max=null)
+    {
+        $em = $this->getEntityManager();
+        $noms = $em->createQuery('SELECT p FROM AppBundle:Prestataire p ORDER BY p.dateInscription DESC')
+            ->setMaxResults($max);
+        return $noms->getResult();
+    }
 }

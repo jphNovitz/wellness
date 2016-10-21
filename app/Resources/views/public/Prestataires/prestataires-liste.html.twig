@@ -1,34 +1,16 @@
-{% embed '_layouts/liste.html.twig'  with {entites: prestataires} %}
+{% embed '_layouts/liste.html.twig'  %}
+    {% block title %} {{ parent() }} Prestataires (liste) {% endblock %}
 
     {% block document_title_h1 %} {{ parent() }}Prestataires {% endblock %}
 
-    {% block cadre_image %}
-
-    <div class="card-row-image" data-background-image="{{ entite.images.last().url }}">
-    <div class="card-row-label"><a href="listing-detail.html">Vacation</a></div>
-    <!-- /.card-row-label -->
-
-    <div class="card-row-price">$100 / night</div><!-- -->
-
-    </div><!-- /.card-row-image -->
+    {% block document_title_list %}
+        <li><a href="{{ path('prestataire_liste', {'pres':'liste'}) }}">Liste</a></li>
+        <li><a href="{{ path('prestataire_liste', {'pres':'grille'}) }}">Grille</a></li>
     {% endblock %}
 
-    {% block card_row_content_1 %}{{ entite.adresseRue|capitalize }} {{ entite.adresseNum }} {% endblock %}
-
-    {% block card_row_content_2 %}
-        <br/> {{ entite.localite.codePostal }} {{ entite.localite.localite|capitalize }} {% endblock %}
-
-    {% block card_row_content_3 %} <br/>{{ entite.localite.commune|capitalize }} {% endblock %}
-    {% block card_row_content_4 %} <p>Visitez notre site: <a href="{{ entite.siteWeb }}"> {{ entite.siteWeb }}</a>
-    </p> {% endblock %}
-
-    {% block card_row_properties %}
-        <dl>
-
-            <dt>{{ entite.email }} </dt>
-            <dt>{{ entite.tel }} </dt>
-            <dt>{{ entite.localite.commune }}</dt>
-        </dl>
+    {% block body %}
+        {{ render(controller("AppBundle:Prestataire/Prestataire:last", {"pres": "liste"})) }}
     {% endblock %}
 
 {% endembed %}
+

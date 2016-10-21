@@ -1,4 +1,4 @@
-{% embed '_layouts/grille.html.twig'  with {entites: services} %}
+{% embed '_layouts/grille.html.twig' %}
 
 
     {# modifications HEAD #}  {% block title %} Liste des services - grille {% endblock %}  {# fin modifications HEAD #}
@@ -6,22 +6,26 @@
     {# document title#}
 
     {% block document_title_h1 %}{{ parent() }} services {% endblock %}
+    {% block document_title_list %}
+        <li><a href="{{ path('service_liste', {'pres':'liste'}) }}">Liste</a></li>
+        <li><a href="{{ path('service_liste', {'pres':'grille'}) }}">Grille</a></li>
+    {% endblock %}
 
     {# end document title#}
     {% block body %}
         {{ parent() }}
-{% block boucle %}
 
-         {% for key in 1..entites|length-1 %}
+
+        {% for service in services %}
             <div class="col-sm-6 col-md-4 col-lg-3">
 
                 <div class="card-simple"
-                     data-background-image=" {% block cadre_background %} {{ entites[key].image.url }} {% endblock %}">
+                     data-background-image=" {% block cadre_background %} {{service.image.url }} {% endblock %}">
 
                     <div class="card-simple-background">
                         <div class="card-simple-content">
                             <h2>
-                                <a href="listing-detail.html">{% block cadre_centre %}{{ entites[key].nom }} {% endblock %}</a>
+                                <a href="listing-detail.html">{% block cadre_centre %}{{ service.nom }} {% endblock %}</a>
                             </h2>
                             <div class="card-simple-rating">
                                 <i class="fa fa-star"></i>
@@ -47,7 +51,7 @@
 
 
             </div><!-- /.col-* -->
-        {%  endfor %}
+        {% endfor %}
     {% endblock %}
-    {% endblock %}
+
 {% endembed %}
