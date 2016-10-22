@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 
 /**
  * Utilisateur
@@ -23,6 +25,13 @@ class Utilisateur
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=120, nullable=false)
+     */
+    private $nom;
 
     /**
      * @var string
@@ -98,6 +107,11 @@ class Utilisateur
      */
     private $image;
 
+    /**
+     * @Gedmo\Slug(fields={"nom","id"})
+     * @ORM\Column(length=255, unique=true)
+     */
+    private $slug;
 
     public function __construct()
     {
@@ -365,5 +379,54 @@ class Utilisateur
     public function getImage()
     {
         return $this->image;
+    }
+
+
+    /**
+     * Set nom
+     *
+     * @param string $nom
+     *
+     * @return Utilisateur
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * Get nom
+     *
+     * @return string
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Utilisateur
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

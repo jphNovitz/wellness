@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Prestataire
@@ -22,12 +23,7 @@ class Prestataire extends Utilisateur
      */
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nom", type="string", length=100)
-     */
-    private $nom;
+
 
     /**
      * @var string
@@ -62,6 +58,8 @@ class Prestataire extends Utilisateur
      */
     private $images;
 
+
+
     public function __construct()
     {
         $this->setDateInscription(new \DateTime());
@@ -70,30 +68,6 @@ class Prestataire extends Utilisateur
     }
 
 
-
-    /**
-     * Set nom
-     *
-     * @param string $nom
-     *
-     * @return Prestataire
-     */
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    /**
-     * Get nom
-     *
-     * @return string
-     */
-    public function getNom()
-    {
-        return $this->nom;
-    }
 
     /**
      * Set siteWeb
@@ -234,4 +208,5 @@ class Prestataire extends Utilisateur
     {
         return $this->images;
     }
+
 }

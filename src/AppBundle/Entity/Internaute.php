@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
+
 /**
  * Internaute
  *
@@ -22,12 +23,7 @@ class Internaute extends Utilisateur
      */
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nom", type="string", length=120, nullable=true)
-     */
-    private $nom;
+
 
     /**
      * @var string
@@ -56,10 +52,13 @@ class Internaute extends Utilisateur
     private $Position;
 
 
-    public function __construct() {
+
+    public function __construct()
+    {
         $this->commentaires = new ArrayCollection();
         $this->setDateInscription(new \DateTime());
     }
+
     public function __toString()
     {
         return $this->getNom();
@@ -75,29 +74,6 @@ class Internaute extends Utilisateur
         return $this->id;
     }
 
-    /**
-     * Set nom
-     *
-     * @param string $nom
-     *
-     * @return Internaute
-     */
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    /**
-     * Get nom
-     *
-     * @return string
-     */
-    public function getNom()
-    {
-        return $this->nom;
-    }
 
     /**
      * Set prenom
@@ -146,7 +122,6 @@ class Internaute extends Utilisateur
     {
         return $this->newsletter;
     }
-
 
 
     /**
@@ -216,4 +191,6 @@ class Internaute extends Utilisateur
     {
         return $this->Position;
     }
+
+
 }

@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Categorie
@@ -63,6 +64,12 @@ class Categorie
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Image", cascade={"persist","remove"})
      */
     private $image;
+
+    /**
+     * @Gedmo\Slug(fields={"id","nom"})
+     * @ORM\Column(length=255, unique=true)
+     */
+    private $slug;
 
     public function __construct()
     {
@@ -237,5 +244,42 @@ class Categorie
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Categorie
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    public function postPersist()
+    {
+        $this->slug = (new SlugCreator())->encode($this->id);
+
+        // Save/persist this newly created slug.
+        // Note: We must add the top level class annotation
+        // '@ORM\HasLifecycleCallbacks()' to any Entity that
+        // uses this trait.
+        $entityManager = App::make('Doctrine\ORM\EntityManagerInterface'); // or new up the em "new EntityManager(...);
+        $entityManager->persist($this);
+        $entityManager->flush();
     }
 }

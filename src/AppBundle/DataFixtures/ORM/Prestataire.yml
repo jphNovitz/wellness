@@ -42,8 +42,9 @@ AppBundle\Entity\Image:
         description: '<sentence($nbWords = 10)>'
         imageType: 'logo'
         prestataire: '@prestataire<current()>'
+
     image{21..50}:
-        url: 'https://www.fillmurray.com/<numberBetween(250,400)>/300'
+        url: 'https://www.fillmurray.com/<numberBetween(1138,1142)>/<numberBetween(448,455)>'
         description: '<sentence($nbWords = 10)>'
         imageType: 'photo'
         prestataire: '@prestataire*'
