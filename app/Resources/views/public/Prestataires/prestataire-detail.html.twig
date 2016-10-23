@@ -4,11 +4,110 @@
 {# fin modifications HEAD #}
 
 {% block body %}
-    prestataire DETAiL
+    <div class="container">
+        <div class="row detail-content">
+            <div class="col-sm-7">
+                <div class="detail-gallery">
+                    <div class="detail-gallery-preview">
+                        <a href="assets/img/tmp/gallery-1.jpg">
+                            <img src="{{ prestataire.images.first().url }}">
+                        </a>
+                    </div>
 
-    <p>{{ prestataire.nom }}
-    <br />{{ prestataire.adresseRue }}
-    {{ prestataire. adresseNum }}
-   <br /> {{ prestataire.localite }}
+                    <ul class="detail-gallery-index">
+                        {% for image in prestataire.images %}
+                            <li class="detail-gallery-list-item active">
+                                <a data-target="{{ image.url }}">
+                                    <img src="{{ image.url }}" alt="...">
+                                </a>
+                            </li>
+                        {% endfor %}
+
+                    </ul>
+                </div><!-- /.detail-gallery -->
+            </div>
+            <div class="col-sm-5">
+                <h2>Tout sur <span class="text-secondary">{{ prestataire.nom }}</span></h2>
+                <div class="background-white p20">
+                    <div class="detail-vcard">
+                        <div class="detail-logo">
+                            {% set continue="true" %}
+                            {% for image in prestataire.images if continue=="true" %}
+                                {% if image.imageType=="logo" %}
+                                    {% set continue="false" %}
+                                    <img src="{{ image.url }}">
+                                {% endif %}
+                            {% endfor %}
+
+                        </div><!-- /.detail-logo -->
+
+                        <div class="detail-contact">
+                            <div class="detail-contact-email">
+                                <i class="fa fa-envelope-o"></i> <a
+                                        href="{{ prestataire.email }}">{{ prestataire.email }}</a>
+                            </div>
+                            <div class="detail-contact-phone">
+                                <i class="fa fa-mobile-phone"></i> <a href="tel:#">{{ prestataire.tel }}</a>
+                            </div>
+                            <div class="detail-contact-website">
+                                <i class="fa fa-globe"></i> <a href="#">{{ prestataire.siteWeb }}</a>
+                            </div>
+                            <div class="detail-contact-address">
+                                <i class="fa fa-map-o"></i>
+                                {{ prestataire.adresseRue }}
+                                {{ prestataire. adresseNum }}
+                                <br/> {{ prestataire.localite.codePostal }} {{ prestataire.localite }}
+                                <br/> ({{ prestataire.localite.commune }})
+
+                            </div>
+                        </div><!-- /.detail-contact -->
+                    </div><!-- /.detail-vcard -->
+
+                    <div class="detail-description">
+
+
+                    </div>
+
+                    <div class="detail-follow">
+                        <h5>Reseaux Sociaux:</h5>
+                        <div class="follow-wrapper">
+                            <a class="follow-btn facebook" href="#"><i class="fa fa-facebook"></i></a>
+                            <a class="follow-btn youtube" href="#"><i class="fa fa-youtube"></i></a>
+                            <a class="follow-btn twitter" href="#"><i class="fa fa-twitter"></i></a>
+                            <a class="follow-btn tripadvisor" href="#"><i class="fa fa-tripadvisor"></i></a>
+                            <a class="follow-btn google-plus" href="#"><i class="fa fa-google-plus"></i></a>
+                        </div><!-- /.follow-wrapper -->
+                    </div><!-- /.detail-follow -->
+                    <div class="widget">
+                        <h2 class="widgettitle">Services</h2>
+
+                        <div class="p20 background-white">
+                            <div class="working-hours">
+                                <div class="day clearfix">
+                                    <span class="name">Mon</span><span class="hours">07:00 AM - 07:00 PM</span>
+                                </div><!-- /.day -->
+
+
+                            </div>
+                        </div>
+                    </div><!-- /.widget -->
+
+                    <h2>Services</h2>
+
+                    <div class="background-white p20">
+                        <ul class="detail-amenities">
+                            {% for cat in prestataire.categories %}
+                                <li class="yes">{{ cat.nom }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div><!-- /.detail-amenities -->
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
 {% endblock %}
 

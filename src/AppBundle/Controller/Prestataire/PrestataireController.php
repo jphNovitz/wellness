@@ -2,8 +2,11 @@
 
 namespace AppBundle\Controller\Prestataire;
 
+use AppBundle\Entity\Image;
+use AppBundle\Entity\Prestataire;
 use Gedmo\Mapping\Annotation\Slug;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -55,14 +58,19 @@ class PrestataireController extends Controller
 
     /**
      * @Route("/prestataire/{slug}", name="prestataire_detail")
+     * @ParamConverter("Prestataire", class="AppBundle:Prestataire")
      */
-    public function detailAction($slug)
+    public function detailAction(Prestataire $prestataire)
     {
-        $manager=$this->getDoctrine()->getManager();
-        $repo=$manager->getRepository('AppBundle\Entity\Prestataire');
-        $prestataire=$repo->findOneBySlug($slug);
-        return $this->render('public/prestataires/prestataire-detail.html.twig', ['prestataire'=>$prestataire]);
+        /* $manager=$this->getDoctrine()->getManager();
+         $repo=$manager->getRepository('AppBundle\Entity\Prestataire');
+         $prestataire=$repo->findOneBySlug($slug);*/
+
+
+
+        return $this->render('public/prestataires/prestataire-detail.html.twig', ['prestataire' => $prestataire]);
     }
+
 
     /**
      * @Route("/s", name="prestataire_recherche")
