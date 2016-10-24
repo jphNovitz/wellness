@@ -29,13 +29,13 @@ class Position
     private $ordre;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\internaute", inversedBy="position")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Internaute", inversedBy="positions")
      * @ORM\JoinColumn(name="internaute_id", referencedColumnName="id")
      */
     private $internaute;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\bloc", inversedBy="position")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Bloc", inversedBy="positions")
      * @ORM\JoinColumn(name="bloc_id", referencedColumnName="id")
      */
     private $bloc;

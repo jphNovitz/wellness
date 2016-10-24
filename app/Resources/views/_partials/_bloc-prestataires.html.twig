@@ -1,0 +1,62 @@
+{% for prestataire in prestataires %}
+    <div class="card-row">
+        <div class="card-row-inner">
+            {% block cadre_image %}
+                <div class="card-row-image" data-background-image="{{ prestataire.images.last().url }}">
+                    <div class="card-row-label"><a href="">{{ prestataire.localite.commune }}</a></div>
+                    <div class="card-row-price">{{ prestataire.tel }}   </div>
+                </div>
+            {% endblock %}
+
+            <div class="card-row-body">
+                <h2 class="card-row-title"><a href="{{ path('prestataire_detail',{'slug':prestataire.slug}) }}">{{ prestataire.nom }}</a></h2>
+                <div class="card-row-content">
+
+
+                    {% block card_row_content_1 %}
+
+                        <p>Services proposés: {% for service in prestataire.categories %}
+                                {% if service.nom is not null %}
+                                    {{ service.nom }}
+                                {% else %}
+                                    Aucun pour l'instant.
+                                {% endif %}
+                            {% endfor %}
+                        </p>
+                    {% endblock %}
+
+                    {% block card_row_content_2 %}
+                        <p>
+                            {{ prestataire.adresseRue|capitalize }} {{ prestataire.adresseNum }}
+                            <br/> {{ prestataire.localite.codePostal }} {{ prestataire.localite.localite|capitalize }}
+                            <br/>{{ prestataire.localite.commune|capitalize }}
+                        </p>
+                    {% endblock %}
+
+                    {% block card_row_content_3 %}  {% endblock %}
+                    {% block card_row_content_4 %}
+                        <br/> <a href="{{ prestataire.siteWeb }}"> {{ prestataire.nom }}</a>
+                    {% endblock %}
+                    </p>
+
+
+                </div>
+                <!-- /.card-row-content -->
+            </div><!-- /.card-row-body -->
+
+            <div class="card-row-properties">
+                {% block card_row_properties %}
+                    <dl>
+
+                        <dt>{{ prestataire.email }} </dt>
+                        <dt>{{ prestataire.tel }} </dt>
+                        <dt>{{ prestataire.localite.commune }}</dt>
+                    </dl>
+                {% endblock %}
+
+            </div><!-- /.card-row-properties -->
+        </div><!-- /.card-row-inner -->
+
+    </div><!-- /.card-row -->
+
+{% endfor %}

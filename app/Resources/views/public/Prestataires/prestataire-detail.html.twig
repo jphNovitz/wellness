@@ -25,9 +25,10 @@
 
                     </ul>
                 </div><!-- /.detail-gallery -->
+                {{ render(controller("AppBundle:Admin/Comment:viewPrestataire", { 'id': prestataire.id, 'class':'menu' })) }}
             </div>
             <div class="col-sm-5">
-                <h2>Tout sur <span class="text-secondary">{{ prestataire.nom }}</span></h2>
+                <h2>Tout sur <span class="text-secondary"> {{ prestataire.nom }} </span></h2>
                 <div class="background-white p20">
                     <div class="detail-vcard">
                         <div class="detail-logo">
@@ -61,13 +62,12 @@
 
                             </div>
                         </div><!-- /.detail-contact -->
+
+
+                        <div class="detail-description">
+
+                        </div>
                     </div><!-- /.detail-vcard -->
-
-                    <div class="detail-description">
-
-
-                    </div>
-
                     <div class="detail-follow">
                         <h5>Reseaux Sociaux:</h5>
                         <div class="follow-wrapper">
@@ -78,31 +78,18 @@
                             <a class="follow-btn google-plus" href="#"><i class="fa fa-google-plus"></i></a>
                         </div><!-- /.follow-wrapper -->
                     </div><!-- /.detail-follow -->
-                    <div class="widget">
-                        <h2 class="widgettitle">Services</h2>
-
-                        <div class="p20 background-white">
-                            <div class="working-hours">
-                                <div class="day clearfix">
-                                    <span class="name">Mon</span><span class="hours">07:00 AM - 07:00 PM</span>
-                                </div><!-- /.day -->
-
-
-                            </div>
-                        </div>
-                    </div><!-- /.widget -->
-
-                    <h2>Services</h2>
-
-                    <div class="background-white p20">
-                        <ul class="detail-amenities">
-                            {% for cat in prestataire.categories %}
-                                <li class="yes">{{ cat.nom }}</li>
+                </div>
+                <div class="widget">
+                    <div class="sidebar">
+                        <h2>Ses Services</h2>
+                        <ul class="menu">
+                            {% for categorie in prestataire.categories %}
+                               <li> <a href=""> {{ categorie.nom }} </a></li>
                             {% endfor %}
                         </ul>
-                    </div><!-- /.detail-amenities -->
-
+                    </div>
                 </div>
+
 
             </div>
 

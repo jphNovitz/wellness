@@ -49,12 +49,13 @@ class Internaute extends Utilisateur
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Position", mappedBy="internaute")
      * @ORM\JoinColumn(name="internaute_id", referencedColumnName="id")
      */
-    private $Position;
+    private $positions;
 
 
 
     public function __construct()
     {
+        $this->commentaires = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
         $this->setDateInscription(new \DateTime());
     }
@@ -64,15 +65,7 @@ class Internaute extends Utilisateur
         return $this->getNom();
     }
 
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+
 
 
     /**
@@ -116,13 +109,12 @@ class Internaute extends Utilisateur
     /**
      * Get newsletter
      *
-     * @return bool
+     * @return boolean
      */
     public function getNewsletter()
     {
         return $this->newsletter;
     }
-
 
     /**
      * Add abus
@@ -167,7 +159,7 @@ class Internaute extends Utilisateur
      */
     public function addPosition(\AppBundle\Entity\Position $position)
     {
-        $this->Position[] = $position;
+        $this->Positions[] = $position;
 
         return $this;
     }
@@ -179,18 +171,16 @@ class Internaute extends Utilisateur
      */
     public function removePosition(\AppBundle\Entity\Position $position)
     {
-        $this->Position->removeElement($position);
+        $this->Positions->removeElement($position);
     }
 
     /**
-     * Get position
+     * Get positions
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getPosition()
+    public function getPositions()
     {
-        return $this->Position;
+        return $this->Positions;
     }
-
-
 }

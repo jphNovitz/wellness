@@ -37,9 +37,8 @@ class Bloc
 
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Position", mappedBy="bloc")
-     * @ORM\JoinColumn(name="bloc_id", referencedColumnName="id")
      */
-    private $Position;
+    private $positions;
 
 
     /**

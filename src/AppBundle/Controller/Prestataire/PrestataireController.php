@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Prestataire;
 
+use AppBundle\Entity\Commentaire;
 use AppBundle\Entity\Image;
 use AppBundle\Entity\Prestataire;
 use Gedmo\Mapping\Annotation\Slug;
