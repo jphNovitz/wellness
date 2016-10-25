@@ -1,9 +1,21 @@
 AppBundle\Entity\Stage:
     stage{1..10}:
-        nom (unique): '<sentence($nbWords = 1)>'
-        description (unique): '<sentence($nbWords = 5)>'
-        info (unique): '<sentence($nbWords = 3)>'
-        prestataire: '@prestataire*'
+        nom (unique): '<sentence($nbWords = 2)>'
+        description (unique): '<text($maxNbChars = 255)>'
+        info (unique): '<text($maxNbChars = 200)>'
+        debut: '<dateTimeBetween($startDate = "now", $endDate = "6 month", $timezone = date_default_timezone_get())>'
+        fin: '<dateTimeBetween($startDate = "6 month", $endDate = "1 year", $timezone = date_default_timezone_get())>'
+        tarif: '<numberBetween(50,200)>'
+        prestataire: '@prestataire<current()>'
+
+    stage{11..25}:
+            nom (unique): '<sentence($nbWords = 3)>'
+            description (unique): '<text($maxNbChars = 200)>'
+            info (unique): '<text($maxNbChars = 200)>'
+            debut: '<dateTimeBetween($startDate = "now", $endDate = "6 month", $timezone = date_default_timezone_get())>'
+            fin: '<dateTimeBetween($startDate = "6 month", $endDate = "1 year", $timezone = date_default_timezone_get())>'
+            tarif: '<numberBetween(50,200)>'
+            prestataire: '@prestataire*'
 
 
 

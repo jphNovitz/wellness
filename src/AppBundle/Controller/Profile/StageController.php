@@ -10,17 +10,19 @@ class StageController extends Controller
 {
 
     /*
-     * Attention ne pas publier de mmodifier stage_list avec un id et tout ce qui va avec
+     * Attention ne pas publier de modifier stage_list avec un id et tout ce qui va avec
      * stage_list est ici pour faire de la figuration pendant la construction du squelette Controllers/Vues
      */
 
     /**
      * @Route("/stage", name="stage_list")
      */
-    public function listAction(Request $request)
+    public function listAction()
     {
-        // ici viendra le code qui renvoie vers une liste de stages
-        return $this->render('profile/profiles/stage-liste.html.twig');
+        $manager=$this->getDoctrine()->getManager();
+        $stages= $manager->getRepository('AppBundle\Entity\Stage')->findAll();
+
+        return $this->render('profile/stage/stage-list.html.twig', ['stages'=>$stages]);
     }
 
     /**

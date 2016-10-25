@@ -5,6 +5,7 @@ namespace AppBundle\Controller\Prestataire;
 use AppBundle\Entity\Commentaire;
 use AppBundle\Entity\Image;
 use AppBundle\Entity\Prestataire;
+use AppBundle\Entity\Stage;
 use Gedmo\Mapping\Annotation\Slug;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -63,13 +64,16 @@ class PrestataireController extends Controller
      */
     public function detailAction(Prestataire $prestataire)
     {
-        /* $manager=$this->getDoctrine()->getManager();
-         $repo=$manager->getRepository('AppBundle\Entity\Prestataire');
-         $prestataire=$repo->findOneBySlug($slug);*/
+        $manager = $this->getDoctrine()->getManager();
+        $stages = $manager->getRepository('AppBundle\Entity\Stage')->findByPrestataire($prestataire);
+        $promos = $manager->getRepository('AppBundle\Entity\Promotion')->findByPrestataire($prestataire);
 
 
-
-        return $this->render('public/prestataires/prestataire-detail.html.twig', ['prestataire' => $prestataire]);
+        return $this->render('public/prestataires/prestataire-detail.html.twig', [
+            'prestataire' => $prestataire,
+            'stages' => $stages,
+            'promos' => $promos
+        ]);
     }
 
 

@@ -2,7 +2,8 @@
 {# modifications HEAD #}
 {% block title %} Detail du prestataire - Annuaire Wellness {% endblock %}
 {# fin modifications HEAD #}
-
+{% block document_title %}
+{%  endblock %}
 {% block body %}
     <div class="container">
         <div class="row detail-content">
@@ -25,6 +26,11 @@
 
                     </ul>
                 </div><!-- /.detail-gallery -->
+                <div>
+                    <iframe width="600" height="450" frameborder="0" style="border:0"
+                            src="https://www.google.com/maps/embed/v1/search?q={{ prestataire.localite.commune }}%20Belgium&key=AIzaSyAMiuPosKReY8PpyD5IJ3amNLgZ2VbjQ_w"
+                            allowfullscreen></iframe>
+                </div>
                 {{ render(controller("AppBundle:Admin/Comment:viewPrestataire", { 'id': prestataire.id, 'class':'menu' })) }}
             </div>
             <div class="col-sm-5">
@@ -79,18 +85,47 @@
                         </div><!-- /.follow-wrapper -->
                     </div><!-- /.detail-follow -->
                 </div>
-                <div class="widget">
-                    <div class="sidebar">
+                <div class="sidebar">
+
+                    <div class="background-white p20" style="margin-top: 1em">
+                        <div class="widget">
+                            {% if promos is not empty %}
+                                <h2>Promo !</h2>
+                                <ul class="menu">
+                                    {% for promo in promos %}
+                                        <li><a href=""> {{ promo.nom }} </a></li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <h2>Aucune Promo</h2>
+                            {% endif %}
+                        </div>
+                    </div> <!-- /. background-white -->
+                    <div class="widget">
+
                         <h2>Ses Services</h2>
                         <ul class="menu">
                             {% for categorie in prestataire.categories %}
-                               <li> <a href=""> {{ categorie.nom }} </a></li>
+                                <li><a href=""> {{ categorie.nom }} </a></li>
                             {% endfor %}
                         </ul>
+
                     </div>
+                    <div class="background-white p20">
+                        <div class="widget">
+
+                            <h2>Ses Stages</h2>
+                            <ul class="menu">
+                                {% for stage in stages %}
+                                    <li><a href=""> {{ stage.nom }} </a></li>
+                                {% endfor %}
+                            </ul>
+
+                        </div>
+                    </div> <!-- /. background-white -->
+
+
                 </div>
-
-
             </div>
 
         </div>

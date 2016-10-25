@@ -1,16 +1,10 @@
-#AppBundle\Entity\Image:
- #   image{1..5}:
-  #      url: '<imageUrl($width = 120, $height = 120)>'
-   #     description: '<sentence($nbWords = 4)>'
-    #    imageType: 'photo'
-
-
-
 AppBundle\Entity\Promotion:
-    promotion{1..5}:
-        nom (unique): '<sentence($nbWords = 1)>'
-        description: '<sentence($nbWords = 6)>'
+    promotion{1..10}:
+        nom (unique): '<sentence($nbWords = 2)>'
+        description (unique): '<sentence($nbWords = 8)>'
         categorie: '@categorie*'
+        debut: '<dateTimeBetween($startDate = "now", $endDate = "6 month", $timezone = date_default_timezone_get())>'
+        fin: '<dateTimeBetween($startDate = "6 month", $endDate = "1 year", $timezone = date_default_timezone_get())>'
         prestataire: '@prestataire*'
 
 

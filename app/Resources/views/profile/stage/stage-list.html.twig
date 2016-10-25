@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+{# modifications HEAD #}
+{% block title %} Stage Liste - Annuaire Wellness {% endblock %}
+{# fin modifications HEAD #}
+
+{% block document_title %}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 col-lg-9">
+                <div class="content">
+                    <div class="page-title">
+                        <h1>Stages et ateliers</h1>
+                    </div><!-- /.page-title -->
+
+                    <div class="posts">
+                        {% for stage in stages %}
+                            <div class="post">
+                                <div class="post-image">
+                                    <img src="{{ asset('assets/img/tmp/product-11.jpg') }}" alt="Stages Wellness">
+                                    <a class="read-more" href="#">View</a>
+                                </div><!-- /.post-image -->
+
+                                <div class="post-content">
+                                    <h2><a href="#">{{ stage.nom }} </a></h2>
+                                    <p>{{ stage.description }}</p>
+                                    <p>{{ stage.info }}</p>
+                                </div><!-- /.post-content -->
+
+                                <div class="post-meta clearfix">
+                                    <div class="post-meta-author">Organisé par <a
+                                                href="#">{{ stage.prestataire.nom }}</a></div>
+                                    <!-- /.post-meta-author -->
+                                    <div class="post-meta-date">Début: {{ stage.debut|date("m/d/Y") }}</div>
+                                    <!-- /.post-meta-date -->
+                                    <div class="post-meta-date">Fin: {{ stage.fin|date("m/d/Y") }}</div>
+                                    <!-- /.post-meta-date -->
+                                    <div class="#">{{ stage.tarif }} <i class="fa fa-eur"></i></div>
+
+                                    <div class="post-meta-more"><a href="#">Details <i
+                                                    class="fa fa-chevron-right"></i></a></div><!-- /.post-meta-more -->
+                                </div><!-- /.post-meta -->
+                            </div><!-- /.post -->
+                        {% endfor %}
+                    </div> <!-- /.posts -->
+                </div> <!-- /.content -->
+            </div> <!-- /.col 8-9 -->
+            <div class="col-sm-4 col-lg-3">
+            </div> <!-- /.col 4-3 -->
+
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+{% endblock %}

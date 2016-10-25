@@ -18,10 +18,12 @@ class PromoController extends Controller
     /**
      * @Route("/promo", name="promo_list")
      */
-    public function listAction(Request $request)
+    public function listAction()
     {
-        // ici viendra le code qui renvoie vers une liste de promos
-        return $this->render('profile/profiles/promo-liste.html.twig');
+        $manager=$this->getDoctrine()->getManager();
+        $promos= $manager->getRepository('AppBundle\Entity\Promotion')->findAll();
+
+        return $this->render('profile/promo/promo-list.html.twig', ['promos'=>$promos]);
     }
 
     /**
@@ -34,7 +36,7 @@ class PromoController extends Controller
     }
 
     /**
-     * @Route("/promo", name="promo_view")
+     * @Route("/promo/{id}", name="promo_view")
      */
     public function viewAction(Request $request)
     {

@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+{# modifications HEAD #}
+{% block title %} Promotions Liste - Annuaire Wellness {% endblock %}
+{# fin modifications HEAD #}
+
+{% block document_title %}
+    <div class="mt-80">
+        <div class="page-header">
+            <h1>Promotions</h1>
+            <p>Etiam rhoncus vel magna hendrerit tincidunt. Suspendisse potenti. Suspendisse mattis lacus a nibh bibendum,
+                <br /> sed tincidunt sem pharetra. Vivamus lacinia diam sit amet arcu imperdiet <a href="#">Contact</a>.</p>
+        </div><!-- /.page-header -->
+    </div><!-- /.mt-80 -->
+{% endblock %}
+
+{% block body %}
+    <div class="main">
+        <div class="main-inner">
+            <div class="container">
+                <div class="content">
+
+
+
+
+                    <div class="pricings">
+                        <div class="row">
+                            {% for promo in promos %}
+                                <div class="col-sm-4">
+                                    <div class="pricing">
+                                        <div class="pricing-title">{{ promo.nom }}</div><!-- /.pricing-title -->
+                                        <div class="pricing-subtitle">{{ promo.categorie.nom }}</div><!-- /.pricing-subtitle -->
+                                        <div class="pricing-price"></div><!-- /.pricing-price -->
+                                        <a href="#" class="btn-primary">Plus d'infos</a>
+                                        <hr>
+                                        <ul class="pricing-list">
+                                            <li><span>Prestataire</span><strong>{{ promo.prestataire.nom }}</strong></li>
+                                            <li><span>Debut</span><strong>{{ promo.debut|date('d/m/y') }}</strong></li>
+                                            <li><span>Fin</span><strong>{{ promo.fin|date('d/m/y') }}</strong></li>
+                                        </ul><!-- /.pricing-list -->
+                                    </div><!-- /.pricing -->
+                                </div><!-- /.col-* -->
+                            {% endfor %}
+                        </div><!-- /.row-->
+
+                    </div><!-- /.pricings -->
+                </div><!-- /.content -->
+            </div><!-- /.container -->
+        </div><!-- /.main-inner -->
+    </div><!-- /.main -->
+
+{% endblock %}

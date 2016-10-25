@@ -139,4 +139,14 @@ class Bloc
     {
         return $this->Position;
     }
+
+    /**
+     * Get positions
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPositions()
+    {
+        return $this->positions;
+    }
 }
