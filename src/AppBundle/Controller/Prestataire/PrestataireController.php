@@ -31,7 +31,7 @@ class PrestataireController extends Controller
     }
 
     /**
-     * prestataires_list list prends pends deux parametress
+     * prestataires_list  prends pends deux parametress
      *  - {pres} pour la présentation soit list soit grid.  Par defautt la valeur est à grid
      *  - {n} pour le nombre d'éléments à retourner
      *
@@ -68,7 +68,7 @@ class PrestataireController extends Controller
      * @Route("/prestataires/menu", name="prestataires_menu")
      */
     public
-    function menuAction(Request $request, $max, $class = "")
+    function menuAction($max, $class = "")
     {
         $manager = $this->getDoctrine()->getManager();
         $repo = $manager->getRepository('AppBundle\Entity\Prestataire');

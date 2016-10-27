@@ -11,7 +11,7 @@ class ServiceController extends Controller
     /**
      * @Route("/service/menu", name="service_menu")
      */
-    public function menuAction(Request $request, $max, $class = "")
+    public function menuAction($max, $class = "")
     {
         $manager = $this->getDoctrine()->getManager();
         $repo = $manager->getRepository('AppBundle\Entity\Categorie');
@@ -21,19 +21,27 @@ class ServiceController extends Controller
             ['elements' => $categories, 'chemin' => 'service_liste', 'class'=>$class] );
     }
 
+
     /**
-     * @Route("/service/list/{pres}", name="service_liste")
+     * @Route("/service/list/{pres}/{n}", name="service_liste"),
+     * defaults={"pres": "list"}
      */
-    public function listAction(Request $request, $pres = "grille")
+    public function listAction($pres = "list", $n = null)
     {
         $manager = $this->getDoctrine()->getManager();
         $repo = $manager->getRepository('AppBundle\Entity\Categorie');
         $categorie = $repo->findAll();
 
-        if ($pres == "liste") {
-            return $this->render('public/Services/services-liste.html.twig', ['services' => $categorie]);
-        } else  return $this->render('public/Services/services-grille.html.twig', ['services' => $categorie]);
+        if ($pres == "list") {
+            return $this->render('public/Services/services-list.html.twig', ['services' => $categorie]);
+        } else  return $this->render('public/Services/services-grid.html.twig', ['services' => $categorie]);
     }
+
+    /**
+     * ListAction va rechercher tous les enregistements dans la BD,
+     * ensuite renvoie vers la vue liste ou la vue grille
+     */
+
 
     /**
      * @Route("/services", name="service_detail")

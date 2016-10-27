@@ -100,12 +100,6 @@ class Utilisateur
      */
     private $localite;
 
-    /**
-     * @var string
-     *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image",cascade={"persist","remove"})
-     */
-    private $image;
 
     /**
      * @Gedmo\Slug(fields={"nom","id"})
@@ -355,30 +349,6 @@ class Utilisateur
     public function getLocalite()
     {
         return $this->localite;
-    }
-
-    /**
-     * Set image
-     *
-     * @param \AppBundle\Entity\Image $image
-     *
-     * @return Utilisateur
-     */
-    public function setImage(\AppBundle\Entity\Image $image = null)
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    /**
-     * Get image
-     *
-     * @return \AppBundle\Entity\Image
-     */
-    public function getImage()
-    {
-        return $this->image;
     }
 
 
