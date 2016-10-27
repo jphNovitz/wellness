@@ -1,3 +1,9 @@
+{# bloc affichage de la liste de prestataires sous forme de grille
+## Il n'y a que le code html de l'affichage de la liste
+##  - pas de mise en forme de la page
+##  - pas de menu
+##   to do: mettre plus de code html dans le template pour alleger cette page (si possible #}
+
 {%  for prestataire in prestataires %}
 <div class="col-sm-12 col-md-4 col-lg-3">
 
@@ -7,7 +13,7 @@
         <div class="card-simple-background">
             <div class="card-simple-content">
                 <h2>
-                    <a href="listing-detail.html">{% block cadre_centre %}{{ prestataire.nom }} {% endblock %}</a>
+                    <a href="{{ path('prestataire_detail',{'slug':prestataire.slug}) }}">{% block cadre_centre %}{{ prestataire.nom }} {% endblock %}</a>
                 </h2>
                 <div class="card-simple-rating">
                     <i class="fa fa-star"></i>

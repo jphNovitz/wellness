@@ -9,12 +9,18 @@ use Symfony\Component\HttpFoundation\Request;
 class PromoController extends Controller
 {
 
-    /*
-     * Attention ne pas publier de modifier promo_list avec un id et tout ce qui va avec
-     * Promo_list est ici pour faire de la figuration pendant la construction du squelette Controllers/Vues
-     * De toute façon si je le fais pas ca marchera pas
+    /**
+     * @Route("/promo/menu", name="promo_menu")
      */
+    public function menuAction(Request $request, $max, $class = "")
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $repo = $manager->getRepository('AppBundle\Entity\Promotion');
+        $promos = $repo->findNames($max);
 
+        return $this->render('_partials/_menu-elements.html.twig',
+            ['elements' => $promos, 'chemin' => 'promo_list', 'class'=>$class] );
+    }
     /**
      * @Route("/promo", name="promo_list")
      */

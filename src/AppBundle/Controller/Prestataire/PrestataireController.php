@@ -15,37 +15,57 @@ use Symfony\Component\HttpFoundation\Request;
 class PrestataireController extends Controller
 {
     /**
-     * @Route("/prestataire/list/{pres}/{n}", name="prestataire_liste")
+     * @Route("/prestataires/{pres}/{n}", name="prestataires_list"),
+     * defaults={"pres": "list", "n":"null"}
      */
-    public function listAction($pres = "grille", $n = null)
+    public function listAction($pres = "list", $n = null)
     {
-        if ($pres == "liste") {
 
-            return $this->render('public/Prestataires/prestataires-liste.html.twig', ['n' => $n]);
+        if ($pres == "list") {
+
+            return $this->render('public/Prestataires/prestataires-list.html.twig', ['n' => $n]);
         } else {
-            return $this->render('public/prestataires/prestataires-grille.html.twig', ['n' => $n]);
+            return $this->render('public/prestataires/prestataires-grid.html.twig', ['n' => $n]);
         }
 
     }
 
     /**
-     * @Route("/prestataire/last/{pres}/{n}", name="prestataire_last")
+     * prestataires_list list prends pends deux parametress
+     *  - {pres} pour la présentation soit list soit grid.  Par defautt la valeur est à grid
+     *  - {n} pour le nombre d'éléments à retourner
+     *
+     *  Cette Action se contente de retourner une vue qui fait un render controller de la liste ou de la grille
+     *  L'objectif est des petit controlleurs et une vue en deux partie la vue 'generale' et le bloc liste de prestataires
+     *  Pas certain que ce soit la meilleure solution / C'est plus lisible.
+     */
+
+
+    /**
+     * @Route("/prestataires/last/{pres}/{n}", name="prestataires_last")
      */
     public function lastAction($pres, $n = null)
     {
         $manager = $this->getDoctrine()->getManager();
         $repo = $manager->getRepository('AppBundle\Entity\Prestataire');
         $prestataires = $repo->findLastN($n);
-        if ($pres == "liste") {
+        if ($pres == "list") {
             return $this->render('_partials/_bloc-prestataires.html.twig', ['prestataires' => $prestataires]);
         } else {
-            return $this->render('_partials/_bloc-prestataires-grille.html.twig', ['prestataires' => $prestataires]);
+            return $this->render('_partials/_bloc-prestataires-grid.html.twig', ['prestataires' => $prestataires]);
         }
 
     }
 
     /**
-     * @Route("/prestataire/menu", name="prestataire_menu")
+     * prestataires_last utilise findLastN qui est une methode personnalisée du repository
+     * findlastN retourne les n derniers éléments
+     * Une fois les n elements obtenu je renvoie vers le bloc de vue (un partial)
+     * le but est que ce controller soit 'leger' et que le bloc soit réutilisable
+     */
+
+    /**
+     * @Route("/prestataires/menu", name="prestataires_menu")
      */
     public
     function menuAction(Request $request, $max, $class = "")
@@ -55,12 +75,13 @@ class PrestataireController extends Controller
         $prestataires = $repo->findNames($max);
 
         return $this->render('_partials/_menu-elements.html.twig',
-            ['elements' => $prestataires, 'chemin' => 'prestataire_liste', 'class' => $class]);
+            ['elements' => $prestataires, 'chemin' => 'prestataires_list', 'class' => $class]);
     }
+
 
     /**
      * @Route("/prestataire/{slug}", name="prestataire_detail")
-     * @ParamConverter("Prestataire", class="AppBundle:Prestataire")
+     * @ParamConverter("prestataire", class="AppBundle:Prestataire")
      */
     public function detailAction(Prestataire $prestataire)
     {
@@ -77,14 +98,9 @@ class PrestataireController extends Controller
     }
 
 
-    /**
-     * @Route("/s", name="prestataire_recherche")
-     */
-    public function rechercheAction(Request $request)
-    {
-        // ici viendra le code qui renvoie vers la recherche d'un Prestataire
-        return $this->render('public/prestataires/prestataire-recherche.html.twig');
-    }
+
+
+
 
 
 }
