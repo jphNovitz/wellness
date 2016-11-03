@@ -1,0 +1,15 @@
+<ul class="header-nav-primary nav nav-pills collapse navbar-collapse">
+    <li class="active">
+        <a href="{{ path('homepage') }}">Accueil <i class="fa fa-chevron-down"></i></a>
+
+        <ul class="sub-menu">
+            <li><a href="{{ path('homepage') }}">Page d'accueil</a></li>
+            <li><a href="{{ path('prestataires_list') }}">Liste des prestataires</a></li>
+            <li><a href="">Trouver un prestataire</a></li>
+            <li><a href="{{ path('contact') }}">Nous Contacter</a></li>
+            <li><a href="{{ path('about') }}">About</a></li>
+        </ul>
+    </li>
+       {{ render(controller('AppBundle:Default:menu',  { 'max': 5})) }}
+</ul>
+{# plus de qutre renderController pour le menu -> a modifier #}

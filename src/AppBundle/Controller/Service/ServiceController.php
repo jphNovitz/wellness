@@ -2,9 +2,13 @@
 
 namespace AppBundle\Controller\Service;
 
+use Doctrine\ORM\Query;
+use Entity\Categorie;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Tests\Constraints\CollectionValidatorCustomArrayObjectTest;
 
 class ServiceController extends Controller
 {
@@ -13,28 +17,30 @@ class ServiceController extends Controller
      */
     public function menuAction($max, $class = "")
     {
-        $manager = $this->getDoctrine()->getManager();
-        $repo = $manager->getRepository('AppBundle\Entity\Categorie');
-        $categories = $repo->findNames($max);
+        $categories = $this->get("utils")->findNames("Categorie", $max);
 
-        return $this->render('_partials/_menu-elements.html.twig',
-            ['elements' => $categories, 'chemin' => 'service_liste', 'class'=>$class] );
+        return $this->render('_partials/menu/_menu-elements.html.twig',
+            ['elements' => $categories,
+                'chemin' => 'services_list',
+                'class' => $class,
+                'route' => 'service_detail']);
     }
 
 
     /**
-     * @Route("/service/list/{pres}/{n}", name="service_liste"),
-     * defaults={"pres": "list"}
+     * @Route("/services", name="services_list")
      */
-    public function listAction($pres = "list", $n = null)
+    public function listAction(Request $request)
     {
-        $manager = $this->getDoctrine()->getManager();
-        $repo = $manager->getRepository('AppBundle\Entity\Categorie');
-        $categorie = $repo->findAll();
+        $repo = $this->getDoctrine()->getRepository('AppBundle\Entity\Categorie');
+        /*$categories = $repo->createQueryBuilder('q')
+            ->getQuery()
+            ->getArrayResult();
+        $categories = json_encode($categories);*/
+        $categories = $repo->findAll();
 
-        if ($pres == "list") {
-            return $this->render('public/Services/services-list.html.twig', ['services' => $categorie]);
-        } else  return $this->render('public/Services/services-grid.html.twig', ['services' => $categorie]);
+        return $this->render('public/Services/services-list.html.twig', ['services' => $categories]);
+
     }
 
     /**
@@ -44,12 +50,13 @@ class ServiceController extends Controller
 
 
     /**
-     * @Route("/services", name="service_detail")
+     * @Route("/service/{slug}", name="service_detail"),
+     * @ParamConverter ("Categorie", class="AppBundle:Categorie")
      */
-    public function detailAction(Request $request)
+    public function detailAction(\AppBundle\Entity\Categorie $category)
     {
-        // ici viendra le code qui renvoie vers le detail d'un service
-        return $this->render('public/services/service-detail.html.twig');
+
+        return $this->render('public/services/service-detail.html.twig', ['service' => $category]);
     }
 
 

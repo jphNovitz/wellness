@@ -246,6 +246,12 @@ class Categorie
         return $this->image;
     }
 
+
+
+
+
+
+
     /**
      * Set slug
      *
@@ -268,18 +274,5 @@ class Categorie
     public function getSlug()
     {
         return $this->slug;
-    }
-
-    public function postPersist()
-    {
-        $this->slug = (new SlugCreator())->encode($this->id);
-
-        // Save/persist this newly created slug.
-        // Note: We must add the top level class annotation
-        // '@ORM\HasLifecycleCallbacks()' to any Entity that
-        // uses this trait.
-        $entityManager = App::make('Doctrine\ORM\EntityManagerInterface'); // or new up the em "new EntityManager(...);
-        $entityManager->persist($this);
-        $entityManager->flush();
     }
 }

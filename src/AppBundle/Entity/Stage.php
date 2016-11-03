@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Stage
@@ -69,6 +70,12 @@ class Stage
      */
     private $prestataire;
 
+
+    /**
+     * @Gedmo\Slug(fields={"nom","id"})
+     * @ORM\Column(length=255, unique=true)
+     */
+    private $slug;
 
     public function __construct()
     {
@@ -287,5 +294,29 @@ class Stage
     public function getTarif()
     {
         return $this->tarif;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Stage
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

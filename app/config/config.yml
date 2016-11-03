@@ -76,3 +76,10 @@ hautelook_alice:
     #    seed: 1
     persist_once: false
     loading_limit: 10
+
+stof_doctrine_extensions:
+    default_locale: fr_BE
+    orm:
+        default:
+            timestampable: true
+            sluggable: true

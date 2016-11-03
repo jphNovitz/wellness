@@ -2,9 +2,13 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\AppBundle;
+use Doctrine\ORM\Query;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Prestataire;
 
 class DefaultController extends Controller
 {
@@ -33,6 +37,24 @@ class DefaultController extends Controller
     {
         // ici viendra le code qui renvoie vers la vue about
         return $this->render('default/about.html.twig');
+    }
+
+    public function menuAction($max)
+    {
+
+        $prestataires = $this->get("utils")->findNames("Prestataire", $max);
+        $services = $this->get("utils")->findNames("Categorie", $max);
+        $stages = $this->get("utils")->findNames("Stage", $max);
+        $promos = $this->get("utils")->findNames("Promotion", $max);
+
+        return $this->render('_partials/menu/_menu-dyn.html.twig', [
+            'prestataires' => $prestataires,
+            'services' => $services,
+            'stages' => $stages,
+            'promos' => $promos,
+            'class' => 'sub-menu']);
+
+
     }
 
 }
