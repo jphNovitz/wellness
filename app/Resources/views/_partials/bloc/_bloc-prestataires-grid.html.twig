@@ -3,9 +3,11 @@
 ##  - pas de mise en forme de la page
 ##  - pas de menu
 ##   to do: mettre plus de code html dans le template pour alleger cette page (si possible #}
-
+{%  if sm is not defined %} {% set sm=12 %} {% endif %}
+{%  if md is not defined  %} {% set md=3 %} {% endif %}
+{%  if lg is not defined  %} {% set lg=3 %} {% endif %}
 {%  for prestataire in prestataires %}
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-sm-{{ sm }} col-md-{{md }} col-lg-{{ lg }}">
 
     <div class="card-simple"
          data-background-image=" {% block cadre_background %} {{ prestataire.images.last().url }} {% endblock %}">

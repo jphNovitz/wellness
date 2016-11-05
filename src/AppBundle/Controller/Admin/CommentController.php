@@ -23,7 +23,7 @@ class CommentController extends Controller
          $commentaires=$repo->findByPrestataire(["id"=>$id]);
 
 
-        return $this->render('_partials/_bloc-commentaires.html.twig', ["commentaires"=>$commentaires]);
+        return $this->render('_partials/bloc/_bloc-commentaires.html.twig', ["commentaires"=>$commentaires]);
     }
 
     /**

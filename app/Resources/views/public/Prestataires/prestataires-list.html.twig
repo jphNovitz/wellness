@@ -3,10 +3,7 @@
 
     {% block document_title_h1 %} {{ parent() }}Prestataires {% endblock %}
 
-    {% block document_title_list %}
-        <li><a href="{{ path('prestataires_list', {'pres':'liste'}) }}">Liste</a></li>
-        <li><a href="{{ path('prestataires_list', {'pres':'grid'}) }}">Grille</a></li>
-    {% endblock %}
+    {% block document_title_list %} {% endblock %}
 
     {% block body %}
         {{ render(controller("AppBundle:Prestataire/Prestataire:last", {"pres": "list"})) }}

@@ -15,9 +15,9 @@ Une fois les variables $prestataires, $services, $stages, $promos obtenues je re
 La variable class sert à l'affichage ici sub-menu est ce qui convient pour coller au theme.
 
 **_partials/menu-dyn.html.twig**   
-est un simple ficher twig qui rempli le menu avec les éléments recus en utilisant
-- path()
-- boucles 
+est un simple ficher twig qui  rempli le menu avec les éléments recus en utilisant
+- path() pour les liens 
+- boucles pour remplir les ul
 
 **Utilisation d'un service**  
 La méthode findNames est placée dans un service pour éviter de placer quatre fois la même fonction dans quatre repositories.  

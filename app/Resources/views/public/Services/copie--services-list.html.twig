@@ -1,0 +1,102 @@
+{% embed '_layouts/liste.html.twig' %}
+    {% block title %} {{ parent() }} Services (Liste) {% endblock %}
+
+    {% block document_title_h1 %} {{ parent() }}Services {% endblock %}
+    {% block document_title_list %}
+
+        <li><a id='popol'    data-val="{{ services }}">Liste</a></li>
+        <li><a href="{{ path('switch', {'services':'services'}) }}">Liste</a></li>
+
+
+        {# <li>       <a href="{{ path("switch",{'chemin':'public/Services/services-grid.html.twig'}) }}">Grille</a>
+         </li>
+         <li><a href="{{ path("switch",{'datas':datas}) }}" id="popol">Grille</a></li>#}
+
+    {% endblock %}
+    {% block body %}
+
+        <div id="list">
+            {% for service in services %}
+
+                <div class="card-row">
+                    <div class="card-row-inner">
+                        {% block cadre_image %}
+
+                            <div class="card-row-image" data-background-image="{{ service.image.url }}">
+                                <div class="card-row-label"><a href="listing-detail.html">Vacation</a></div>
+                                <!-- /.card-row-label -->
+
+                                <div class="card-row-price">$100 / night</div><!-- -->
+
+                            </div><!-- /.card-row-image -->
+                        {% endblock %}
+                        <div class="card-row-body">
+                            <h2 class="card-row-title"><a href="">{{ service.nom }}</a></h2>
+                            <div class="card-row-content">
+
+                                {% block card_row_content_1 %}{{ service.description }}
+
+                                    <br/>
+                                    {% if service.prestataires is empty %}Pour l'instant personne ne propose cette prestation
+                                    {% else %} Cette prestation est disponible chez
+                                        {% for prestataire in service.prestataires %}
+                                            {{ prestataire.nom }} {% if loop.last==false %}, {% else %} .{% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endblock %}
+                            </div>
+                        </div>
+                        {% block card_row_content_2 %} {% endblock %}
+                        {% block card_row_content_3 %} {% endblock %}
+                        {% block card_row_content_4 %} {% endblock %}
+
+                        {% block card_row_properties %} {% endblock %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div id="grid">
+            {% for service in services %}
+                <div class="col-sm-6 col-md-4 col-lg-3">
+
+                    <div class="card-simple"
+                         data-background-image=" {% block cadre_background %} {{ service.image.url }} {% endblock %}">
+
+                        <div class="card-simple-background">
+                            <div class="card-simple-content">
+                                <h2>
+                                    <a href="listing-detail.html">{% block cadre_centre %}{{ service.nom }} {% endblock %}</a>
+                                </h2>
+                                <div class="card-simple-rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div><!-- /.card-rating -->
+
+                                <div class="card-simple-actions">
+                                    <a href="#" class="fa fa-star-o"></a>
+                                    <a href="listing-detail.html" class="fa fa-search"></a>
+                                    <a href="#" class="fa fa-heart-o"></a>
+                                </div><!-- /.card-simple-actions -->
+                            </div><!-- /.card-simple-content -->
+
+                            <div class="card-simple-label">{% block cadre_haut %} {% endblock %}</div>
+
+                            <div class="card-simple-price">{% block cadre_bas %}{% endblock %}</div>
+
+                        </div><!-- /.card-simple-background -->
+                    </div><!-- /.card-simple -->
+
+
+                </div><!-- /.col-* -->
+            {% endfor %}
+
+        </div>
+
+    {% endblock %}
+
+{% endembed %}
+
+

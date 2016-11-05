@@ -33,10 +33,6 @@ class ServiceController extends Controller
     public function listAction(Request $request)
     {
         $repo = $this->getDoctrine()->getRepository('AppBundle\Entity\Categorie');
-        /*$categories = $repo->createQueryBuilder('q')
-            ->getQuery()
-            ->getArrayResult();
-        $categories = json_encode($categories);*/
         $categories = $repo->findAll();
 
         return $this->render('public/Services/services-list.html.twig', ['services' => $categories]);
