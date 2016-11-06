@@ -31,7 +31,7 @@
                             src="https://www.google.com/maps/embed/v1/search?q={{ prestataire.localite.commune }}%20Belgium&key=AIzaSyAMiuPosKReY8PpyD5IJ3amNLgZ2VbjQ_w"
                             allowfullscreen></iframe>
                 </div>
-                {{ render(controller("AppBundle:Admin/Comment:viewPrestataire", { 'id': prestataire.id, 'class':'menu' })) }}
+                {{ render(controller("AppBundle:Profile/Comment:viewCommentPrestataire", { 'id': prestataire.id, 'class':'menu' })) }}
             </div>
             <div class="col-sm-5">
                 <h2>Tout sur <span class="text-secondary"> {{ prestataire.nom }} </span></h2>
