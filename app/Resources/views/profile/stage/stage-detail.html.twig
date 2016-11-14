@@ -1,8 +1,45 @@
 {% extends 'base.html.twig' %}
 {# modifications HEAD #}
-{% block title %} Stage detail   - Annuaire Wellness {% endblock %}
+{% block title %} {{ stage.nom }}: les détails de ce stage   - Annuaire Wellness {% endblock %}
 {# fin modifications HEAD #}
 
+{% block document_title %}
+    <div class="document-title">
+        <h1>{% block document_title_h1 %}Stage : detail {% endblock %}</h1>
+
+        <ul class="breadcrumb">
+            {% block document_title_list %}   {% endblock %}
+        </ul>
+    </div><!-- /.document-title -->
+{% endblock %}
+
 {% block body %}
-  Stage  detail
+    <div class="page-title">
+        <h1>{{ stage.nom }}</h1>
+    </div><!-- /.page-title -->
+
+    <div class="posts post-detail"> {# cette partie doit pouvoir etre extraite en bloc #}
+        <div class="post-meta clearfix">
+            <div class="post-meta-author">Organisé par <a
+                        href="#">{{ stage.prestataire.nom }}</a></div>
+            <!-- /.post-meta-author -->
+            <div class="post-meta-date">Début: {{ stage.debut|date("m/d/Y") }}</div>
+            <!-- /.post-meta-date -->
+            <div class="post-meta-date">Fin: {{ stage.fin|date("m/d/Y") }}</div>
+            <!-- /.post-meta-date -->
+            <div class="#">{{ stage.tarif }} <i class="fa fa-eur"></i></div>
+
+            <div class="post-meta-more"><a href="#">Details <i
+                            class="fa fa-chevron-right"></i></a></div><!-- /.post-meta-more -->
+        </div><!-- /.post-meta -->
+        {% if stage.prestataire.photos is not empty %}<img src="{{ stage.prestataire.photos.last().url}}" alt="{{ stage.prestataire.photos.last().description }}"/>
+            {% else %}<img src="{{ stage.prestataire.logos.last().url}}" alt="{{ stage.prestataire.logos.last().description }}"/>
+         {% endif  %}
+    </div> <!-- /.post-detail -->
+
+    {# fin de partie bloc #}
+
+    <div class="post-content" style="margin-top:2em">
+        <p class='drop-cap'>{{ stage.description }}</p>
+    </div><!-- /.post-content -->
 {% endblock %}

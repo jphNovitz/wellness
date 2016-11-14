@@ -44,9 +44,16 @@ class Image
     private $imageType;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Prestataire", inversedBy="images")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Prestataire", inversedBy="photos")
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $prestataire;
+    private $prestatairePhotos;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Prestataire", inversedBy="logos")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $prestataireLogos;
 
 
 
@@ -132,27 +139,55 @@ class Image
         return $this->imageType;
     }
 
+
+
+
+
     /**
-     * Set prestataire
+     * Set prestatairePhotos
      *
-     * @param \AppBundle\Entity\Prestataire $prestataire
+     * @param \AppBundle\Entity\Prestataire $prestatairePhotos
      *
      * @return Image
      */
-    public function setPrestataire(\AppBundle\Entity\Prestataire $prestataire = null)
+    public function setPrestatairePhotos(\AppBundle\Entity\Prestataire $prestatairePhotos = null)
     {
-        $this->prestataire = $prestataire;
+        $this->prestatairePhotos = $prestatairePhotos;
 
         return $this;
     }
 
     /**
-     * Get prestataire
+     * Get prestatairePhotos
      *
      * @return \AppBundle\Entity\Prestataire
      */
-    public function getPrestataire()
+    public function getPrestatairePhotos()
     {
-        return $this->prestataire;
+        return $this->prestatairePhotos;
+    }
+
+    /**
+     * Set prestataireLogos
+     *
+     * @param \AppBundle\Entity\Prestataire $prestataireLogos
+     *
+     * @return Image
+     */
+    public function setPrestataireLogos(\AppBundle\Entity\Prestataire $prestataireLogos = null)
+    {
+        $this->prestataireLogos = $prestataireLogos;
+
+        return $this;
+    }
+
+    /**
+     * Get prestataireLogos
+     *
+     * @return \AppBundle\Entity\Prestataire
+     */
+    public function getPrestataireLogos()
+    {
+        return $this->prestataireLogos;
     }
 }

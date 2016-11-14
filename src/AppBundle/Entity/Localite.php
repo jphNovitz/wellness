@@ -29,7 +29,7 @@ class Localite
     private $localite;
 
     /**
-     * @var string
+     * @var CodePostal
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\CodePostal",cascade={"persist"})
      * @ORM\JoinColumn(name="code_postal_id", referencedColumnName="id")
@@ -37,7 +37,7 @@ class Localite
     private $codePostal;
 
     /**
-     * @var string
+     * @var Commune
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Commune",cascade={"persist"})
      * @ORM\JoinColumn(name="commune_id", referencedColumnName="id")

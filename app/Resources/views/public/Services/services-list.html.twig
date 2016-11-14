@@ -14,7 +14,8 @@
                     {% block cadre_image %}
 
                         <div class="card-row-image" data-background-image="{{ service.image.url }}">
-                            <div class="card-row-label"><a href="{{ path('service_detail',{'slug':service.slug}) }}"></a></div>
+                            <div class="card-row-label"><a
+                                        href="{{ path('service_detail',{'slug':service.slug}) }}"></a></div>
                             <!-- /.card-row-label -->
 
                             <!--<div class="card-row-price"></div><!-- -->
@@ -22,7 +23,8 @@
                         </div><!-- /.card-row-image -->
                     {% endblock %}
                     <div class="card-row-body">
-                        <h2 class="card-row-title"><a href="{{ path('service_detail',{'slug':service.slug}) }}">{{ service.nom }}</a></h2>
+                        <h2 class="card-row-title"><a
+                                    href="{{ path('service_detail',{'slug':service.slug}) }}">{{ service.nom }}</a></h2>
                         <div class="card-row-content">
 
                             {% block card_row_content_1 %}{{ service.description }}

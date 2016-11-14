@@ -10,11 +10,16 @@ namespace AppBundle\Repository;
  */
 class PromotionRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findNames($max)
-    {
-        $em = $this->getEntityManager();
-        $noms = $em->createQuery('SELECT p.id, p.nom FROM AppBundle:Promotion p ORDER BY p.id DESC')
+
+    public function getList($max){
+        $qb=$this->createQueryBuilder('pr');
+
+        $qb->select('pr.slug, pr.nom, pr.fin')
+            ->orderBy('pr.fin','ASC')
             ->setMaxResults($max);
-        return $noms->getResult();
+
+        return $qb->getQuery()->execute();
+
     }
+
 }

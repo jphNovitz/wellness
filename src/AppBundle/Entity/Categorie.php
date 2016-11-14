@@ -61,7 +61,8 @@ class Categorie
     /**
      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Image", cascade={"persist","remove"})
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", cascade={"persist","remove"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $image;
 

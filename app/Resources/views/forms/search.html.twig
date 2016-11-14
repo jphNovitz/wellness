@@ -1,0 +1,36 @@
+{# formulaire de recherche d'un prestataire trois champs pour le nom du prestataire, la localite et la caegorie de service #}
+
+{{ form_start(form) }}
+{{ form_errors(form) }}
+
+<div class="row">
+    <div class="col-sm-12 col-md-4">
+        <div class="form-group">
+            {{ form_widget(form.prestataire, {'attr': {'required':false,'placeholder': 'Nom du Prestataire' ,'class': 'form-control'}}) }}
+        </div><!-- /.form-group -->
+    </div><!-- /.col-* -->
+
+    <div class="col-sm-12 col-md-4">
+        <div class="form-group">
+            {{ form_widget(form.localite, {'attr': {'required':false,'placeholder': 'Localite' ,'class': 'form-control'}}) }}
+        </div><!-- /.form-group -->
+    </div><!-- /.col-* -->
+    <div class="col-sm-12 col-md-4">
+        <div class="form-group">
+            {{ form_widget(form.service, {'attr': {'placeholder': 'Categorie de Service' ,'class': 'form-control'}}) }}
+        </div><!-- /.form-group -->
+    </div><!-- /.col-* -->
+</div><!-- /.row -->
+<div class="row">
+    <div class="col-sm-8">
+
+    </div><!-- /.col-* -->
+
+    <div class="col-sm-4">
+        {{ form_widget(form.recherche, {'attr': {'class': 'btn btn-primary'}}) }}
+    </div><!-- /.col-* -->
+</div><!-- /.row -->
+
+<hr>
+
+{{ form_end(form) }}

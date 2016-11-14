@@ -12,28 +12,16 @@ use Symfony\Component\Validator\Tests\Constraints\CollectionValidatorCustomArray
 
 class ServiceController extends Controller
 {
-    /**
-     * @Route("/service/menu", name="service_menu")
-     */
-    public function menuAction($max, $class = "")
-    {
-        $categories = $this->get("utils")->findNames("Categorie", $max);
-
-        return $this->render('_partials/menu/_menu-elements.html.twig',
-            ['elements' => $categories,
-                'chemin' => 'services_list',
-                'class' => $class,
-                'route' => 'service_detail']);
-    }
-
 
     /**
      * @Route("/services", name="services_list")
      */
     public function listAction(Request $request)
     {
+        $n = $request->request->get('n');
+
         $repo = $this->getDoctrine()->getRepository('AppBundle\Entity\Categorie');
-        $categories = $repo->findAll();
+        $categories = $repo->findAll($n);
 
         return $this->render('public/Services/services-list.html.twig', ['services' => $categories]);
 
@@ -55,5 +43,24 @@ class ServiceController extends Controller
         return $this->render('public/services/service-detail.html.twig', ['service' => $category]);
     }
 
+    /**
+     * @Route("/service/widget_list", name="service_menu")
+     */
+    public function widgetListAction(Request $request)
+    {
+        $max=$request->query->get('max');
+        $class=$request->query->get('class');
+
+        $categories = $this
+            ->getDoctrine()->getmanager()
+            ->getRepository('AppBundle\Entity\Categorie')
+            ->getList();
+
+        return $this->render('_partials/menu/_menu-elements.html.twig',
+            ['elements' => $categories,
+                'chemin' => 'services_list',
+                'class' => $class,
+                'route' => 'service_detail']);
+    }
 
 }

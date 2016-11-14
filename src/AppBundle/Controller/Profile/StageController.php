@@ -2,7 +2,9 @@
 
 namespace AppBundle\Controller\Profile;
 
+use AppBundle\Entity\Stage;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -15,7 +17,7 @@ class StageController extends Controller
      */
 
     /**
-     * @Route("/stage", name="stage_list")
+     * @Route("/stage", name="stages_list")
      */
     public function listAction()
     {
@@ -23,6 +25,15 @@ class StageController extends Controller
         $stages= $manager->getRepository('AppBundle\Entity\Stage')->findAll();
 
         return $this->render('profile/stage/stage-list.html.twig', ['stages'=>$stages]);
+    }
+
+    /**
+     * @Route("/stage/{slug}", name="stage_detail")
+     * @ParamConverter("stage", class="AppBundle:Stage")
+     */
+    public function detailAction(Stage $stage)
+    {
+        return $this->render('profile/stage/stage-detail.html.twig', ['stage'=>$stage]);
     }
 
     /**

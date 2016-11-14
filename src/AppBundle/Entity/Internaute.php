@@ -56,7 +56,7 @@ class Internaute extends Utilisateur
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
-        $this->commentaires = new ArrayCollection();
+        $this->abus = new ArrayCollection();
         $this->setDateInscription(new \DateTime());
     }
 
@@ -159,7 +159,7 @@ class Internaute extends Utilisateur
      */
     public function addPosition(\AppBundle\Entity\Position $position)
     {
-        $this->Positions[] = $position;
+        $this->positions[] = $position;
 
         return $this;
     }
@@ -171,7 +171,7 @@ class Internaute extends Utilisateur
      */
     public function removePosition(\AppBundle\Entity\Position $position)
     {
-        $this->Positions->removeElement($position);
+        $this->positions->removeElement($position);
     }
 
     /**
@@ -181,6 +181,6 @@ class Internaute extends Utilisateur
      */
     public function getPositions()
     {
-        return $this->Positions;
+        return $this->positions;
     }
 }

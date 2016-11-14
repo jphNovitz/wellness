@@ -1,4 +1,4 @@
-{% embed '_layouts/liste.html.twig'  %}
+{% embed '_layouts/liste.html.twig' %}
     {% block title %} {{ parent() }} Prestataires (liste) {% endblock %}
 
     {% block document_title_h1 %} {{ parent() }}Prestataires {% endblock %}
@@ -6,7 +6,8 @@
     {% block document_title_list %} {% endblock %}
 
     {% block body %}
-        {{ render(controller("AppBundle:Prestataire/Prestataire:last", {"pres": "list"})) }}
+
+        {% include'_partials/bloc/_bloc-prestataires.html.twig' with{'prestataires':prestataires} %}
     {% endblock %}
 
 {% endembed %}

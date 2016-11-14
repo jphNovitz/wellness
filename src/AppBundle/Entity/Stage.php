@@ -10,7 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Stage
  *
  * @ORM\Table(name="stage")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\StageeRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\StageRepository")
  */
 class Stage
 {

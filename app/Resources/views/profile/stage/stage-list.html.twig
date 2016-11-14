@@ -20,11 +20,11 @@
                             <div class="post">
                                 <div class="post-image">
                                     <img src="{{ asset('assets/img/tmp/product-11.jpg') }}" alt="Stages Wellness">
-                                    <a class="read-more" href="#">View</a>
+                                    <a class="read-more" href="{{ path('stage_detail',{'slug':stage.slug}) }}">View</a>
                                 </div><!-- /.post-image -->
 
                                 <div class="post-content">
-                                    <h2><a href="#">{{ stage.nom }} </a></h2>
+                                    <h2><a href="{{ path('stage_detail',{'slug':stage.slug}) }}">{{ stage.nom }} </a></h2>
                                     <p>{{ stage.description }}</p>
                                     <p>{{ stage.info }}</p>
                                 </div><!-- /.post-content -->

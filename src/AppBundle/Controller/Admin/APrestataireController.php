@@ -14,7 +14,7 @@ class APrestataireController extends Controller
     public function listAction(Request $request)
     {
         // ici viendra le code qui renvoie vers la liste des prestataires (Admin)
-        return $this->render('admin/prestataires/prestataires-liste.html.twig');
+        return $this->render('admin/prestataires/prestataires-list.html.twig');
     }
 
     /**

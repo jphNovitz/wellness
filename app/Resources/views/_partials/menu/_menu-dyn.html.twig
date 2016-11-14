@@ -21,20 +21,21 @@
     <a href="{{  path('stages_list')  }}">Stages <i class="fa fa-chevron-down"></i></a>
     <ul class="{{ class }}">
         {% for stage in stages %}
-            <li><a href="{{ path('stage_detail', {'slug':stage.slug}) }}">{{ stage.nom }}</a></li>
+            <li><a href="{# path('stage_detail', {'slug':stage.slug}) #}">{{ stage.nom }}</a></li>
         {% endfor %}
         <li>  <a href="{{ path('stages_list')  }}">  >> plus <<  </a> </li>
     </ul>
 </li>
 <li>
-    <a href="{{  path('promos_list')  }}">Promos <i class="fa fa-chevron-down"></i></a>
+    <a href="{{  path('promos_list')  }}">Stages <i class="fa fa-chevron-down"></i></a>
     <ul class="{{ class }}">
-        {% for promo in promos%}
-            <li><a href="{{ path('promo_detail', {'slug':promo.slug}) }}">{{ promo.nom }}</a></li>
+        {% for promo in promos %}
+            <li><a href="{# path('promo_detail', {'slug':promo.slug}) #}">{{ promo.nom }}</a></li>
         {% endfor %}
         <li>  <a href="{{ path('promos_list')  }}">  >> plus <<  </a> </li>
     </ul>
 </li>
+
 
 
 <li>

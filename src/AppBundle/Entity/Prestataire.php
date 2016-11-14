@@ -54,9 +54,18 @@ class Prestataire extends Utilisateur
     private $categories;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Image", mappedBy="prestataire")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Image", mappedBy="prestatairePhotos")
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $images;
+    private $photos;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Image", mappedBy="prestataireLogos")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $logos;
+
 
 
 
@@ -64,7 +73,8 @@ class Prestataire extends Utilisateur
     {
         $this->setDateInscription(new \DateTime());
         $this->categories = new ArrayCollection();
-        $this->images = new ArrayCollection();
+        $this->photos = new ArrayCollection();
+        $this->logos = new ArrayCollection();
     }
 
 
@@ -175,38 +185,73 @@ class Prestataire extends Utilisateur
         return $this->categories;
     }
 
+
+
     /**
-     * Add image
+     * Add photo
      *
-     * @param \AppBundle\Entity\Image $image
+     * @param \AppBundle\Entity\Image $photo
      *
      * @return Prestataire
      */
-    public function addImage(\AppBundle\Entity\Image $image)
+    public function addPhoto(\AppBundle\Entity\Image $photo)
     {
-        $this->images[] = $image;
+        $this->photos[] = $photo;
 
         return $this;
     }
 
     /**
-     * Remove image
+     * Remove photo
      *
-     * @param \AppBundle\Entity\Image $image
+     * @param \AppBundle\Entity\Image $photo
      */
-    public function removeImage(\AppBundle\Entity\Image $image)
+    public function removePhoto(\AppBundle\Entity\Image $photo)
     {
-        $this->images->removeElement($image);
+        $this->photos->removeElement($photo);
     }
 
     /**
-     * Get images
+     * Get photos
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getImages()
+    public function getPhotos()
     {
-        return $this->images;
+        return $this->photos;
     }
 
+    /**
+     * Add logo
+     *
+     * @param \AppBundle\Entity\Image $logo
+     *
+     * @return Prestataire
+     */
+    public function addLogo(\AppBundle\Entity\Image $logo)
+    {
+        $this->logos[] = $logo;
+
+        return $this;
+    }
+
+    /**
+     * Remove logo
+     *
+     * @param \AppBundle\Entity\Image $logo
+     */
+    public function removeLogo(\AppBundle\Entity\Image $logo)
+    {
+        $this->logos->removeElement($logo);
+    }
+
+    /**
+     * Get logos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLogos()
+    {
+        return $this->logos;
+    }
 }

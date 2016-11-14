@@ -376,6 +376,11 @@ class Utilisateur
         return $this->nom;
     }
 
+
+
+
+
+
     /**
      * Set slug
      *

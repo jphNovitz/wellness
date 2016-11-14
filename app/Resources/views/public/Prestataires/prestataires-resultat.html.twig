@@ -1,0 +1,18 @@
+{% embed '_layouts/liste.html.twig'  %}
+    {% block title %} {{ parent() }} Prestataires (liste) {% endblock %}
+
+    {% block document_title_h1 %} Résultats de la Recherche {% endblock %}
+
+    {% block document_title_list %} {% endblock %}
+
+    {% block body %}
+        {{ render(url('prestataire_form')) }}  {# formulaire pour la recheche d'un prestataire #}
+        {% if prestataires is not empty %}
+           <h2> {{ prestataires|length }} prestataires trouvé(s) </h2>
+        {% include '_partials/bloc/_bloc-prestataires.html.twig' with{'prestataires':prestataires} %}
+            {% else %}
+                <h2>Aucun prestataire trouvé.</h2>
+                {% endif %}
+    {% endblock %}
+
+{% endembed %}

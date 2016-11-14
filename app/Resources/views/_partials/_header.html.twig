@@ -12,9 +12,8 @@
 
                 <div class="header-content">
                     <div class="header-top">
-                        <div class="header-search">
-                            <input type="text" class="form-control" placeholder="Search for...">
-                        </div><!-- /.header-search -->
+                        {# petit champs de recherche dans le coin droit #}
+                        {{ render(controller("AppBundle:Default:searchLite")) }}
 
                         <ul class="header-nav-social social-links nav nav-pills">
                             <li><a href="#"><i class="fa fa-twitter"></i></a></li>

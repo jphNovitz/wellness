@@ -6,7 +6,7 @@
     <div class="card-row">
         <div class="card-row-inner">
             {% block cadre_image %}
-                <div class="card-row-image" data-background-image="{{ prestataire.images.last().url }}">
+                <div class="card-row-image" data-background-image="{{ prestataire.logos.last().url }}">
                     <div class="card-row-label"><a href="">{{ prestataire.localite.commune }}</a></div>
                     <div class="card-row-price">{{ prestataire.tel }}   </div>
                 </div>

@@ -2,6 +2,9 @@
 
 namespace AppBundle\Repository;
 
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+
 /**
  * CategorieRepository
  *
@@ -11,13 +14,39 @@ namespace AppBundle\Repository;
 class CategorieRepository extends \Doctrine\ORM\EntityRepository
 {
 
-    public function findNames($max)
+    public function getList($max = null)
     {
-        $em = $this->getEntityManager();
-        $noms = $em->createQuery('SELECT c.id, c.nom FROM AppBundle:Categorie c 
-                                  ORDER BY c.id DESC')
+        $qb = $this->createQueryBuilder('c');
+
+        $qb->select('c.id, c.slug, c.nom')
+            ->orderBy('c.id', 'DESC')
             ->setMaxResults($max);
-        return $noms->getResult();
+
+        return $qb->getQuery()->execute();
+    }
+
+    public function myFindAll($max = null)
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        $qb = $this->selectImagePrestataires($qb)->orderBy('c', 'ASC');
+        if (isset($max) && !empty($max)) {
+            $qb->setMaxResults($max);
+            return new Paginator($qb);
+        }
+
+        return $qb->getQuery()->execute();
+
+    }
+
+    private function selectImagePrestataires(QueryBuilder $qb)
+    {
+        return $qb
+            ->leftJoin('c.image', 'im')
+            ->addSelect('im')
+            ->leftJoin('c.prestataires', 'p')
+            ->addSelect('p');
+
     }
 
 

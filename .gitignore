@@ -16,3 +16,4 @@ var/logs/.gitkeep
 .idea/*
 /web/assets/img/
 /web/assets/scss/
+

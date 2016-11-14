@@ -2,9 +2,12 @@
 
 namespace AppBundle\Controller\Profile;
 
+use AppBundle\Entity\Promotion;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Service\Utils;
 
 class PromoController extends Controller
 {
@@ -14,15 +17,16 @@ class PromoController extends Controller
      */
     public function menuAction(Request $request, $max, $class = "")
     {
-        $manager = $this->getDoctrine()->getManager();
-        $repo = $manager->getRepository('AppBundle\Entity\Promotion');
-        $promos = $repo->findNames($max);
+        //$manager = $this->getDoctrine()->getManager();
+        //$repo = $manager->getRepository('AppBundle\Entity\Promotion');
+        //$promos = $repo->findNames($max);
 
-        return $this->render('_partials/_menu-elements.html.twig',
+        $promos= $this->get("utils")->findNames("Promotion",1);
+        return $this->render('_partials/menu-elements.html.twig',
             ['elements' => $promos, 'chemin' => 'promo_list', 'class'=>$class] );
     }
     /**
-     * @Route("/promo", name="promo_list")
+     * @Route("/promo", name="promos_list")
      */
     public function listAction()
     {
@@ -30,6 +34,17 @@ class PromoController extends Controller
         $promos= $manager->getRepository('AppBundle\Entity\Promotion')->findAll();
 
         return $this->render('profile/promo/promo-list.html.twig', ['promos'=>$promos]);
+    }
+
+    /**
+     * @Route("/promo/{slug}", name="promo_detail")
+     * @ParamConverter("promo", class="AppBundle:Promotion")
+     */
+    public function detailAction(Promotion $promo)
+    {
+
+
+        return $this->render('profile/promo/promo-detail.html.twig', ['promos' => $promo ]);
     }
 
     /**
