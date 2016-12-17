@@ -9,7 +9,16 @@
             <li><a href="{{ path('contact') }}">Nous Contacter</a></li>
             <li><a href="{{ path('about') }}">About</a></li>
         </ul>
+
     </li>
-       {{  render(controller('AppBundle:Default:menu',  { 'max': 5})) }}
+    {{ render(controller('AppBundle:Default:menu',  { 'max': 5})) }}
+    {% if is_granted('ROLE_ADMIN') %}
+        <li>
+            <a href="{{ path('homepage') }}">Admin <i class="fa fa-chevron-down"></i></a>
+            <ul class="sub-menu">
+                <li><a href="{{ path('admin_prestataires_list') }}">Gestion des Prestataires </a></li>
+            </ul>
+        </li>
+    {% endif %}
 </ul>
 {# plus de qutre renderController pour le menu -> a modifier #}

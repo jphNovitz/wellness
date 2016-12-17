@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block document_title %}
+<div class="document-title">
+    <h1>{% block document_title_h1 %}Zone Admin: Gestion des Prestataires {% endblock %}</h1>
+
+    <ul class="breadcrumb">
+        {% block document_title_list %}
+
+        {% endblock %}
+    </ul>
+
+
+</div><!-- /.document-title -->
+{% endblock %}
+
+{% block body %}
+    <div class="background-white p20 mb50">
+        <h2 class="page-title">Prestataires</h2>
+
+        <table class="table table-striped mb0">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Nom</th>
+                <th>Actions</th>
+                <th>S</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for provider in providers %}
+            <tr>
+                <th scope="row">{{ loop.index }}</th>
+                <td>{{ provider.nom }}</td>
+
+
+                <td>
+                   <a href="{{ path('prestataire_detail',{'slug':provider.slug}) }}"> <i class="fa fa-eye" aria-hidden="true"></i></a>
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                </td>
+                <td>
+                    <i class="fa fa-ban" aria-hidden="true"></i>
+
+                </td>
+            </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+

@@ -22,6 +22,8 @@
 AppBundle\Entity\Internaute:
     internaute{1..10}:
         nom (unique): '<lastName()>'
+        username (unique): '<lastName()>'
+        salt: ''
         prenom (unique): '<firstName()>'
         email (unique): '<email()>'
         adresseNum: '<randomDigitNotNull()>'

@@ -1,12 +1,11 @@
-
 <header class="header">
     <div class="header-wrapper">
         <div class="container">
             <div class="header-inner">
                 <div class="header-logo">
                     <a href="{{ path('homepage') }}">
-                        <img src="{{ asset('assets/img/logo.png')}}" alt="Logo">
-                        <span>Annuaire Wellness</span>
+                        <img src="{{ asset('assets/img/logo.png') }}" alt="Logo">
+                        <span>Wellness Et Bien-Etre </span>
                     </a>
                 </div><!-- /.header-logo -->
 
@@ -22,14 +21,23 @@
                         </ul><!-- /.header-nav-social -->
 
                         <ul class="header-nav-secondary nav nav-pills">
-                            <li><a href="{{ path('login') }}">Login</a></li>
-                            <li><a href="{{ path('signup') }}">Register</a></li>
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                <li><a href="{{ path('logout') }}"> <i class="fa fa-sign-out" aria-hidden="true"></i> </a></li>
+                                <li> Connecté en tant que  {{ app.user.username }} </li>
+
+                            {% else %}
+                                <li><a href="{{ path('login') }}"><i class="fa fa-sign-in" aria-hidden="true"></i></a></li>
+                                <li><a href="{{ path('registration') }}"> Internaute</a></li>
+                                <li><a href="{{ path('registration', {'type':"prestataire"}) }}"> Prestataire</a></li>
+                            {% endif %}
+
                         </ul>
                     </div><!-- /.header-top -->
 
                     <div class="header-bottom">
                         <div class="header-action">
-                            <a href="listing-submit.html" class="header-action-inner" title="Add Listing" data-toggle="tooltip" data-placement="bottom">
+                            <a href="listing-submit.html" class="header-action-inner" title="Add Listing"
+                               data-toggle="tooltip" data-placement="bottom">
                                 <i class="fa fa-plus"></i>
                             </a><!-- /.header-action-inner -->
                         </div><!-- /.header-action -->

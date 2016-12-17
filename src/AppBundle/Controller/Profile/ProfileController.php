@@ -9,12 +9,12 @@ use Symfony\Component\HttpFoundation\Request;
 class ProfileController extends Controller
 {
     /**
-     * @Route("/profile", name="profile_view")
+     * @Route("/profile", name="internaute_detail")
      */
     public function viewAction(Request $request)
     {
         // ici viendra le code qui renvoie vers un profil
-        return $this->render('profile/profiles/profile-detail.html.twig');
+        return $this->redirectToRoute('homepage');
     }
 
     /**

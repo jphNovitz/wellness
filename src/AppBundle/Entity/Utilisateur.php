@@ -2,8 +2,10 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 
 /**
@@ -15,7 +17,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({"Utilisateur" = "Utilisateur", "prestataire" = "Prestataire", "internaute" = "Internaute"})
  */
-class Utilisateur
+class Utilisateur implements UserInterface
 {
     /**
      * @var int
@@ -25,6 +27,27 @@ class Utilisateur
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @ORM\Column(name="username", type="string", length=255, unique=true)
+     */
+
+    private $username;
+
+
+    /**
+     * @ORM\Column(name="salt", type="string", length=255)
+     */
+
+    private $salt;
+
+
+    /**
+     * @ORM\Column(name="roles", type="array")
+     */
+
+    private $roles = array();
+
 
     /**
      * @var string
@@ -43,9 +66,14 @@ class Utilisateur
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=50)
+     * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
+
+    /**
+     * @var string
+     */
+    private $plainPassword;
 
     /**
      * @var string
@@ -62,7 +90,6 @@ class Utilisateur
     private $adresseRue;
 
 
-
     /**
      * @var \DateTime
      *
@@ -76,21 +103,22 @@ class Utilisateur
      *
      * @ORM\Column(name="essais", type="smallint")
      */
-    private $essais;
+    private $essais = 3;
 
     /**
      * @var bool
      *
      * @ORM\Column(name="banni", type="boolean")
      */
-    private $banni;
+    private $banni = false;
 
     /**
      * @var bool
      *
      * @ORM\Column(name="confirmation", type="boolean")
      */
-    private $confirmation;
+    private $confirmation = false;
+
 
     /**
      * @var string
@@ -110,6 +138,7 @@ class Utilisateur
     public function __construct()
     {
         $this->setDateInscription(new \DateTime());
+        $this->roles = new ArrayCollection();
     }
 
 
@@ -169,6 +198,16 @@ class Utilisateur
     public function getPassword()
     {
         return $this->password;
+    }
+
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword($password)
+    {
+        $this->plainPassword = $password;
     }
 
     /**
@@ -377,10 +416,6 @@ class Utilisateur
     }
 
 
-
-
-
-
     /**
      * Set slug
      *
@@ -403,5 +438,94 @@ class Utilisateur
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     *
+     * @return Utilisateur
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Get username
+     *
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * Set salt
+     *
+     * @param string $salt
+     *
+     * @return Utilisateur
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+
+        return $this;
+    }
+
+    /**
+     * Get salt
+     *
+     * @return string
+     */
+    public function getSalt()
+    {
+        return $this->salt;
+    }
+
+
+    /**
+     * Get roles
+     *
+     * @return array
+     */
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+
+    public function eraseCredentials()
+    {
+        // rien pour l'instant
+    }
+
+    /**
+     * @param $role
+     * @return $this
+     */
+    public function addRole( $role)
+    {
+        $this->roles[] = $role;
+
+        return $this;
+    }
+
+    /**
+     * Set roles
+     *
+     * @param array $roles
+     *
+     * @return Utilisateur
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+
+        return $this;
     }
 }

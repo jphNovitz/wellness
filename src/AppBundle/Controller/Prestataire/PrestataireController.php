@@ -6,11 +6,14 @@ use AppBundle\Entity\Commentaire;
 use AppBundle\Entity\Image;
 use AppBundle\Entity\Prestataire;
 use AppBundle\Entity\Stage;
+use AppBundle\Entity\Utilisateur;
+use AppBundle\Form\Type\PrestataireType;
 use Gedmo\Mapping\Annotation\Slug;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -114,7 +117,7 @@ class PrestataireController extends Controller
             $l = $form['localite']->getData();
             $s = $form['service']->getData();
 
-             // je récupère les variable venant du formulaire -> je les transmets qu formulaire traitant la recherche
+            // je récupère les variable venant du formulaire -> je les transmets qu formulaire traitant la recherche
             return $this->redirectToRoute('prestataire_search', [
                 'prestataire' => $p,
                 'localite' => $l,
@@ -135,9 +138,9 @@ class PrestataireController extends Controller
     {
 
         // recoit les variable
-        $prestataire = empty($request->query->get('prestataire')) ? null : $request->query->get('prestataire') ;
-        $service = empty($request->query->get('service')) ? null : $request->query->get('service') ;
-        $localite = empty($request->query->get('localite')) ? null : $request->query->get('localite') ;
+        $prestataire = empty($request->query->get('prestataire')) ? null : $request->query->get('prestataire');
+        $service = empty($request->query->get('service')) ? null : $request->query->get('service');
+        $localite = empty($request->query->get('localite')) ? null : $request->query->get('localite');
         /*$service = $request->query->get('service');
         $localite = $request->query->get('localite');*/
 
@@ -153,4 +156,67 @@ class PrestataireController extends Controller
 
     }
 
+    /**
+     * @route("/update/prestataire", name="prestataire_update")
+     */
+    public function updateAction(Request $request)
+    {
+        try {
+            if (!$prestataire = $this->get('security.token_storage')->getToken()->getUser()) {
+                throw new  \Exception();
+            }
+
+
+            $form = $this->createForm(PrestataireType::class, $prestataire);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+
+                if ($form->get('supprimer')->isClicked()) {
+                    return $this->redirectToRoute('prestataire_delete');
+                }
+
+                if ($prestataire->getConfirmation() == false) $prestataire->setConfirmation(true);
+                $manager = $this->getDoctrine()->getManager();
+                $manager->persist($prestataire);
+                $manager->flush();
+
+                $this->addFlash('succes', 'Mise à jour effectuée avec succes');
+                return $this->redirectToRoute('prestataire_detail', ["slug" => $prestataire->getSlug()]);
+
+
+            }
+
+            return $this->render('prestataires/prestataire-update.html.twig', ["form" => $form->createView()]);
+        } catch (\Exception $e) {
+            $this->addFlash('error', "Il y a un probleme, veuillez vous reconnecter.");
+            return $this->redirectToRoute('homepage');
+
+        }
+    }
+
+    /**
+     * @Route("/delete/prestataire", name="prestataire_delete")
+     */
+    public function deleteAction(Request $request)
+    {
+        $prestataire = $this->get('security.token_storage')->getToken()->getUser();
+        $form = $this->createFormBuilder($prestataire)
+            ->add('supprimer', SubmitType::class, ['label' => 'OUI Supprimer !', 'attr' => ['class' => 'label label-lg label-danger']])
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            die ('fdkfslmk');
+            $this->getDoctrine()->getManager()->remove($prestataire);
+
+            $this->addFlash('success', 'l\'élement a bien été supprimé');
+            $this->redirectToRoute('homepage');
+
+
+        }
+
+        return $this->render('prestataires/prestataire-delete.html.twig', ['prestataire' => $prestataire, 'form' => $form->createView()]);
+    }
 }

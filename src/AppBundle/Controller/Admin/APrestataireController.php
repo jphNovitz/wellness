@@ -9,12 +9,14 @@ use Symfony\Component\HttpFoundation\Request;
 class APrestataireController extends Controller
 {
     /**
-     * @Route("/admin/prestataires", name="admin_prestataire_list")
+     * @Route("/admin/prestataires", name="admin_prestataires_list")
      */
-    public function listAction(Request $request)
+    public function listAction()
     {
-        // ici viendra le code qui renvoie vers la liste des prestataires (Admin)
-        return $this->render('admin/prestataires/prestataires-list.html.twig');
+        $repo = $this->getDoctrine()->getManager()->getRepository('AppBundle\Entity\Prestataire');
+        $providers = $repo->getList();
+
+        return $this->render('admin/prestataires/prestataires-list.html.twig', ['providers' => $providers]);
     }
 
     /**
@@ -22,8 +24,10 @@ class APrestataireController extends Controller
      */
     public function createAction(Request $request)
     {
+
+
         // ici viendra le code qui renvoie vers le formulaire creation d'un prestataire (Admin)
-        return $this->render('admin/prestataires/prestataires-create.html.twig');
+        return $this->render('admin/prestataires/prestataire-create.html.twig');
     }
 
     /**

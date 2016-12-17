@@ -23,6 +23,8 @@ AppBundle\Entity\Categorie:
 AppBundle\Entity\Prestataire:
     prestataire{1..60}:
         nom (unique): '<company()>'
+        username (unique): '<company()>'
+        salt: ''
         email  (unique): '<email()>'
         tel  (unique): '<phoneNumber()>'
         adresseNum: '<randomDigitNotNull()>'
@@ -35,6 +37,7 @@ AppBundle\Entity\Prestataire:
         siteweb  (unique): '<url()>'
         localite: '@localite*'
         categories: '<numberBetween(1, 4)>x @categorie*'
+
 
 AppBundle\Entity\Image:
     image{1..60}:

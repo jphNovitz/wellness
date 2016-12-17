@@ -36,6 +36,28 @@
                         </div><!-- /.document-title -->
                     {% endblock %}
 
+                    {# bloc message Flash à mettre dans un include vers fichier externe #}
+                    {% block messagesFlash %}
+                        {% for flash_message in app.session.flashBag.get('succes') %}
+                            <div class="alert alert-icon alert-success" role="alert">
+                                {{ flash_message }}
+                            </div>
+                        {% endfor %}
+                        {% for flash_message in app.session.flashBag.get('error') %}
+                            <div class="alert alert-icon alert-danger" role="alert">
+                                {{ flash_message }}
+                            </div>
+                        {% endfor %}
+                        {% for flash_message in app.session.flashBag.get('info') %}
+                            <div class="alert alert-icon alert-info" role="alert">
+                                {{ flash_message }}
+                            </div>
+                        {% endfor %}
+
+                    {% endblock %}
+                    {# fin de block a refactorer et déplacer #}
+
+
                     {% block body %}
 
                     {% endblock %}

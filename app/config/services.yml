@@ -4,6 +4,21 @@ parameters:
 #    parameter_name: value
 
 services:
+    app.doctrine.encode_password_listener:
+        class: AppBundle\Doctrine\EncodePasswordListener
+        autowire: true
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    app.confirmation_mail:
+        class: AppBundle\Util\ConfirmationMail
+        arguments: ["@mailer"]
+        autowire: true
+
+    app.compare_json:
+        class: AppBundle\Util\CompareJson
+        arguments: ["@security.password_encoder"]
+
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
@@ -11,6 +26,8 @@ services:
   #   class: Twig_Extensions_Extension_Text
    #  tags:
     #     - { name: twig.extension }
-    utils:
-            class: AppBundle\Service\Utils
-            arguments: ["@doctrine.orm.entity_manager"]
+
+
+
+
+

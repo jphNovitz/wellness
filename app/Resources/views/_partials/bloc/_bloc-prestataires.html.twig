@@ -6,21 +6,27 @@
     <div class="card-row">
         <div class="card-row-inner">
             {% block cadre_image %}
-                <div class="card-row-image" data-background-image="{{ prestataire.logos.last().url }}">
+                <div class="card-row-image" data-background-image="
+                {% if prestataire.logos is not empty %} {{ prestataire.logos.last().url }}
+                    {% else %}{{ asset('assets/img/tmp/no-photo.jpg') }}
+                {% endif %}
+                ">
                     <div class="card-row-label"><a href="">{{ prestataire.localite.commune }}</a></div>
                     <div class="card-row-price">{{ prestataire.tel }}   </div>
                 </div>
             {% endblock %}
 
             <div class="card-row-body">
-                <h2 class="card-row-title"><a href="{{ path('prestataire_detail',{'slug':prestataire.slug}) }}">{{ prestataire.nom }}</a></h2>
+                <h2 class="card-row-title"><a
+                            href="{{ path('prestataire_detail',{'slug':prestataire.slug}) }}">{{ prestataire.nom }}</a>
+                </h2>
                 <div class="card-row-content">
 
 
                     {% block card_row_content_1 %}
 
                         <p>Services proposés: {% for service in prestataire.categories %}
-                                {% if service.nom is not null %}
+                                {% if service.nom is not empty %}
                                     {{ service.nom }}
                                 {% else %}
                                     Aucun pour l'instant.

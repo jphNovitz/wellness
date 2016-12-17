@@ -6,7 +6,7 @@ parameters:
     database_user: root
     database_password: null
     mailer_transport: smtp
-    mailer_host: 127.0.0.1
-    mailer_user: null
-    mailer_password: null
+    mailer_host: smtp.mailtrap.io
+    mailer_user: ea00ff69931fb1
+    mailer_password:  f33d0fe9151183
     secret: ThisTokenIsNotSoSecretChangeIt

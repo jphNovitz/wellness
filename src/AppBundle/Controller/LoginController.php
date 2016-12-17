@@ -8,14 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class LoginController extends Controller
 {
-    /**
-     * @Route("/login", name="login")
-     */
-    public function loginAction(Request $request)
-    {
-        // ici viendra le code login
-        return $this->render('default/login.html.twig');
-    }
+
 
     /**
      * @Route("/signup", name="signup")
