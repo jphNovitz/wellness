@@ -16,21 +16,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class SecurityController extends Controller
 {
 
-    /**
-     * @Route("/essai", name="essai")
-     */
-    public function essaiAction()
-    {
-        /* $message = \Swift_Message::newInstance()
-             ->setSubject('Hello Email')
-             ->setFrom('essai@jiphi.be')
-             ->setTo('hello@jiphi.be')
-             ->setBody($this->renderView('emails/confirmation.txt.twig'), 'text/plain');
-         $this->get('mailer')->send($message);
-         return $this->redirectToRoute('homepage');*/
-        $this->get('app.confirmation_mail')->sendConfirmation();
-
-    }
 
     /**
      * @Route("/registration/{type}", name="registration", defaults={"type"= "internaute"})
@@ -115,29 +100,8 @@ class SecurityController extends Controller
                  *  --- Sinon alors on continue
                  */
                 if ($this->get('app.compare_json')->mEncode($user, $test)) {
-                    $type = $test->getType();
-                    // $user et $test sont identique alors je peux créer definitivement mon User
-                    $class = 'AppBundle\Entity\\' . ucfirst($type);
-                    $obj = new $class();
-                    $obj->setUsername($test->getUsername());
-                    $obj->setEmail($test->getEmail());
-                    $obj->setPassword($test->getPassword());
-                    $obj->setSalt($test->getSalt());
-                    $obj->setConfirmation(false);
-                    $obj->setNom($test->getUsername());
-                    $obj->setAdresseNum('');
-                    $obj->setAdresseRue('');
 
-                    if ($type =='prestataire'){
-                        $obj->setRoles(['ROLE_PRESTATAIRE', 'ROLE_USER']);
-                    }
-
-                    if ($type == 'internaute') {
-                        $obj->setNewsletter = true;
-                        $obj->setRoles(['ROLE_INTERNAUTE', 'ROLE_USER']);
-
-                    }
-
+                    $obj = $this->get('app.prepare_before_persist')->minimumToPersist($test);
 
                     try {
                         $manager = $this->getDoctrine()->getManager();
@@ -152,6 +116,7 @@ class SecurityController extends Controller
 
                     }
 
+                    $type = $test->getType();
                     return $this->redirectToRoute($type . '_detail', ["slug" => $obj->getSlug()]);
 
 

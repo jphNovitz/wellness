@@ -19,6 +19,10 @@ services:
         class: AppBundle\Util\CompareJson
         arguments: ["@security.password_encoder"]
 
+    app.prepare_before_persist:
+        class: AppBundle\Util\PrepareBeforePersist
+
+
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
