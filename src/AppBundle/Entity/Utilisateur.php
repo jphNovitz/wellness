@@ -89,11 +89,11 @@ class Utilisateur implements UserInterface
      */
     private $adresseRue;
 
-
     /**
-     * @var \DateTime
+     * @var datetime $created
      *
-     * @ORM\Column(name="dateInscription", type="date")
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="dateInscription", type="datetime")
      */
     private $dateInscription;
 

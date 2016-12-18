@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 Class EncodePasswordListener implements EventSubscriber
 {
 
-    protected $encoder;
+    private $encoder;
 
     public function __construct(UserPasswordEncoder $encoder)
     {
@@ -50,7 +50,7 @@ Class EncodePasswordListener implements EventSubscriber
     /**
      * @param User $entity
      */
-    private function encodePwd(User $entity)
+    private function encodePwd(UserTemp $entity)
     {
 
         if (!$entity->getPlainPassword()) {

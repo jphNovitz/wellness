@@ -33,6 +33,12 @@ class Internaute extends Utilisateur
     private $prenom;
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Image", mappedBy="internautePhotos")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $photos;
+
+    /**
      * @var bool
      *
      * @ORM\Column(name="newsletter", type="boolean", nullable=true)
@@ -57,7 +63,7 @@ class Internaute extends Utilisateur
     {
         $this->commentaires = new ArrayCollection();
         $this->abus = new ArrayCollection();
-        $this->setDateInscription(new \DateTime());
+        $this->photos=new ArrayCollection();
     }
 
     public function __toString()
@@ -182,5 +188,39 @@ class Internaute extends Utilisateur
     public function getPositions()
     {
         return $this->positions;
+    }
+
+    /**
+     * Add photo
+     *
+     * @param \AppBundle\Entity\Image $photo
+     *
+     * @return Internaute
+     */
+    public function addPhoto(\AppBundle\Entity\Image $photo)
+    {
+        $this->photos[] = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Remove photo
+     *
+     * @param \AppBundle\Entity\Image $photo
+     */
+    public function removePhoto(\AppBundle\Entity\Image $photo)
+    {
+        $this->photos->removeElement($photo);
+    }
+
+    /**
+     * Get photos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
     }
 }

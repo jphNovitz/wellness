@@ -34,7 +34,7 @@ class PrestataireController extends Controller
 
 
     /**
-     * @Route("/prestataires/last", name="prestataires_last")
+     * @Route("public/prestataires/last", name="prestataires_last")
      */
     public function lastAction(Request $request)
     {
@@ -77,7 +77,7 @@ class PrestataireController extends Controller
 
 
     /**
-     * @Route("/prestataire/{slug}", name="prestataire_detail")
+     * @Route("public/prestataire/{slug}", name="prestataire_detail")
      * @ParamConverter("prestataire", class="AppBundle:Prestataire")
      */
     public function detailAction(Prestataire $prestataire)
@@ -195,7 +195,7 @@ class PrestataireController extends Controller
     }
 
     /**
-     * @Route("/delete/prestataire", name="prestataire_delete")
+     * @Route("/prestataire/delete", name="prestataire_delete")
      */
     public function deleteAction(Request $request)
     {
@@ -208,7 +208,7 @@ class PrestataireController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            die ('fdkfslmk');
+            die('a modifier: ajouter un champs bool actif');
             $this->getDoctrine()->getManager()->remove($prestataire);
 
             $this->addFlash('success', 'l\'élement a bien été supprimé');

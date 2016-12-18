@@ -119,7 +119,6 @@ class SecurityController extends Controller
                     // $user et $test sont identique alors je peux créer definitivement mon User
                     $class = 'AppBundle\Entity\\' . ucfirst($type);
                     $obj = new $class();
-                    $obj->setRoles(['ROLE_PRESTATAIRE']);
                     $obj->setUsername($test->getUsername());
                     $obj->setEmail($test->getEmail());
                     $obj->setPassword($test->getPassword());
@@ -129,8 +128,13 @@ class SecurityController extends Controller
                     $obj->setAdresseNum('');
                     $obj->setAdresseRue('');
 
+                    if ($type =='prestataire'){
+                        $obj->setRoles(['ROLE_PRESTATAIRE', 'ROLE_USER']);
+                    }
+
                     if ($type == 'internaute') {
                         $obj->setNewsletter = true;
+                        $obj->setRoles(['ROLE_INTERNAUTE', 'ROLE_USER']);
 
                     }
 

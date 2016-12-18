@@ -1,10 +1,10 @@
 <li class="active">
     <a href="{{ path('prestataires_list') }}">Prestataires <i class="fa fa-chevron-down"></i></a>
     <ul class="{{ class }}">
-        {% for prestataire in prestataires%}
+        {% for prestataire in prestataires %}
             <li><a href="{{ path('prestataire_detail', {'slug':prestataire.slug}) }}">{{ prestataire.nom }}</a></li>
         {% endfor %}
-        <li>  <a href="{{ path('prestataires_list') }}">  >> plus <<  </a> </li>
+        <li><a href="{{ path('prestataires_list') }}"> >> plus << </a></li>
     </ul>
 </li>
 
@@ -14,28 +14,27 @@
         {% for service in services %}
             <li><a href="{{ path('service_detail', {'slug':service.slug}) }}">{{ service.nom }}</a></li>
         {% endfor %}
-        <li>  <a href="{{  path('services_list')  }}">  >> plus <<  </a> </li>
+        <li><a href="{{ path('services_list') }}"> >> plus << </a></li>
     </ul>
 </li>
 <li>
-    <a href="{{  path('stages_list')  }}">Stages <i class="fa fa-chevron-down"></i></a>
+    <a href="{{ path('stages_list') }}">Stages <i class="fa fa-chevron-down"></i></a>
     <ul class="{{ class }}">
         {% for stage in stages %}
-            <li><a href="{# path('stage_detail', {'slug':stage.slug}) #}">{{ stage.nom }}</a></li>
+            <li><a href="{{ path('stage_detail', {'slug':stage.slug}) }}">{{ stage.nom }}</a></li>
         {% endfor %}
-        <li>  <a href="{{ path('stages_list')  }}">  >> plus <<  </a> </li>
+        <li><a href="{{ path('stages_list') }}"> >> plus << </a></li>
     </ul>
 </li>
 <li>
-    <a href="{{  path('promos_list')  }}">Stages <i class="fa fa-chevron-down"></i></a>
+    <a href="{{ path('promos_list') }}">Prmos <i class="fa fa-chevron-down"></i></a>
     <ul class="{{ class }}">
         {% for promo in promos %}
-            <li><a href="{# path('promo_detail', {'slug':promo.slug}) #}">{{ promo.nom }}</a></li>
+            <li><a href="{{ path('promo_detail', {'slug':promo.slug}) }}">{{ promo.nom }}</a></li>
         {% endfor %}
-        <li>  <a href="{{ path('promos_list')  }}">  >> plus <<  </a> </li>
+        <li><a href="{{ path('promos_list') }}"> >> plus << </a></li>
     </ul>
 </li>
-
 
 
 <li>

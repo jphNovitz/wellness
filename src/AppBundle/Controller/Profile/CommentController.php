@@ -14,6 +14,19 @@ class CommentController extends Controller
 {
 
     /**
+     * @Route("/comment/internaute", name="commentaire_internaute_view")
+     */
+    public function viewCommentInternauteAction($internaute)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $repo = $manager->getRepository('AppBundle\Entity\Commentaire');
+        $commentaires = $repo->findBy(["internaute" => $internaute]);
+
+
+        return $this->render('_partials/bloc/_bloc-commentaires.html.twig', ["commentaires" => $commentaires]);
+    }
+
+    /**
      * @Route("/prestataire/comment/{id}", name="prestataire_commentaire_view")
      */
     public function viewCommentPrestataireAction($id)

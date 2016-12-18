@@ -1,0 +1,69 @@
+ utilisateur
+/**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=120, nullable=false)
+     */
+    protected $nom;
+ /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255, unique=true)
+     */
+    protected $email;
+
+    /**
+         * @var string
+         *
+         * @ORM\Column(name="password", type="string", length=50)
+         */
+        protected $password;
+
+
+  /**
+       * Set email
+       *
+       * @param string $email
+       *
+       * @return Utilisateur
+       */
+      public function setEmail($email)
+      {
+          $this->email = $email;
+
+          return $this;
+      }
+
+      /**
+       * Get email
+       *
+       * @return string
+       */
+      public function getEmail()
+      {
+          return $this->email;
+      }
+
+ /**
+     * Set password
+     *
+     * @param string $password
+     *
+     * @return Utilisateur
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }

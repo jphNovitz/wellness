@@ -53,7 +53,6 @@ class DefaultController extends Controller
         $stages = $em->getRepository('AppBundle\Entity\Stage')->getList($max);
         $promos = $em->getRepository('AppBundle\Entity\Promotion')->getList($max);
 
-
         return $this->render('_partials/menu/_menu-dyn.html.twig', [
             'prestataires' => $prestataires,
             'services' => $services,

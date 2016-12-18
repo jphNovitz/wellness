@@ -44,6 +44,12 @@ class Image
     private $imageType;
 
     /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Internaute", inversedBy="photos")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $internautePhotos;
+
+    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Prestataire", inversedBy="photos")
      * @ORM\JoinColumn(nullable=true)
      */
