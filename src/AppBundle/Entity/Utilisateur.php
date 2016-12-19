@@ -7,6 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Utilisateur
@@ -37,6 +39,8 @@ class Utilisateur implements UserInterface
 
     /**
      * @ORM\Column(name="salt", type="string", length=255)
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
      */
 
     private $salt;
@@ -53,6 +57,8 @@ class Utilisateur implements UserInterface
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=120, nullable=false)
+     * @Assert\NotNull()
+     * @Assert\Type("string")
      */
     private $nom;
 
@@ -60,6 +66,11 @@ class Utilisateur implements UserInterface
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Email(
+     *     message = "Email '{{ value }}' ne semble pas valide.",
+     *     checkMX = true
+     * )
      */
     private $email;
 
@@ -67,6 +78,7 @@ class Utilisateur implements UserInterface
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
+     * @Assert\NotNull()
      */
     private $password;
 
@@ -79,6 +91,7 @@ class Utilisateur implements UserInterface
      * @var string
      *
      * @ORM\Column(name="adresseNum", type="string", length=3)
+     * @Assert\NotNull()
      */
     private $adresseNum;
 
@@ -86,6 +99,7 @@ class Utilisateur implements UserInterface
      * @var string
      *
      * @ORM\Column(name="adresseRue", type="string", length=125)
+     * @Assert\NotNull()
      */
     private $adresseRue;
 
@@ -125,6 +139,7 @@ class Utilisateur implements UserInterface
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Localite",cascade={"persist"})
      * @ORM\JoinColumn(name="localite_id", referencedColumnName="id")
+     * @Assert\Type("string")
      */
     private $localite;
 

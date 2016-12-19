@@ -29,6 +29,8 @@ class UserTemp implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="username", type="string", length=255, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Type("string")
      */
     private $username;
 
@@ -36,6 +38,10 @@ class UserTemp implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, unique=true)
+     * @Assert\Email(
+     *     message = "Email '{{ value }}' ne semble pas valide.",
+     *     checkMX = true
+     * )
      */
     private $email;
 
@@ -49,6 +55,7 @@ class UserTemp implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255, unique=true)
+     * @Assert\NotBlank()
      */
     private $password;
 

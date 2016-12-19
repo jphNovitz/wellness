@@ -21,7 +21,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class PrestataireController extends Controller
 {
     /**
-     * @Route("/prestataires", name="prestataires_list"),
+     * @Route("public/prestataires", name="prestataires_list"),
      */
     public function listAction(Request $request)
     {

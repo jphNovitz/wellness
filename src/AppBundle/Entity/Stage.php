@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Stage
@@ -27,6 +28,8 @@ class Stage
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=255)
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
      */
     private $nom;
 
@@ -55,6 +58,8 @@ class Stage
      * @var \DateTime
      *
      * @ORM\Column(name="debut", type="date")
+     * @Assert\NotNull()
+     * @Assert\Date()
      */
     private $debut;
 
@@ -62,6 +67,7 @@ class Stage
      * @var \DateTime
      *
      * @ORM\Column(name="fin", type="date", nullable=true)
+     * @Assert\Date()
      */
     private $fin;
 
