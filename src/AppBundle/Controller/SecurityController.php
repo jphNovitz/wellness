@@ -89,7 +89,7 @@ class SecurityController extends Controller
             if ($form['verif_token']->getData() == $salt) {
                 // j'ajoute une verification le verif_token caché dans le formulaire est-il le même que celui de l'url ?
 
-                $user->setSalt($test->getSalt()); //je sais plus pourquoi
+                $user->setSalt($test->getSalt());
                 /**
                  * j'ai créé un petit service qui encode le password fourni dans le form de verification
                  * il fait ensuite quelque test:
