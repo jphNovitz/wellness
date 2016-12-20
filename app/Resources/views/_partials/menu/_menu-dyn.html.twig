@@ -27,7 +27,7 @@
     </ul>
 </li>
 <li>
-    <a href="{{ path('promos_list') }}">Prmos <i class="fa fa-chevron-down"></i></a>
+    <a href="{{ path('promos_list') }}">Promos <i class="fa fa-chevron-down"></i></a>
     <ul class="{{ class }}">
         {% for promo in promos %}
             <li><a href="{{ path('promo_detail', {'slug':promo.slug}) }}">{{ promo.nom }}</a></li>

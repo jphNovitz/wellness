@@ -112,7 +112,7 @@
                         <h2>Ses Services</h2>
                         <ul class="menu">
                             {% for categorie in prestataire.categories %}
-                                <li><a href=""> {{ categorie.nom }} </a></li>
+                                <li><a href="{{ path('service_detail', {'slug':categorie.slug}) }}"> {{ categorie.nom }} </a></li>
                             {% endfor %}
                         </ul>
 
