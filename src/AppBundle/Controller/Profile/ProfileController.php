@@ -7,11 +7,12 @@ use \AppBundle\Form\Type\InternauteType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ProfileController extends Controller
 {
     /**
-     * @Route("/profile/", name="internaute_detail")
+     * @Route("/profile/", name="profile_detail")
      */
     public function viewAction(Request $request)
     {
@@ -68,21 +69,21 @@ class ProfileController extends Controller
     }
 
     /**
-     * @Route("/profile/delete", name="internaute_delete")
+     * @Route("/profile/delete", name="profile_delete")
      */
     public function deleteAction(Request $request)
     {
-        $internaute = $this->get('security.token_storage')->getToken()->getUser();
-        $form = $this->createFormBuilder($internaute)
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $form = $this->createFormBuilder($user)
             ->add('supprimer', SubmitType::class, ['label' => 'OUI Supprimer !', 'attr' => ['class' => 'label label-lg label-danger']])
             ->getForm();
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            // ici il y a quelque chose à implémenter pour la suppression
             die('a modifier: ajouter un champs bool actif');
-            $this->getDoctrine()->getManager()->remove($internaute);
+            $this->getDoctrine()->getManager()->remove($user);
 
             $this->addFlash('success', 'l\'élement a bien été supprimé');
             $this->redirectToRoute('homepage');
@@ -90,7 +91,7 @@ class ProfileController extends Controller
 
         }
 
-        return $this->render('profile/profile-delete.html.twig', ['internaute' => $internaute, 'form' => $form->createView()]);
+        return $this->render('profile/profile-delete.html.twig', ['user' => $user, 'form' => $form->createView()]);
     }
 
 }

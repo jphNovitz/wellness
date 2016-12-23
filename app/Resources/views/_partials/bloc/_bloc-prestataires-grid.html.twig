@@ -13,8 +13,8 @@
 
              data-background-image="
                 {% block cadre_background %}
-                {% if prestataire.logos is not empty %}
-                        {{ prestataire.logos.last().url }}
+                {% if prestataire.url is not empty %}
+                        {{ prestataire.url }}
                         {% else %}
                         {{ asset('assets/img/tmp/no-photo.jpg') }}
                     {% endif %}
@@ -41,7 +41,7 @@
                 </div><!-- /.card-simple-content -->
 
                 {% if prestataire.localite is not empty %}
-                    <div class="card-simple-label">{% block cadre_haut %} {{ prestataire.localite.commune }}{% endblock %}</div>
+                    <div class="card-simple-label">{% block cadre_haut %} {{ prestataire.commune }}{% endblock %}</div>
                 {% endif %}
                 {% if prestataire.tel is not empty %}
                     <div class="card-simple-price">{% block cadre_bas %}{{ prestataire.tel }}{% endblock %}</div>

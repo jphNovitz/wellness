@@ -56,13 +56,22 @@ class PrestataireRepository extends \Doctrine\ORM\EntityRepository
      */
     public function findLastN($max = null)
     {
-        $qb = $this->createQueryBuilder('p');
-
-        $this->selectPrestataireLogosCategories($qb, $max);
-        $qb->addOrderBy('p.id', 'DESC')
+        $qb = $this->createQueryBuilder('p')
+            ->select('p.id, p.nom, p.tel, p.slug, p.dateInscription')
+            ->leftJoin('p.localite', 'local')
+            ->addSelect('local.localite')
+            ->leftJoin('local.commune', 'comm')
+            ->addSelect('comm.commune')
+            ->leftJoin('p.logos', 'logos')
+            ->addSelect('logos.url')
+            ->addOrderBy('p.dateInscription', 'DESC')
             ->setMaxResults($max);
 
-        return new paginator($qb);
+
+        return $qb->getQuery()->execute();
+
+
+        //return new paginator($qb);
         // utilisation de paginator pour la limitation du nombre de résultats
         // sinon setMaxResults ne compte pas le nombre d'objets à la sortie mais le nombre d'entité dans la requete
         // pour $max=4 le queryBuilde ne renvoie que un objet.
@@ -103,23 +112,5 @@ class PrestataireRepository extends \Doctrine\ORM\EntityRepository
         return new Paginator($qb);
     }
 
-    /**
-     * @param \Doctrine\ORM\QueryBuilder $qb
-     * @param null $max
-     * @return \Doctrine\ORM\QueryBuilder
-     * Methode qui sélectionne tous les prestataire, les logos et categories
-     * recois le queryBuilder et le renvoie // evite de dupliquer du code dans mon repository
-     */
-    private function selectPrestataireLogosCategories(\Doctrine\ORM\QueryBuilder $qb, $max = null)
-    {
-
-        return $qb
-            ->leftJoin('p.categories', 'c')
-            ->addSelect('c')
-            ->leftJoin('p.logos', 'l')
-            ->addSelect('l');
-
-
-    }
 
 }
