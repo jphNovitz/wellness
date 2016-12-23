@@ -12,20 +12,17 @@ class ImageRepository extends \Doctrine\ORM\EntityRepository
 {
     public function findFrontImages($nbre = 5)
     {
+        $qb = $this->createQueryBuilder('i')
+            ->select('i.url, i.imageType, i.id')
+            ->join('i.prestatairePhotos', 'prest')
+            ->addSelect('prest.nom')
+            ->andWhere('i.imageType= :type')
+            ->setParameter('type', 'photo')
+            ->setMaxResults($nbre)
+            ->groupBy('prest.nom')
+            ->orderBy('i.id', 'DESC');
 
-        $em = $this->getEntityManager();
-        /*$images = $em->createQuery("SELECT i FROM AppBundle:Image i where i.imageType='photo' ")
-            ->setMaxResults($nbre);
-        return $images->getResult();*/
-        $qb = $em->createQueryBuilder();
-        $images = $qb->select('i')
-            ->from($this->_entityName, 'i')
-            ->where('i.prestatairePhotos IS NOT NULL')
-            ->orderBy('i.id', 'desc')
-            ->setMaxResults($nbre);
-        $query = $qb->getQuery();
-        $result = $query->getResult();
-        return $result;
+        return $qb->getQuery()->execute();
 
 
     }
