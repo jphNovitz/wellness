@@ -41,12 +41,19 @@ class PrestataireRepository extends \Doctrine\ORM\EntityRepository
      */
     public function myFindAll($max = null)
     {
-        $qb = $this->createQueryBuilder('p');
+        $qb = $this->createQueryBuilder('p')
+            ->leftJoin('p.categories', 'c')
+            ->leftJoin('p.localite', 'loc')
+            ->leftJoin('p.logos', 'logos')
+            ->leftJoin('p.photos', 'photos')
+            ->leftJoin('loc.commune', 'commune')
+            ->leftJoin('loc.codePostal', 'cPostal')
+            ->addSelect('p')
+         // ->addSelect('p.id id, p.slug, p.dateInscription, p.nom, p.tel, p.email, p.siteWeb ')
+            ->addSelect('c, loc, commune, cPostal')
+            ->addSelect('logos', 'photos');
 
-        $this->selectPrestataireLogosCategories($qb);
-        $qb->addOrderBy('p.nom', 'ASC')
-            ->setMaxResults($max);
-        return $qb->getQuery()->execute();
+        return $qb->getQuery()->getResult();
     }
 
     /**
@@ -67,14 +74,7 @@ class PrestataireRepository extends \Doctrine\ORM\EntityRepository
             ->addOrderBy('p.dateInscription', 'DESC')
             ->setMaxResults($max);
 
-
         return $qb->getQuery()->execute();
-
-
-        //return new paginator($qb);
-        // utilisation de paginator pour la limitation du nombre de résultats
-        // sinon setMaxResults ne compte pas le nombre d'objets à la sortie mais le nombre d'entité dans la requete
-        // pour $max=4 le queryBuilde ne renvoie que un objet.
 
     }
 

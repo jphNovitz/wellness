@@ -20,6 +20,11 @@ que 1 seule requête.
 - Il reste 7 requêtes:  
 -- 1 pour l'affichage des derniers prestataires  
 -- 1 pour la liste des services  
--- 5 pour l'affichage du meny dynamique, une reqête par prestataire.  C'est là que je peux gagner qqchose à condition de passer à un menu statique.
+-- 5 pour l'affichage du meny dynamique, une reqête par prestataire.  C'est là que je peux gagner qqchose à condition de passer à un menu statique.  
 
+**25-12-2016**  
+Réécriture de la méhode myFind All
+- je ne consomme qu'une seule requete et je ne n'ai pas eu à modifier le template twig.
+- **Si je fais un dump() de ma variable je vois des variables telles que password, est-il possible que qqun accède à ces variables
+**  
 

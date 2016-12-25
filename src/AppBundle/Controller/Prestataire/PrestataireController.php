@@ -28,6 +28,7 @@ class PrestataireController extends Controller
         $repo = $this->getDoctrine()->getManager()->getRepository('AppBundle\Entity\Prestataire');
         $prestataires = $repo->myFindAll($n);
 
+
         return $this->render('public/Prestataires/prestataires-list.html.twig', ['prestataires' => $prestataires]);
     }
 
