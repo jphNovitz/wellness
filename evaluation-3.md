@@ -26,5 +26,13 @@ que 1 seule requête.
 Réécriture de la méhode myFind All
 - je ne consomme qu'une seule requete et je ne n'ai pas eu à modifier le template twig.
 - **Si je fais un dump() de ma variable je vois des variables telles que password, est-il possible que qqun accède à ces variables
-**  
+**   
+
+**26-12-2016**  
+Pagination dans la liste des prestataires
+- modifications controller - repository - vue twig -> la pagination est dans un bloc '_partials'  
+- ajouté un count sur les prestataires  
+-  Tous les éléments de pagination sont envoyé avec la réponse dans un tableau $pagination.  
+- l'aspect de la pagination est exactement comme le modèle.  
+
 

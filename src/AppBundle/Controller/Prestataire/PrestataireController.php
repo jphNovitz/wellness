@@ -20,16 +20,29 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class PrestataireController extends Controller
 {
     /**
-     * @Route("prestataires", name="prestataires_list"),
+     * @Route("prestataires/{page}", name="prestataires_list", requirements={"page": "\d+"}),
      */
-    public function listAction(Request $request)
+    public function listAction(Request $request, $page=1)
     {
-        $n = $request->query->get('n');
+        //$n = $request->query->get('n');
+        $prestataires_par_page=10;
         $repo = $this->getDoctrine()->getManager()->getRepository('AppBundle\Entity\Prestataire');
-        $prestataires = $repo->myFindAll($n);
+
+        $prestataires = $repo->myFindAll($page);
+        $prestataires_nombre = $repo->countPrestataires();
+        $pages_nombre = ceil($prestataires_nombre / $prestataires_par_page);
+        // ceil() arrondi à l'unité superieur ex 7 au lieu de 6.3
 
 
-        return $this->render('public/Prestataires/prestataires-list.html.twig', ['prestataires' => $prestataires]);
+
+        return $this->render('public/Prestataires/prestataires-list.html.twig', [
+            'prestataires' => $prestataires,
+            'pagination' =>[
+                'page'=>$page,
+                'prestataire_nombre'=>$prestataires_nombre,
+                'pages_nombre'=>$pages_nombre,
+            ]
+        ]);
     }
 
 

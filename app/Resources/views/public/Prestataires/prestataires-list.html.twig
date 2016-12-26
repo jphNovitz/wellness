@@ -8,7 +8,11 @@
     {% block body %}
 
         {% include'_partials/bloc/_bloc-prestataires.html.twig' with{'prestataires':prestataires} %}
+
+        {% include'_partials/bloc/_bloc-pagination.html.twig' %}
     {% endblock %}
+
+
 
 {% endembed %}
 

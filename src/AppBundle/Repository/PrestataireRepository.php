@@ -39,7 +39,7 @@ class PrestataireRepository extends \Doctrine\ORM\EntityRepository
      * j'utilise le querybuilder pour récupérer les prestataires
      * je récupere egalement les logos et les categories liées
      */
-    public function myFindAll($max = null)
+    public function myFindAll($page = 1, $n = 10)
     {
         $qb = $this->createQueryBuilder('p')
             ->leftJoin('p.categories', 'c')
@@ -49,11 +49,29 @@ class PrestataireRepository extends \Doctrine\ORM\EntityRepository
             ->leftJoin('loc.commune', 'commune')
             ->leftJoin('loc.codePostal', 'cPostal')
             ->addSelect('p')
-         // ->addSelect('p.id id, p.slug, p.dateInscription, p.nom, p.tel, p.email, p.siteWeb ')
+            // ->addSelect('p.id id, p.slug, p.dateInscription, p.nom, p.tel, p.email, p.siteWeb ')
             ->addSelect('c, loc, commune, cPostal')
             ->addSelect('logos', 'photos');
 
-        return $qb->getQuery()->getResult();
+        //Je prépare la pagination
+        $qb->setFirstResult(($page - 1) * $n)
+            ->setMaxResults($n);
+
+        //return $qb->getQuery()->getResult();
+        return new Paginator($qb);
+    }
+
+    /**
+     * @return array
+     * Compte le nombre de prestataires dans la bd
+     * getScalarResult() renvoie un seul nombre
+     * tout est dans le return car je ne fais qu'une seule chose c'est plus simple
+     */
+    public function countPrestataires(){
+        return $this->createQueryBuilder('p')
+            ->select('count(p)')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
     /**
