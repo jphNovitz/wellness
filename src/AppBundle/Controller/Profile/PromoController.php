@@ -12,26 +12,15 @@ use AppBundle\Service\Utils;
 class PromoController extends Controller
 {
 
-    /**
-     * @Route("/promo/menu", name="promo_menu")
-     */
-    public function menuAction(Request $request, $max, $class = "")
-    {
-        //$manager = $this->getDoctrine()->getManager();
-        //$repo = $manager->getRepository('AppBundle\Entity\Promotion');
-        //$promos = $repo->findNames($max);
 
-        $promos= $this->get("utils")->findNames("Promotion",1);
-        return $this->render('_partials/menu-elements.html.twig',
-            ['elements' => $promos, 'chemin' => 'promo_list', 'class'=>$class] );
-    }
+
     /**
-     * @Route("/promo", name="promos_list")
+     * @Route("/promos", name="promos_list")
      */
     public function listAction()
     {
         $manager=$this->getDoctrine()->getManager();
-        $promos= $manager->getRepository('AppBundle\Entity\Promotion')->findAll();
+        $promos= $manager->getRepository('AppBundle\Entity\Promotion')->myFindAll();
 
         return $this->render('profile/promo/promo-list.html.twig', ['promos'=>$promos]);
     }

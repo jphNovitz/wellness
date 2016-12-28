@@ -22,4 +22,14 @@ class PromotionRepository extends \Doctrine\ORM\EntityRepository
 
     }
 
+    public function myFindAll(){
+        $qb=$this->createQueryBuilder('pr')
+            ->leftJoin('pr.prestataire', 'p')
+            ->leftJoin('pr.categorie', 'c')
+            ->addSelect('c')
+            ->addSelect('p');
+
+        return $qb->getQuery()->getArrayResult();
+    }
+
 }

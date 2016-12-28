@@ -23,4 +23,12 @@ class StageRepository extends \Doctrine\ORM\EntityRepository
 
     }
 
+    public function myFindAll(){
+        $qb=$this->createQueryBuilder('s')
+            ->leftJoin('s.prestataire', 'p')
+            ->addSelect('p');
+
+        return $qb->getQuery()->getArrayResult();
+    }
+
 }

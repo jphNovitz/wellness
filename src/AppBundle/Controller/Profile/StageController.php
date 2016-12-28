@@ -22,7 +22,7 @@ class StageController extends Controller
     public function listAction()
     {
         $manager=$this->getDoctrine()->getManager();
-        $stages= $manager->getRepository('AppBundle\Entity\Stage')->findAll();
+        $stages= $manager->getRepository('AppBundle\Entity\Stage')->myFindAll();
 
         return $this->render('profile/stage/stage-list.html.twig', ['stages'=>$stages]);
     }

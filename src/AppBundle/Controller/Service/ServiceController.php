@@ -21,7 +21,7 @@ class ServiceController extends Controller
         $n = $request->request->get('n');
 
         $repo = $this->getDoctrine()->getRepository('AppBundle\Entity\Categorie');
-        $categories = $repo->findAll($n);
+        $categories = $repo->myFindAll($n);
 
         return $this->render('public/Services/services-list.html.twig', ['services' => $categories]);
 

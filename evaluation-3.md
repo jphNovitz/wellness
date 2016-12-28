@@ -34,5 +34,10 @@ Pagination dans la liste des prestataires
 - ajouté un count sur les prestataires  
 -  Tous les éléments de pagination sont envoyé avec la réponse dans un tableau $pagination.  
 - l'aspect de la pagination est exactement comme le modèle.  
-
-
+  
+**28-12-2016**  
+- Fin de modification de findAll -> myFindAll pour les services, stages et promos (de 21 à 5 requettes) -> requêtes pour le menu  
+- Correction menu "trouver un prestataire"  
+--  ajout d'une route (path) dans le href du menu  
+-- creation de la page d'affichage du formulaire de recherche, la page et le formulaire existaient déjà mais brut sans respecter
+la charte graphique du site.  

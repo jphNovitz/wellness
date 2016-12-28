@@ -1,36 +1,56 @@
-{# formulaire de recherche d'un prestataire trois champs pour le nom du prestataire, la localite et la caegorie de service #}
+{% extends 'base.html.twig' %}
 
-{{ form_start(form) }}
-{{ form_errors(form) }}
+{# modifications HEAD #}
+{% block title %} Recherche prestataire - Wellness {% endblock %}
+{# fin modifications HEAD #}
 
-<div class="row">
-    <div class="col-sm-12 col-md-4">
-        <div class="form-group">
-            {{ form_widget(form.prestataire, {'attr': {'required':false,'placeholder': 'Nom du Prestataire' ,'class': 'form-control'}}) }}
-        </div><!-- /.form-group -->
-    </div><!-- /.col-* -->
+{% block document_title %}
+    <div class="document-title">
+        <h1>{% block document_title_h1 %}Recheche d'un prestataires {% endblock %}</h1>
 
-    <div class="col-sm-12 col-md-4">
-        <div class="form-group">
-            {{ form_widget(form.localite, {'attr': {'required':false,'placeholder': 'Localite' ,'class': 'form-control'}}) }}
-        </div><!-- /.form-group -->
-    </div><!-- /.col-* -->
-    <div class="col-sm-12 col-md-4">
-        <div class="form-group">
-            {{ form_widget(form.service, {'attr': {'placeholder': 'Categorie de Service' ,'class': 'form-control'}}) }}
-        </div><!-- /.form-group -->
-    </div><!-- /.col-* -->
-</div><!-- /.row -->
-<div class="row">
-    <div class="col-sm-8">
+        <ul class="breadcrumb">
+            {% block document_title_list %}
 
-    </div><!-- /.col-* -->
+            {% endblock %}
+        </ul>
+    </div><!-- /.document-title -->
+{% endblock %}
 
-    <div class="col-sm-4">
-        {{ form_widget(form.recherche, {'attr': {'class': 'btn btn-primary'}}) }}
-    </div><!-- /.col-* -->
-</div><!-- /.row -->
+{% block body %}
+    {# formulaire de recherche d'un prestataire trois champs pour le nom du prestataire, la localite et la caegorie de service #}
 
-<hr>
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
 
-{{ form_end(form) }}
+    <div class="row">
+        <div class="col-sm-12 col-md-4">
+            <div class="form-group">
+                {{ form_widget(form.prestataire, {'attr': {'required':false,'placeholder': 'Nom du Prestataire' ,'class': 'form-control'}}) }}
+            </div><!-- /.form-group -->
+        </div><!-- /.col-* -->
+
+        <div class="col-sm-12 col-md-4">
+            <div class="form-group">
+                {{ form_widget(form.localite, {'attr': {'required':false,'placeholder': 'Localite' ,'class': 'form-control'}}) }}
+            </div><!-- /.form-group -->
+        </div><!-- /.col-* -->
+        <div class="col-sm-12 col-md-4">
+            <div class="form-group">
+                {{ form_widget(form.service, {'attr': {'placeholder': 'Categorie de Service' ,'class': 'form-control'}}) }}
+            </div><!-- /.form-group -->
+        </div><!-- /.col-* -->
+    </div><!-- /.row -->
+    <div class="row">
+        <div class="col-sm-8">
+
+        </div><!-- /.col-* -->
+
+        <div class="col-sm-4">
+            {{ form_widget(form.recherche, {'attr': {'class': 'btn btn-primary'}}) }}
+        </div><!-- /.col-* -->
+    </div><!-- /.row -->
+
+    <hr>
+
+    {{ form_end(form) }}
+{% endblock %}

@@ -17,13 +17,13 @@ class SearchController extends Controller
 {
 
     /**
-     * @route("/prestataires/searchForm", name="prestataire_form")
+     * @route("/prestataires/searchForm", name="prestataire_search_form")
      */
     public function searchFormAction(Request $request)
     {
         // creation du formulaire
         $form = $this->createFormBuilder()
-            ->setAction($this->generateUrl('prestataire_form'))
+            ->setAction($this->generateUrl('prestataire_search_form'))
             ->setMethod('GET')
             ->add('prestataire', searchType::class, ['required' => false])
             ->add('localite', searchType::class, ['required' => false])

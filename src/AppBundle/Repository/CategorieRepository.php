@@ -27,27 +27,19 @@ class CategorieRepository extends \Doctrine\ORM\EntityRepository
 
     public function myFindAll($max = null)
     {
-        $qb = $this->createQueryBuilder('c');
-
-        $qb = $this->selectImagePrestataires($qb)->orderBy('c', 'ASC');
-        if (isset($max) && !empty($max)) {
-            $qb->setMaxResults($max);
-            return new Paginator($qb);
-        }
-
-        return $qb->getQuery()->execute();
-
-    }
-
-    private function selectImagePrestataires(QueryBuilder $qb)
-    {
-        return $qb
-            ->leftJoin('c.image', 'im')
-            ->addSelect('im')
+        $qb = $this->createQueryBuilder('c')
+            ->leftJoin('c.image', 'img')
             ->leftJoin('c.prestataires', 'p')
+            ->select('c')
+            ->addSelect('img')
             ->addSelect('p');
 
+
+        return $qb->getQuery()->getArrayResult();
+
     }
+
+
 
 
 }

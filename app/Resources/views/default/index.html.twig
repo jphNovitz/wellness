@@ -16,8 +16,8 @@
         <div class="col-sm-9 col-lg-9">
             <div class="content">
                 <div class="cards-row">
-                    {{ render(url('prestataire_form')) }}  {# formulaire pour la recheche d'un prestataire #}
-                    {{  render(controller("AppBundle:Prestataire/Prestataire:last", {},{'n':4, 'view':'grid'})) }}
+                    {{ render(url('prestataire_search_form')) }}  {# formulaire pour la recheche d'un prestataire #}
+                    {{ render(controller("AppBundle:Prestataire/Prestataire:last", {},{'n':4, 'view':'grid'})) }}
 
                 </div><!-- /.cards-row -->
             </div><!-- /.content -->
@@ -27,7 +27,7 @@
                 <div class="widget">
                     <h2 class="widgettitle">Services</h2>
 
-                    {{  render(controller("AppBundle:Service/Service:widgetList", {},{ 'max': 10, 'class':'menu' })) }}
+                    {{ render(controller("AppBundle:Service/Service:widgetList", {},{ 'max': 10, 'class':'menu' })) }}
 
                 </div><!-- /.sidebar -->
             </div><!-- /.widget -->
