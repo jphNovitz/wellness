@@ -24,7 +24,7 @@ que 1 seule requête.
 
 **25-12-2016**  
 Réécriture de la méhode myFind All
-- je ne consomme qu'une seule requete et je ne n'ai pas eu à modifier le template twig.
+- je ne consomme qu'une seule requête et je ne n'ai pas eu à modifier le template twig.
 - **Si je fais un dump() de ma variable je vois des variables telles que password, est-il possible que qqun accède à ces variables
 **   
 
@@ -41,3 +41,7 @@ Pagination dans la liste des prestataires
 --  ajout d'une route (path) dans le href du menu  
 -- creation de la page d'affichage du formulaire de recherche, la page et le formulaire existaient déjà mais brut sans respecter
 la charte graphique du site.  
+
+**29-12-2016**  
+- Creation d'une vue simple pour la page promo_detail.  Vue ultra simple !  
+
