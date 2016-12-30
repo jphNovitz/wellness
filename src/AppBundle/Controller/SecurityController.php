@@ -2,10 +2,14 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Image;
 use AppBundle\Entity\UserTemp;
 use AppBundle\Entity\Internaute;
 use AppBundle\Entity\Prestataire;
+use AppBundle\Form\Type\ImageType;
+use AppBundle\Form\Type\InternauteType;
 use AppBundle\Form\Type\UserTempType;
+use AppBundle\Form\Type\PrestataireType;
 use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -60,7 +64,7 @@ class SecurityController extends Controller
     /**
      * @Route("/verification/{salt}", name="verification", defaults={"salt"="null"})
      */
-    public function verificationAction(Request $request, $salt)
+    public function verificationAction(Request $request, $salt = null)
     {
         $repo = $this->getDoctrine()->getManager()->getRepository('AppBundle\Entity\UserTemp');
         $test = $repo->findOneBy(["salt" => $salt]);
@@ -79,17 +83,34 @@ class SecurityController extends Controller
              */
 
         }
-        $user = new UserTemp();
-        $form = $this->createForm(UserTempType::class, $user);
+        switch ($test->getType()):
+            case 'prestataire':
+                $user = new Prestataire();
+                $essai = new Image();
+
+                $form = $this->createForm(PrestataireType::class, $user);
+
+                break;
+
+            case 'internaute':
+                $user = new Internaute();
+                $form = $this->createForm(InternauteType::class, $user);
+                break;
+        endswitch;
+        //$user = new UserTemp();
+        //$form = $this->createForm(UserTempType::class, $user);
+
         $form->add("verif_token", HiddenType::class, ['data' => $salt, 'mapped' => false]);
         // je met le salt dans le formulaire créé
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             if ($form['verif_token']->getData() == $salt) {
                 // j'ajoute une verification le verif_token caché dans le formulaire est-il le même que celui de l'url ?
-
+                // var_dump($form->getData()->getLogos());die();
                 $user->setSalt($test->getSalt());
+
                 /**
                  * j'ai créé un petit service qui encode le password fourni dans le form de verification
                  * il fait ensuite quelque test:
@@ -101,12 +122,24 @@ class SecurityController extends Controller
                  */
                 if ($this->get('app.compare_json')->mEncode($user, $test)) {
 
-                    $obj = $this->get('app.prepare_before_persist')->minimumToPersist($test);
-
                     try {
+
+                        $clone = clone $user->getLogos();
+
+                        $user->getLogos()->clear();
                         $manager = $this->getDoctrine()->getManager();
-                        $manager->persist($obj);
-                        $manager->remove($test);
+                        $manager->persist($user);
+                        //$manager->remove($test);
+                        $manager->flush();
+
+                        $essai->setUrl($clone->getValues()[0]);
+                        $essai->setDescription($clone->getValues()[1]);
+                        $essai->setImageType('logo');
+                        $essai->setPrestataireLogos($user);
+
+                        $manager->persist($essai);
+
+
                         $manager->flush();
 
                         $this->addFlash('succes', 'Inscription Réussie !');
@@ -117,7 +150,7 @@ class SecurityController extends Controller
                     }
 
                     $type = $test->getType();
-                    return $this->redirectToRoute($type . '_detail', ["slug" => $obj->getSlug()]);
+                    return $this->redirectToRoute($type . '_detail', ["slug" => $user->getSlug()]);
 
 
                 } else {
@@ -130,7 +163,8 @@ class SecurityController extends Controller
 
             }
         }
-        return $this->render('forms/Registration/register.html.twig', ["form" => $form->createView()]);
+
+        return $this->render('forms/Registration/confirmation.html.twig', ["form" => $form->createView()]);
 
     }
 

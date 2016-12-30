@@ -55,7 +55,6 @@ class UserTemp implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255, unique=true)
-     * @Assert\NotBlank()
      */
     private $password;
 

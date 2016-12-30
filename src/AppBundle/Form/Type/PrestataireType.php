@@ -2,8 +2,11 @@
 
 namespace AppBundle\Form\Type;
 
+use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -27,11 +30,9 @@ class PrestataireType extends AbstractType
                     'choice_label' => 'nom',
                     'multiple' => true,
                     'expanded' => true])
-            ->add('submit', submitType::class)
-            ->add('supprimer', SubmitType::class, ['label' => 'Supprimer mon profil !', 'attr' => array('class' => 'btn btn-danger')]);
+            ->add('logos', ImageType::class,['data_class'=>null])
 
-
-        ;
+            ->add('submit', submitType::class);
     }
 
     /**

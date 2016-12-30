@@ -45,3 +45,11 @@ la charte graphique du site.
 **29-12-2016**  
 - Creation d'une vue simple pour la page promo_detail.  Vue ultra simple !  
 
+**30-12-2016**  
+- Modification de la confirmation d'inscription:  
+-- Le formulaire de confirmation est un formulaire plus ou moins complet 
+-- la partie url et description du logo est un peu sale car manyToOne à persister en deux fois
+-- To do:  
+--- améliorer la partie 'ajout logo' du formulaire
+--- verifier que tous les champs soient requis pour valider
+

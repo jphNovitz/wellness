@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form\Type;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -27,17 +28,7 @@ class UtilisateurType extends AbstractType
             ->add('nom', TextType::class)
             ->add('adresseNum', TextType::class)
             ->add('adresseRue', TextType::class)
-            ->add('localite')
-            /* ces propriété n'ont pas à apparaitre dans le formulaire
-             * Elles seront enlevées
-             * ->add('essais')
-             * ->add('salt')
-             * ->add('roles')
-             * ->add('dateInscription')
-             * ->add('banni')
-             * ->add('confirmation')
-             * ->add('slug')
-             */
+            ->add('localite', EntityType::class, ['class'=>'AppBundle\Entity\Localite'])
         ;
     }
 

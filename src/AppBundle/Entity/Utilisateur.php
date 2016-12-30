@@ -39,8 +39,7 @@ class Utilisateur implements UserInterface
 
     /**
      * @ORM\Column(name="salt", type="string", length=255)
-     * @Assert\NotNull()
-     * @Assert\NotBlank()
+     *
      */
 
     private $salt;
@@ -78,7 +77,7 @@ class Utilisateur implements UserInterface
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
-     * @Assert\NotNull()
+     *
      */
     private $password;
 
@@ -139,7 +138,6 @@ class Utilisateur implements UserInterface
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Localite",cascade={"persist"})
      * @ORM\JoinColumn(name="localite_id", referencedColumnName="id")
-     * @Assert\Type("string")
      */
     private $localite;
 
@@ -542,5 +540,21 @@ class Utilisateur implements UserInterface
         $this->roles = $roles;
 
         return $this;
+    }
+    public function serialize()
+    {
+        return serialize(array(
+            $this->email,
+            $this->username,
+            $this->password,
+        ));
+    }
+    public function unserialize($serialized)
+    {
+        list (
+            $this->email,
+            $this->username,
+            $this->password,
+            ) = unserialize($serialized);
     }
 }
