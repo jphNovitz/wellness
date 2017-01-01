@@ -51,5 +51,16 @@ la charte graphique du site.
 -- la partie url et description du logo est un peu sale car manyToOne à persister en deux fois
 -- To do:  
 --- améliorer la partie 'ajout logo' du formulaire
---- verifier que tous les champs soient requis pour valider
+--- verifier que tous les champs soient requis pour valider  
+
+**01/01/2017**  
+- régroupé fichiers md dans le répertoire /Documentation
+- refactor et commentaires de verificationAction (SecurityController)  
+- la methode minimumToPersist est remplacée par prestatairePersist qui est chargée de faire les deux persist 
+(un pour l'utilisateur et un pour le logo)
+TODO
+persistInternaute
+integrer champs logo dans le design du formulaire
+empecher champs nullable dans le formulaire de confirmation
+mettre des petits test pour detecter probleme dans exécution
 

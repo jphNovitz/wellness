@@ -21,6 +21,7 @@ services:
 
     app.prepare_before_persist:
         class: AppBundle\Util\PrepareBeforePersist
+        arguments: ["@doctrine.orm.entity_manager"]
 
 
 #    service_name:

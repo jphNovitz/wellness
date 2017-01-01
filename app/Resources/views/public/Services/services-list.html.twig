@@ -33,7 +33,7 @@
                                 {% if service.prestataires is empty %}Pour l'instant personne ne propose cette prestation
                                 {% else %} Cette prestation est disponible chez
                                     {% for prestataire in service.prestataires %}
-                                        {{ prestataire.nom }} {% if loop.last==false %}, {% else %} .{% endif %}
+                                       <a href="{{ path('prestataire_detail', {'slug':prestataire.slug}) }}"> {{ prestataire.nom }} </a>{% if loop.last==false %}, {% else %} .{% endif %}
                                     {% endfor %}
                                 {% endif %}
                             {% endblock %}

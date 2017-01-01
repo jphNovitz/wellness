@@ -86,8 +86,7 @@ class SecurityController extends Controller
         switch ($test->getType()):
             case 'prestataire':
                 $user = new Prestataire();
-                $essai = new Image();
-
+                $image = new Image();
                 $form = $this->createForm(PrestataireType::class, $user);
 
                 break;
@@ -97,8 +96,6 @@ class SecurityController extends Controller
                 $form = $this->createForm(InternauteType::class, $user);
                 break;
         endswitch;
-        //$user = new UserTemp();
-        //$form = $this->createForm(UserTempType::class, $user);
 
         $form->add("verif_token", HiddenType::class, ['data' => $salt, 'mapped' => false]);
         // je met le salt dans le formulaire créé
@@ -111,7 +108,7 @@ class SecurityController extends Controller
                 // var_dump($form->getData()->getLogos());die();
                 $user->setSalt($test->getSalt());
 
-                /**
+                /*
                  * j'ai créé un petit service qui encode le password fourni dans le form de verification
                  * il fait ensuite quelque test:
                  *  - serialize les deux objets en utilisant trois champs  et les COMPARE
@@ -123,25 +120,7 @@ class SecurityController extends Controller
                 if ($this->get('app.compare_json')->mEncode($user, $test)) {
 
                     try {
-
-                        $clone = clone $user->getLogos();
-
-                        $user->getLogos()->clear();
-                        $manager = $this->getDoctrine()->getManager();
-                        $manager->persist($user);
-                        //$manager->remove($test);
-                        $manager->flush();
-
-                        $essai->setUrl($clone->getValues()[0]);
-                        $essai->setDescription($clone->getValues()[1]);
-                        $essai->setImageType('logo');
-                        $essai->setPrestataireLogos($user);
-
-                        $manager->persist($essai);
-
-
-                        $manager->flush();
-
+                       $this->get('app.prepare_before_persist')->prestatairePersist($user, $image, $test);
                         $this->addFlash('succes', 'Inscription Réussie !');
                     } catch (ORMException $e) {
                         $this->addFlash('error', 'Il y eu un probleme ');

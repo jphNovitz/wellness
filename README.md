@@ -1,23 +1,18 @@
-isl_wellness
-============
-
-Projet Annuaire Wellness  September 29, 2016, 7:20 pm.
-
-Création des entité Utilisateur, Prestataires et Internaute
-===========================================================
+Annuaire Wellness et Bien-être  
+------------------------------  
   
- Utilisation de Single Table Inheritance
- ---------------------------------------
+    
+      
+J'ai essayé de mettre quelques renseignements sur mon projet, je les ai placé dans le répertoire /Documentation  
   
-* Créer une entité Utilisateur qui contient ce qui sera commun aux entités Prestataire et internaute.
-* Créer les entités Prestataire et Internaute en ajoutant "extends Utilisateur"  
-* Modification de l'annotation de l'entité Utilisateur
-  * @ORM\InheritanceType("SINGLE_TABLE")
-  * @ORM\DiscriminatorColumn(name="type", type="string")
-  * @ORM\DiscriminatorMap({"Utilisateur" = "Utilisateur", "prestataire" = "Prestataire", "internaute" = "Internaute"})
-* Pas de champs 'type' c'est doctrine qui s'en occuppe
-* Les champs des Entités filles doivent être mis à Nullable=true  
+Documentation/  
+- README.md : fichier créé au départ du projet (à mettre à jour)  
+- Menu-Dynamique.md : explique un peu comment je me suis organisé pour les menus dynamiques  
+- evaluation-3.md :  explications des modification faites au projet entre l'évaluation 2 et l'évaluation 3.  
   
-Utilisation de Hautelook/aliceBundle qui s'appuie sur Faker de FZaninotto.
-
-
+    
+      
+        
+Novitz Jean-Philiooe
+<mailto:hello@jiphi.be>
+2016-2017 @ Isl ProSoc Liège

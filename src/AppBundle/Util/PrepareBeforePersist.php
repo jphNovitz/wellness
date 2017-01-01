@@ -2,51 +2,54 @@
 
 namespace AppBundle\Util;
 
+use AppBundle\Entity\Image;
+use AppBundle\Entity\Prestataire;
 use AppBundle\Entity\UserTemp;
 use AppBundle\Entity\Utilisateur;
+use Doctrine\ORM\EntityManager;
 
 
 class PrepareBeforePersist
 {
-    /**
-     * @param UserTemp $test
-     * @return mixed
-     *
-     * recoit l'utilisateur $test provenant de la BD
-     * retour $obj qui est $test plus modifications
-     *
-     * Au moment de passer mon utilisateur de USerTemp à Prestataire ou Intenaute j'ai besoin de 'forcer' certains
-     * champs en leur mettant un contenu à '' car dans le schema leur contenu ne peu pas être null
-     * lors de l'inscription je n'ai entré que le username, le mail et le mot de pass.
-     *
-     * Ensuite je dois demander à l'utilisateur de competer son profil
-     * to do: rediriger l'utilisateur vers l'update tant que le profil n'est pas completr au minimum
-     *
-     */
-    public  function minimumToPersist(UserTemp $test)
+
+    protected $manager;
+    public function __construct(EntityManager $entityManager)
     {
-        $type = $test->getType();
-// $user et $test sont identique alors je peux créer definitivement mon User
-        $class = 'AppBundle\Entity\\' . ucfirst($type);
-        $obj = new $class();
-        $obj->setUsername($test->getUsername());
-        $obj->setEmail($test->getEmail());
-        $obj->setPassword($test->getPassword());
-        $obj->setSalt($test->getSalt());
-        $obj->setConfirmation(false);
-        $obj->setNom($test->getUsername());
-        $obj->setAdresseNum('');
-        $obj->setAdresseRue('');
+        $this->manager=$entityManager;
+    }
 
-        if ($type == 'prestataire') {
-            $obj->setRoles(['ROLE_PRESTATAIRE', 'ROLE_USER']);
-        }
+    public function prestatairePersist(Prestataire $user, Image $image, UserTemp $test)
+    {
 
-        if ($type == 'internaute') {
-            $obj->setNewsletter = true;
-            $obj->setRoles(['ROLE_INTERNAUTE', 'ROLE_USER']);
 
-        }
-        return $obj;
+        /* One To Many
+         * => Je suis obligeé de persister mes données en deux étapes
+        */
+        $clone = clone $user->getLogos(); // je fais une copie des infos concernant le logo (many)
+        $user->getLogos()->clear();       // je retire ces infos avant de persister l'utilisateur
+
+      //  $manager = $this->getDoctrine()->getManager();
+        $this->manager->persist($user);
+        $this->manager->flush();
+
+        /*
+         * je set l'Url et la Description -  je sais que 0 est url et 1 description
+         * to do: modifier pour une solution plus propre
+         */
+
+        $image->setUrl($clone->getValues()[0]);
+        $image->setDescription($clone->getValues()[1]);
+        $image->setImageType('logo');
+
+        /*
+         * Maintenant que j'ai flushé $user j'ai un id pour persister/flusher le Logo
+         * C'est un many (logo) to one (user) mais je n'ajoute qu'un seul logo à la fois
+         */
+        $image->setPrestataireLogos($user);
+        $this->manager->persist($image);
+        //$manager->remove($test);
+        if ($this->manager->flush()) return true;
+        else return false;
+
     }
 }
