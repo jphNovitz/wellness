@@ -17,9 +17,9 @@ class InternauteType extends AbstractType
         $builder->add('utilisateur', UtilisateurType::class,
             ['data_class' => 'AppBundle\Entity\Internaute'])
             ->add('prenom')
-            ->add('newsletter')
+            ->add('photos', ImageType::class,['data_class'=>null])
             ->add('submit', submitType::class)
-            ->add('supprimer', SubmitType::class, ['label' => 'Supprimer mon profil !', 'attr' => array('class' => 'btn btn-danger')])
+            //->add('supprimer', SubmitType::class, ['label' => 'Supprimer mon profil !', 'attr' => array('class' => 'btn btn-danger')])
 
         ;
     }

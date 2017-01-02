@@ -4,10 +4,12 @@ namespace AppBundle\Controller\Profile;
 
 use \AppBundle\Form\Type\InternauteType;
 
+use AppBundle\Form\Type\PrestataireType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use AppBundle\Form\Type\UpdatePrestataireType;
 
 class ProfileController extends Controller
 {
@@ -16,13 +18,14 @@ class ProfileController extends Controller
      */
     public function viewAction(Request $request)
     {
-        
-        $internaute = $this->get('security.token_storage')->getToken()->getUser();
-        $commentaires= $this->getDoctrine()->getManager()
-            ->getRepository('AppBundle\Entity\Commentaire')
-            ->findBy(['internaute'=>$internaute]);
 
-        return $this->render('profile/profile-detail.html.twig', ['internaute'=> $internaute]);
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        if (get_class($user) == 'AppBundle\Entity\Prestataire') return $this->redirectToRoute('prestataire_detail', ["slug" => $user->getSlug()]);
+        $commentaires = $this->getDoctrine()->getManager()
+            ->getRepository('AppBundle\Entity\Commentaire')
+            ->findBy(['internaute' => $user]);
+
+        return $this->render('profile/profile-detail.html.twig', ['internaute' => $user]);
     }
 
     /**
@@ -30,43 +33,32 @@ class ProfileController extends Controller
      */
     public function updateAction(Request $request)
     {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $class = explode('\\', get_class($user));
+        $class= end($class); // en attendant de trouver mieux
 
-        try {
-            if (!$internaute = $this->get('security.token_storage')->getToken()->getUser()) {
+        $form = $this->createForm(UpdatePrestataireType::class, $user);
+       // if ($class == "Internaute") $form->add('prenom');
 
-                throw new  \Exception();
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('supprimer')->isClicked()) {
+                return $this->redirectToRoute('prestataire_delete');
             }
 
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($user);
+            $manager->flush();
 
-            $form=$this->createForm(InternauteType::class,$internaute);
+            $this->addFlash('succes', 'Mise à jour effectuée avec succes');
+            return $this->redirectToRoute('profile_detail', ["slug" => $user->getSlug()]);
 
-            $form->handleRequest($request);
-
-
-            if ($form->isSubmitted() && $form->isValid()) {
-
-                if ($form->get('supprimer')->isClicked()) {
-                    return $this->redirectToRoute('internaute_delete');
-                }
-
-                if ($internaute->getConfirmation() == false) $internaute->setConfirmation(true);
-                $manager = $this->getDoctrine()->getManager();
-                $manager->persist($internaute);
-                $manager->flush();
-
-                $this->addFlash('succes', 'Mise à jour effectuée avec succes');
-                return $this->redirectToRoute('internaute_detail');
-
-
-            }
-
-            return $this->render('profile/profile-up.html.twig', ["form" => $form->createView()]);
-        } catch (\Exception $e) {
-            $this->addFlash('error', "Il y a eu un probleme.");
-            return $this->redirectToRoute('homepage');
 
         }
+        return $this->render('forms/update-prestataire.html.twig', ['form' => $form->createView()]);
     }
+
+
 
     /**
      * @Route("/profile/delete", name="profile_delete")

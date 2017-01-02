@@ -3,6 +3,7 @@
 namespace AppBundle\Util;
 
 use AppBundle\Entity\Image;
+use AppBundle\Entity\Internaute;
 use AppBundle\Entity\Prestataire;
 use AppBundle\Entity\UserTemp;
 use AppBundle\Entity\Utilisateur;
@@ -47,7 +48,28 @@ class PrepareBeforePersist
          */
         $image->setPrestataireLogos($user);
         $this->manager->persist($image);
-        //$manager->remove($test);
+        //$this->manager->remove($test);
+        if ($this->manager->flush()) return true;
+        else return false;
+
+    }
+
+    public function internautePersist(Internaute $user, Image $image=null, UserTemp $test)
+    {
+
+        $clone = clone $user->getPhotos();
+        $user->getPhotos()->clear();
+
+        $this->manager->persist($user);
+        $this->manager->flush();
+
+        $image->setUrl($clone->getValues()[0]);
+        $image->setDescription($clone->getValues()[1]);
+        $image->setImageType('logo');
+
+        $image->setInternautePhotos($user);
+        $this->manager->persist($image);
+        //$this->manager->remove($test);
         if ($this->manager->flush()) return true;
         else return false;
 

@@ -83,16 +83,20 @@ class SecurityController extends Controller
              */
 
         }
-        switch ($test->getType()):
+        $image = new Image();
+        $type = $test->getType();
+
+        switch ($type):
             case 'prestataire':
                 $user = new Prestataire();
-                $image = new Image();
+                //$image = new Image();
                 $form = $this->createForm(PrestataireType::class, $user);
 
                 break;
 
             case 'internaute':
                 $user = new Internaute();
+                //$image = new Image();
                 $form = $this->createForm(InternauteType::class, $user);
                 break;
         endswitch;
@@ -118,18 +122,22 @@ class SecurityController extends Controller
                  *  --- Sinon alors on continue
                  */
                 if ($this->get('app.compare_json')->mEncode($user, $test)) {
-
+$user->addRole("ROLE_USER");
                     try {
-                       $this->get('app.prepare_before_persist')->prestatairePersist($user, $image, $test);
+                        if ($type == "prestataire") {
+                            $this->get('app.prepare_before_persist')->prestatairePersist($user, $image, $test);
+                        } else {
+                            $this->get('app.prepare_before_persist')->internautePersist($user, $image, $test);
+                        }
+
                         $this->addFlash('succes', 'Inscription Réussie !');
                     } catch (ORMException $e) {
                         $this->addFlash('error', 'Il y eu un probleme ');
-                        return $this->redirectToRoute('homepage');
+
 
                     }
 
-                    $type = $test->getType();
-                    return $this->redirectToRoute($type . '_detail', ["slug" => $user->getSlug()]);
+                    return $this->redirectToRoute('homepage');
 
 
                 } else {
@@ -143,7 +151,7 @@ class SecurityController extends Controller
             }
         }
 
-        return $this->render('forms/Registration/confirmation.html.twig', ["form" => $form->createView()]);
+        return $this->render('forms/Registration/confirmation-' . $type . '.html.twig', ["form" => $form->createView()]);
 
     }
 

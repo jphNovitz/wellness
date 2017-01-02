@@ -86,11 +86,14 @@
                                 <h2 class="page-title">Activités</h2>
                                 <div class="form-group">
                                     <label>Site Web</label>
+                                    {{ form_widget(form.siteWeb) }}
                                     {{ form_widget(form.siteWeb, {'attr':{'class':'form-control'}}) }}
                                 </div> <!-- form-group -->
                                 <div class="form-group">
                                     <div class="checkbox">
+
                                         <label>Catégories de services</label>
+                                        {{ form_errors(form.categories) }}
                                         {{ form_widget(form.categories) }}
                                     </div>
                                 </div> <!-- form-group -->
@@ -99,15 +102,25 @@
 
                     </div> <!-- row -->
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>Logo</label>
+                                {{ form_errors(form.logos.url) }}
+                                {{ form_widget(form.logos.url, {'attr':{'class':'form-control', 'required':'true'}}) }}
 
                             </div> <!-- form-group -->
-                        </div> <!-- col md 6 -->
-                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Description</label>
+                                {{ form_errors(form.logos.description) }}
+                                {{ form_widget(form.logos.description, {'attr':{'class':'form-control'}}) }}
+
+                            </div> <!-- form-group -->
+                        </div> <!-- col md 4 -->
+                        <div class="col-md-4">
+                        </div> <!-- col md 4 -->
+                        <div class="col-md-4">
                             {{ form_widget(form.submit, {'attr':{'class':'btn btn-primary'}}) }}
-                        </div> <!-- col md 6 -->
+                        </div> <!-- col md 4 -->
                     </div><!-- row -->
 
                 </div> <!-- col 12 -->

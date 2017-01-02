@@ -49,18 +49,27 @@ la charte graphique du site.
 - Modification de la confirmation d'inscription:  
 -- Le formulaire de confirmation est un formulaire plus ou moins complet 
 -- la partie url et description du logo est un peu sale car manyToOne à persister en deux fois
--- To do:  
---- améliorer la partie 'ajout logo' du formulaire
---- verifier que tous les champs soient requis pour valider  
+
 
 **01/01/2017**  
 - régroupé fichiers md dans le répertoire /Documentation
 - refactor et commentaires de verificationAction (SecurityController)  
 - la methode minimumToPersist est remplacée par prestatairePersist qui est chargée de faire les deux persist 
 (un pour l'utilisateur et un pour le logo)
-TODO
-persistInternaute
-integrer champs logo dans le design du formulaire
+  
+**02-01-2017**  
+- intégré champs logos (url et desc) dans la confirmation
+- formulaire de confirmation pour internaute
+- internautePersist (sale et code dupliqué mais fonctionne) 
+- correction route /profile pour prestataire -> renvoie vers "prestataire_detail"
+- update/profile pour le prestataire (FormTyp, form twig controller)
+
+
+
+TO-DO
+
+ajouter setConfirmation(true) dans la confirmation
+trouver un moyen de faire update/profile internaute sans trop faire de code dupliqué
 empecher champs nullable dans le formulaire de confirmation
 mettre des petits test pour detecter probleme dans exécution
 

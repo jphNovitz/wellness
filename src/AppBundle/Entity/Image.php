@@ -58,7 +58,7 @@ class Image
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Prestataire", inversedBy="logos")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $prestataireLogos;
 
@@ -144,6 +144,22 @@ class Image
     public function getImageType()
     {
         return $this->imageType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInternautePhotos()
+    {
+        return $this->internautePhotos;
+    }
+
+    /**
+     * @param mixed $internautePhotos
+     */
+    public function setInternautePhotos($internautePhotos)
+    {
+        $this->internautePhotos = $internautePhotos;
     }
 
 
