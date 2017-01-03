@@ -2,14 +2,12 @@
 
 namespace AppBundle\Controller\Profile;
 
-use \AppBundle\Form\Type\InternauteType;
-
-use AppBundle\Form\Type\PrestataireType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use AppBundle\Form\Type\UpdatePrestataireType;
+use AppBundle\Form\Type\UpdateInternauteType;
 
 class ProfileController extends Controller
 {
@@ -34,30 +32,44 @@ class ProfileController extends Controller
     public function updateAction(Request $request)
     {
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        $class = explode('\\', get_class($user));
-        $class= end($class); // en attendant de trouver mieux
+        $class = $this->getClassName($user);
 
-        $form = $this->createForm(UpdatePrestataireType::class, $user);
-       // if ($class == "Internaute") $form->add('prenom');
+        switch ($class):
+            case "Prestataire":
+                $form = $this->createForm(UpdatePrestataireType::class, $user);
+                break;
+            case "Internaute":
+                $form = $this->createForm(UpdateInternauteType::class, $user);
+                break;
+        endswitch;
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($form->get('supprimer')->isClicked()) {
-                return $this->redirectToRoute('prestataire_delete');
+
+            if ($form->get('perso')->get('supprimer')->isClicked()) {
+                return $this->redirectToRoute('profile_delete');
             }
 
-            $manager = $this->getDoctrine()->getManager();
-            $manager->persist($user);
-            $manager->flush();
+            if ($this->persistOrDelete($user)) {
+                $this->addFlash('succes', 'Mise à jour effectuée avec succes');
+                return $this->redirectToRoute('profile_detail', ["slug" => $user->getSlug()]);
+            }
 
-            $this->addFlash('succes', 'Mise à jour effectuée avec succes');
-            return $this->redirectToRoute('profile_detail', ["slug" => $user->getSlug()]);
+            /* if ($form->get('perso')->get('supprimer')->isClicked()) {
+                 return $this->redirectToRoute('prestataire_delete');
+             }
+
+             $manager = $this->getDoctrine()->getManager();
+             $manager->persist($user);
+             $manager->flush();
+
+             $this->addFlash('succes', 'Mise à jour effectuée avec succes');
+             return $this->redirectToRoute('profile_detail', ["slug" => $user->getSlug()]); */
 
 
         }
-        return $this->render('forms/update-prestataire.html.twig', ['form' => $form->createView()]);
+        return $this->render('forms/update-'.strtolower($class).'.html.twig', ['form' => $form->createView()]);
     }
-
 
 
     /**
@@ -84,6 +96,26 @@ class ProfileController extends Controller
         }
 
         return $this->render('profile/profile-delete.html.twig', ['user' => $user, 'form' => $form->createView()]);
+    }
+
+    /*
+     * methodes utiles pour eviter la réplication de code
+     * sera certainement déplacé dans un service
+     */
+    private function getClassName($user)
+    {
+
+        $class = explode('\\', get_class($user));
+        $class = end($class); // en attendant de trouver mieux
+        return $class;
+    }
+
+    private function persistOrDelete($user)
+    {
+
+        $manager = $this->getDoctrine()->getManager();
+        $manager->persist($user);
+        $manager->flush();
     }
 
 }

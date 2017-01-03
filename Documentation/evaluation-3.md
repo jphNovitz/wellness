@@ -64,10 +64,16 @@ la charte graphique du site.
 - correction route /profile pour prestataire -> renvoie vers "prestataire_detail"
 - update/profile pour le prestataire (FormTyp, form twig controller)
 
-
+**03-01-2017**  
+- modifcation update/profile pour redirriger vers update internaute ou prestataire  
+-- essayé de duplique le moins de code possible  
+-- code dans une fonciton externe pour réduire code dans l'Action du Controller 
+--  deux formulaires ok fonctionnels  
+-- information de base seulement  
 
 TO-DO
 
+faire l'update des infos de connection, images, stages et promos  
 ajouter setConfirmation(true) dans la confirmation
 trouver un moyen de faire update/profile internaute sans trop faire de code dupliqué
 empecher champs nullable dans le formulaire de confirmation

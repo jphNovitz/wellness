@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{# modifications HEAD #}
+{% block title %} Modification Internaute - Annuaire Wellness {% endblock %}
+{# fin modifications HEAD #}
+
+ {% block document_title %}
+
+ {% endblock %}
+
+{% block body %}
+
+    <div class="content-admin-main-inner">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-title">
+                        <h1>Modification</h1>
+                    </div> <!-- page-title -->
+                    {{ form_start(form) }}
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h2 class="page-title">Coordonnées</h2>
+                            <div class="form-group">
+                                <label>Nom </label>
+                                {{ form_errors(form.perso.nom) }}
+                                {{ form_widget(form.perso.nom, {'attr':{'class':'form-control'}}) }}
+                            </div> <!-- form-group -->
+                            <div class="form-group">
+                                <label>Prenom </label>
+                                {{ form_errors(form.prenom) }}
+                                {{ form_widget(form.prenom, {'attr':{'class':'form-control'}}) }}
+                            </div> <!-- form-group -->
+                            <div class="form-group">
+                                <label>Rue</label>
+                                {{ form_errors(form.perso.adresseRue) }}
+                                {{ form_widget(form.perso.adresseRue, {'attr':{'class':'form-control'}}) }}
+                            </div> <!-- form-group -->
+                            <div class="form-group">
+                                <label>N°</label>
+                                {{ form_errors(form.perso.adresseNum) }}
+                                {{ form_widget(form.perso.adresseNum, {'attr':{'class':'form-control'}}) }}
+                            </div> <!-- form-group -->
+                            <div class="form-group">
+                                <label>Localite</label>
+                                {{ form_errors(form.perso.localite) }}
+                                {{ form_widget(form.perso.localite, {'attr':{'class':'form-control'}}) }}
+                            </div> <!-- form-group -->
+                            <div class="form-group">
+
+                            </div> <!-- form-group -->
+                            <div class="form-group">
+
+                            </div> <!-- form-group -->
+                        </div> <!-- col 3 -->
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Inscription Newsletter </label>
+
+                                {{ form_widget(form.newsletter) }}
+
+                            </div> <!-- form-group -->
+                        </div> <!-- col 4 -->
+                        <div class="col-md-5">
+
+                        </div> <!-- col 5 -->
+                    </div> <!-- row -->
+                    <div class="row">
+
+                        <div class="col-md-4">
+                        </div> <!-- col md 4 -->
+                        <div class="col-md-4">
+                            {{ form_widget(form.perso.submit, {'attr':{'class':'btn btn-primary'}}) }} {{ form_widget(form.perso.supprimer) }}
+                        </div> <!-- col md 4 -->
+                    </div><!-- row -->
+
+                </div> <!-- col 12 -->
+                {{ form_end(form) }}
+            </div> <!-- row -->
+        </div> <!-- container fluid -->
+    </div> <!-- content-admin-main-inner -->
+
+{% endblock %}
