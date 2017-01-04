@@ -29,6 +29,7 @@ class UtilisateurType extends AbstractType
             ->add('adresseNum', TextType::class)
             ->add('adresseRue', TextType::class)
             ->add('localite', EntityType::class, ['class'=>'AppBundle\Entity\Localite'])
+            ->remove('plainPassword')
         ;
     }
 

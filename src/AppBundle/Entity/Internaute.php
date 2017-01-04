@@ -42,7 +42,7 @@ class Internaute extends Utilisateur
     /**
      * @var bool
      *
-     * @ORM\Column(name="newsletter", type="boolean", nullable=true)
+     * @ORM\Column(name="newsletter", type="boolean", nullable=false)
      */
     private $newsletter;
 
@@ -65,6 +65,7 @@ class Internaute extends Utilisateur
         $this->commentaires = new ArrayCollection();
         $this->abus = new ArrayCollection();
         $this->photos=new ArrayCollection();
+        $this->newsletter=1;
     }
 
     public function __toString()

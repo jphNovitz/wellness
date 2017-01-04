@@ -1,9 +1,19 @@
+{% extends 'base.html.twig' %}
+
 {# modifications HEAD #}
 {% block title %} Recherche prestataire - Wellness {% endblock %}
 {# fin modifications HEAD #}
 
 {% block document_title %}
+    <div class="document-title">
+        <h1>{% block document_title_h1 %}Recheche d'un prestataires {% endblock %}</h1>
 
+        <ul class="breadcrumb">
+            {% block document_title_list %}
+
+            {% endblock %}
+        </ul>
+    </div><!-- /.document-title -->
 {% endblock %}
 
 {% block body %}

@@ -71,11 +71,19 @@ la charte graphique du site.
 --  deux formulaires ok fonctionnels  
 -- information de base seulement  
 
+**04-01-2017**  
+- formulaire d'ajout d'un stage pour un prestataire: Action(form)/vue
+
 TO-DO
 
-faire l'update des infos de connection, images, stages et promos  
-ajouter setConfirmation(true) dans la confirmation
-trouver un moyen de faire update/profile internaute sans trop faire de code dupliqué
-empecher champs nullable dans le formulaire de confirmation
-mettre des petits test pour detecter probleme dans exécution
+* ajout stage :  
+  - verifier l'utilisateur
+  -  catcher les erreurs  
+  - bloquer les cas ou la date de fin est antérieure à la date de début.
+  
+* faire l'update des infos de connection, images, stages et promos  
+* ajouter setConfirmation(true) dans la confirmation
+* trouver un moyen de faire update/profile internaute sans trop faire de code dupliqué
+* empecher champs nullable dans le formulaire de confirmation
+* mettre des petits test pour detecter probleme dans exécution
 

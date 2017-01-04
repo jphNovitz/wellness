@@ -51,7 +51,7 @@ class ProfileController extends Controller
             }
 
             if ($this->persistOrDelete($user)) {
-                $this->addFlash('succes', 'Mise à jour effectuée avec succes');
+                $this->addFlash('succes', 'Mise à jour effectuée ');
                 return $this->redirectToRoute('profile_detail', ["slug" => $user->getSlug()]);
             }
 

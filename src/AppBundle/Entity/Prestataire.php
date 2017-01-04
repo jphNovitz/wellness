@@ -53,6 +53,8 @@ class Prestataire extends Utilisateur
     /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Categorie", inversedBy="prestataires")
      * @ORM\JoinTable(name="prestataires_categories")
+     * @Assert\NotNull(message="Merci de remplir au moins une  categorie de service")
+     *
      */
     private $categories;
 
