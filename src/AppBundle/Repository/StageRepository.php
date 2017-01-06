@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Repository;
+use AppBundle\Entity\Prestataire;
 
 /**
  * StageRepository
@@ -23,8 +24,21 @@ class StageRepository extends \Doctrine\ORM\EntityRepository
 
     }
 
-    public function myFindAll(){
-        $qb=$this->createQueryBuilder('s')
+    public function getListByUser($uid)
+    {
+
+        $qb = $this->createQueryBuilder('s')
+            ->andWhere('s.prestataire = :uid')
+           ->setParameter('uid', $uid)
+            //->orderBy('s.fin', 'ASC');
+;
+
+        return $qb->getQuery()->getArrayResult();
+    }
+
+    public function myFindAll()
+    {
+        $qb = $this->createQueryBuilder('s')
             ->leftJoin('s.prestataire', 'p')
             ->addSelect('p');
 

@@ -77,8 +77,14 @@
                         </div> <!-- col 4 -->
                         <div class="col-md-5">
                             <h2>Vous proposez les stages suivants</h2>
-                                 To do: ajouter la liste de stages<br />
-                            <a href="{{ path('stage_create') }}">Ajouter un stage</a>
+                            {% for stage in stages %}
+                            <br/>
+                            <a href="{{ path('stage_update', {'slug':stage.slug}) }}"> <i class="fa fa-pencil-square-o alert-info"></i></a>
+                            <a href="{{ path('stage_delete', {'slug':stage.slug}) }}"><i class="fa fa-trash-o alert-danger" aria-hidden="true"></i></a>
+
+                                {{ stage.nom }}
+                                {% endfor %}
+                                <p><a href="{{ path('stage_create') }}">Ajouter un stage</a></p>
                         </div> <!-- col 5 -->
                     </div> <!-- row -->
                     <div class="row">

@@ -32,10 +32,17 @@ class ProfileController extends Controller
     public function updateAction(Request $request)
     {
         $user = $this->get('security.token_storage')->getToken()->getUser();
+        if (!is_object($user)) {
+            $this->addFlash('error', 'Veuillez vous reconnecter ou peut-être vous inscrire. ');
+            return $this->redirectToRoute('login');
+        }
+
         $class = $this->getClassName($user);
 
         switch ($class):
             case "Prestataire":
+                $uid=$user->getId();
+                $stages=$this->getDoctrine()->getManager()->getRepository('AppBundle:Stage')->getListByUser($uid);
                 $form = $this->createForm(UpdatePrestataireType::class, $user);
                 break;
             case "Internaute":
@@ -55,20 +62,8 @@ class ProfileController extends Controller
                 return $this->redirectToRoute('profile_detail', ["slug" => $user->getSlug()]);
             }
 
-            /* if ($form->get('perso')->get('supprimer')->isClicked()) {
-                 return $this->redirectToRoute('prestataire_delete');
-             }
-
-             $manager = $this->getDoctrine()->getManager();
-             $manager->persist($user);
-             $manager->flush();
-
-             $this->addFlash('succes', 'Mise à jour effectuée avec succes');
-             return $this->redirectToRoute('profile_detail', ["slug" => $user->getSlug()]); */
-
-
         }
-        return $this->render('forms/update-'.strtolower($class).'.html.twig', ['form' => $form->createView()]);
+        return $this->render('forms/update-'.strtolower($class).'.html.twig', ['form' => $form->createView(), 'stages'=>$stages]);
     }
 
 
@@ -104,7 +99,6 @@ class ProfileController extends Controller
      */
     private function getClassName($user)
     {
-
         $class = explode('\\', get_class($user));
         $class = end($class); // en attendant de trouver mieux
         return $class;

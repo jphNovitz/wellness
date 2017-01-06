@@ -72,10 +72,18 @@ la charte graphique du site.
 -- information de base seulement  
 
 **04-01-2017**  
-- formulaire d'ajout d'un stage pour un prestataire: Action(form)/vue
+- formulaire d'ajout d'un stage pour un prestataire: Action(form)/vue  
+
+**06-01-2017**  
+- gestion des stages pour un prestataire.  Stage dans la page update profile avec icone pour modification et suppression  
+- ajout d'une methode repository
 
 TO-DO
 
+
+* plusieurs fois l'action de supprimer et duplication de code -> voir si possible de diminuer le code en créant une méthode
+utilisable ou un service.
+* essyer de diminuer le code du controller pour un stage
 * ajout stage :  
   - verifier l'utilisateur
   -  catcher les erreurs  
@@ -85,5 +93,5 @@ TO-DO
 * ajouter setConfirmation(true) dans la confirmation
 * trouver un moyen de faire update/profile internaute sans trop faire de code dupliqué
 * empecher champs nullable dans le formulaire de confirmation
-* mettre des petits test pour detecter probleme dans exécution
+* mettre des petits tests pour détecter problèmes dans exécution
 

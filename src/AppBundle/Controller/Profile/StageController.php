@@ -8,15 +8,11 @@ use AppBundle\Form\Type\StageType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 
 class StageController extends Controller
 {
-
-    /*
-     * Attention ne pas publier de modifier stage_list avec un id et tout ce qui va avec
-     * stage_list est ici pour faire de la figuration pendant la construction du squelette Controllers/Vues
-     */
 
     /**
      * @Route("/stage", name="stages_list")
@@ -49,7 +45,7 @@ class StageController extends Controller
             $this->addFlash('error', 'Nous avons rencontré un problème, veuillez assayer après reconexion');
             return $this->redirectToRoute('login');
         }
-   // le code ci dessus ne sert probablement à rien
+        // le code ci dessus ne sert probablement à rien
         $form = $this->createForm(StageType::class, $stage = new Stage());
 
         $form->handleRequest($request);
@@ -67,31 +63,54 @@ class StageController extends Controller
         return $this->render('profile/stage/stage-create.html.twig', ['form' => $form->createView()]);
     }
 
+
     /**
-     * @Route("/stage", name="stage_view")
+     * @Route("/update/stage/{slug}", name="stage_update")
+     * @ParamConverter("stage", class="AppBundle:Stage")
      */
-    public function viewAction(Request $request)
+    public function updateAction(Request $request, $stage)
     {
-        // ici viendra le code qui renvoie vers un stage
-        return $this->render('profile/profiles/stage-detail.html.twig');
+        $form = $this->createForm(StageType::class, $stage);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($stage);
+            $manager->flush();
+
+            $this->addFlash('succes', 'Votre stage a été modifié.');
+            return $this->redirectToRoute('profile_update');
+
+        }
+        return $this->render(':profile/stage:stage-up.html.twig', ['form'=>$form->createView()]);
     }
 
     /**
-     * @Route("/stage/update", name="stage_update")
+     * @Route("/delete/Stage/{slug}", name="stage_delete")
+     * @ParamConverter("stage", class="AppBundle:Stage")
      */
-    public function updateAction(Request $request)
+    public function deleteAction(Request $request, Stage $stage)
     {
-        // ici viendra le code qui renvoie vers la modification d'un stage
-        return $this->render('profile/profiles/stage-update.html.twig');
-    }
 
-    /**
-     * @Route("/stage/delete", name="stage_delete")
-     */
-    public function deleteAction(Request $request)
-    {
-        // ici viendra le code qui renvoie vers la suppression d'un stage
-        return $this->render('profile/profiles/stage-delete.html.twig');
+        $form = $this->createFormBuilder($stage)
+            ->add('supprimer', SubmitType::class, ['label' => 'OUI Supprimer !', 'attr' => ['class' => 'label label-lg label-danger']])
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager=$this->getDoctrine()->getManager();
+            $manager->remove($stage);
+            $manager->flush();
+
+            $this->addFlash('succes', 'Stage Supprimé.');
+            return $this->redirectToRoute('profile_update');
+
+
+        }
+        return $this->render('profile/stage/stage-delete.html.twig', ["stage"=>$stage, "form"=>$form->createView()]);
     }
 
 }
