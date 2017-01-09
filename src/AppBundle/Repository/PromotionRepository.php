@@ -11,19 +11,21 @@ namespace AppBundle\Repository;
 class PromotionRepository extends \Doctrine\ORM\EntityRepository
 {
 
-    public function getList($max){
-        $qb=$this->createQueryBuilder('pr');
+    public function getList($max)
+    {
+        $qb = $this->createQueryBuilder('pr');
 
         $qb->select('pr.slug, pr.nom, pr.fin')
-            ->orderBy('pr.fin','ASC')
+            ->orderBy('pr.fin', 'ASC')
             ->setMaxResults($max);
 
         return $qb->getQuery()->execute();
 
     }
 
-    public function myFindAll(){
-        $qb=$this->createQueryBuilder('pr')
+    public function myFindAll()
+    {
+        $qb = $this->createQueryBuilder('pr')
             ->leftJoin('pr.prestataire', 'p')
             ->leftJoin('pr.categorie', 'c')
             ->addSelect('c')
@@ -31,5 +33,17 @@ class PromotionRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getQuery()->getArrayResult();
     }
+
+    public function getListByUser($uid)
+    {
+
+        $qb = $this->createQueryBuilder('pr')
+            ->andWhere('pr.prestataire = :uid')
+            ->setParameter('uid', $uid);
+        //->orderBy('pr.fin', 'ASC');
+            return $qb->getQuery()->getArrayResult();
+        ;
+    }
+
 
 }

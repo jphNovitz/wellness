@@ -3,15 +3,16 @@
 namespace AppBundle\Controller\Profile;
 
 use AppBundle\Entity\Promotion;
+use AppBundle\Form\Type\PromotionType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Service\Utils;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class PromoController extends Controller
 {
-
 
 
     /**
@@ -19,10 +20,10 @@ class PromoController extends Controller
      */
     public function listAction()
     {
-        $manager=$this->getDoctrine()->getManager();
-        $promos= $manager->getRepository('AppBundle\Entity\Promotion')->myFindAll();
+        $manager = $this->getDoctrine()->getManager();
+        $promos = $manager->getRepository('AppBundle\Entity\Promotion')->myFindAll();
 
-        return $this->render('profile/promo/promo-list.html.twig', ['promos'=>$promos]);
+        return $this->render('profile/promo/promo-list.html.twig', ['promos' => $promos]);
     }
 
     /**
@@ -33,16 +34,34 @@ class PromoController extends Controller
     {
 
 
-        return $this->render('profile/promo/promo-detail.html.twig', ['promos' => $promo ]);
+        return $this->render('profile/promo/promo-detail.html.twig', ['promos' => $promo]);
     }
 
     /**
-     * @Route("/promo/new", name="promo_create")
+     * @Route("/profile/promo/new", name="promo_create")
      */
     public function createAction(Request $request)
     {
-        // ici viendra le code qui renvoie vers un promo
-        return $this->render('profile/profiles/promo-create.html.twig');
+
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $form = $this->createForm(PromotionType::class, $promo=new Promotion());
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $promo->setPrestataire($user);
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($promo);
+
+            $manager->flush();
+
+            $this->addFlash('succes', 'Votre promotion a été ajouté.');
+            return $this->redirectToRoute('profile_update');
+
+        }
+        return $this->render('profile/promo/promo-create.html.twig', ['form' => $form->createView()]);
+
+
     }
 
     /**
@@ -55,21 +74,53 @@ class PromoController extends Controller
     }
 
     /**
-     * @Route("/promo/update", name="promo_update")
+     * @Route("/update/promo/{slug}", name="promo_update")
+     * @ParamConverter("promo", class="AppBundle:Promotion")
      */
-    public function updateAction(Request $request)
+    public function updateAction(Request $request, $promo)
     {
-        // ici viendra le code qui renvoie vers la modification d'un promo
-        return $this->render('profile/profiles/promo-update.html.twig');
+        $form = $this->createForm(PromotionType::class, $promo);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($promo);
+            $manager->flush();
+
+            $this->addFlash('succes', 'Votre stage a été modifié.');
+            return $this->redirectToRoute('profile_update');
+
+        }
+        return $this->render('/profile/promo/promo-up.html.twig', ['form'=>$form->createView()]);
     }
 
     /**
-     * @Route("/promo/delete", name="promo_delete")
+     * @Route("/delete/Promo/{slug}", name="promo_delete")
+     * @ParamConverter("stage", class="AppBundle:Promotion")
      */
-    public function deleteAction(Request $request)
+    public function deleteAction(Request $request, Promotion $promo)
     {
-        // ici viendra le code qui renvoie vers la suppression d'un promo
-        return $this->render('profile/profiles/promo-delete.html.twig');
+
+        $form = $this->createFormBuilder($promo)
+            ->add('supprimer', SubmitType::class, ['label' => 'OUI Supprimer !', 'attr' => ['class' => 'label label-lg label-danger']])
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager=$this->getDoctrine()->getManager();
+            $manager->remove($promo);
+            $manager->flush();
+
+            $this->addFlash('succes', 'Stage Supprimé.');
+            return $this->redirectToRoute('profile_update');
+
+
+        }
+        return $this->render('profile/promo/promo-delete.html.twig', ["promo"=>$promo, "form"=>$form->createView()]);
     }
+
 
 }

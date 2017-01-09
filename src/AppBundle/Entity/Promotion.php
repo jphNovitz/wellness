@@ -39,6 +39,13 @@ class Promotion
     private $description;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="tarif", type="string", length=5, nullable=true)
+     */
+    private $tarif;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="debut", type="date")
@@ -256,5 +263,29 @@ class Promotion
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Set tarif
+     *
+     * @param string $tarif
+     *
+     * @return Promotion
+     */
+    public function setTarif($tarif)
+    {
+        $this->tarif = $tarif;
+
+        return $this;
+    }
+
+    /**
+     * Get tarif
+     *
+     * @return string
+     */
+    public function getTarif()
+    {
+        return $this->tarif;
     }
 }

@@ -1,8 +1,18 @@
 {% extends 'base.html.twig' %}
 {# modifications HEAD #}
-{% block title %} Promo Delete - Annuaire Wellness {% endblock %}
+{% block title %} Promotion Delete - Annuaire Wellness {% endblock %}
 {# fin modifications HEAD #}
-
-{% block body %}
-    Promo Delete
+{% block document_title %}
+    <div class="document-title">
+        <h1>{% block document_title_h1 %}! Suppresion d'une promotion !{% endblock %}</h1>
+    </div>
 {% endblock %}
+    {% block body %}
+
+        <h2>Vous êtes sur le point de supprimer une promotion.</h2>
+        <p>{{ promo.nom }}
+
+            <br/>{{ promo.description }}
+        </p>
+        {{ form(form) }}
+    {% endblock %}

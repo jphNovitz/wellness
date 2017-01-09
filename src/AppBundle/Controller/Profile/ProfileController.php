@@ -42,7 +42,9 @@ class ProfileController extends Controller
         switch ($class):
             case "Prestataire":
                 $uid=$user->getId();
-                $stages=$this->getDoctrine()->getManager()->getRepository('AppBundle:Stage')->getListByUser($uid);
+                $manager=$this->getDoctrine()->getManager();
+                $stages=$manager->getRepository('AppBundle:Stage')->getListByUser($uid);
+                $promos=$manager->getRepository('AppBundle:Promotion')->getListByUser($uid);
                 $form = $this->createForm(UpdatePrestataireType::class, $user);
                 break;
             case "Internaute":
@@ -63,7 +65,7 @@ class ProfileController extends Controller
             }
 
         }
-        return $this->render('forms/update-'.strtolower($class).'.html.twig', ['form' => $form->createView(), 'stages'=>$stages]);
+        return $this->render('forms/update-'.strtolower($class).'.html.twig', ['form' => $form->createView(), 'stages'=>$stages, 'promos'=>$promos]);
     }
 
 

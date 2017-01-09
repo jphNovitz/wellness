@@ -85,6 +85,15 @@
                                 {{ stage.nom }}
                                 {% endfor %}
                                 <p><a href="{{ path('stage_create') }}">Ajouter un stage</a></p>
+                            <h2>Voici vos promotions</h2>
+                            {% for promo in promos %}
+                            <br/>
+                            <a href="{{ path('promo_update', {'slug':promo.slug}) }}"> <i class="fa fa-pencil-square-o alert-info"></i></a>
+                            <a href="{{ path('promo_delete', {'slug':promo.slug}) }}"><i class="fa fa-trash-o alert-danger" aria-hidden="true"></i></a>
+
+                                {{ promo.nom }}
+                                {% endfor %}
+                                <p><a href="{{ path('promo_create') }}">Ajouter une promo</a></p>
                         </div> <!-- col 5 -->
                     </div> <!-- row -->
                     <div class="row">

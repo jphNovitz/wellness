@@ -78,6 +78,12 @@ la charte graphique du site.
 - gestion des stages pour un prestataire.  Stage dans la page update profile avec icone pour modification et suppression  
 - ajout d'une methode repository
 
+**09-01-2017**  
+- gestion Promotions: ajout, modification, suppression
+- utilisation de 'inherit_data'
+
+
+
 TO-DO
 
 
