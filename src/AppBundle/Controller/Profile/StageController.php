@@ -83,7 +83,7 @@ class StageController extends Controller
             return $this->redirectToRoute('profile_update');
 
         }
-        return $this->render('/profile/stage:stage-up.html.twig', ['form'=>$form->createView()]);
+        return $this->render('/profile/stage/stage-up.html.twig', ['form'=>$form->createView()]);
     }
 
     /**
