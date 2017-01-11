@@ -29,6 +29,8 @@ class PrepareBeforePersist
         $clone = clone $user->getLogos(); // je fais une copie des infos concernant le logo (many)
         $user->getLogos()->clear();       // je retire ces infos avant de persister l'utilisateur
 
+        $user->setConfirmation(true);
+        $user->addRole('ROLE_PRESTATAIRE');
       //  $manager = $this->getDoctrine()->getManager();
         $this->manager->persist($user);
         $this->manager->flush();
@@ -59,6 +61,9 @@ class PrepareBeforePersist
 
         $clone = clone $user->getPhotos();
         $user->getPhotos()->clear();
+
+        $user->setConfirmation(true);
+        $user->addRole('ROLE_INTERNAUTE');
 
         $this->manager->persist($user);
         $this->manager->flush();

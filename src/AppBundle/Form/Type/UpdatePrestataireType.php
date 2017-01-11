@@ -5,6 +5,7 @@ namespace AppBundle\Form\Type;
 use AppBundle\Entity\Prestataire;
 use AppBundle\Entity\Stage;
 use AppBundle\Entity\Utilisateur;
+use AppBundle\Form\EventListener\PersistListener;
 use AppBundle\Form\Type\StageType;
 use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
@@ -25,8 +26,7 @@ class UpdatePrestataireType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-
-            ->add('perso', UpdateUserType::class,['data_class'=>Prestataire::class])
+            ->add('perso', UpdateUserType::class, ['data_class' => Prestataire::class])
             ->add('siteWeb')
             ->add('tel')
             ->add('tva')
@@ -35,8 +35,7 @@ class UpdatePrestataireType extends AbstractType
                     'choice_label' => 'nom',
                     'multiple' => true,
                     'expanded' => true])
-
-        ;
+            ;
     }
 
     /**

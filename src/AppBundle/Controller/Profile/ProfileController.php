@@ -11,61 +11,71 @@ use AppBundle\Form\Type\UpdateInternauteType;
 
 class ProfileController extends Controller
 {
+
+
     /**
      * @Route("/profile/", name="profile_detail")
      */
     public function viewAction(Request $request)
     {
-
+        $manager = $this->getDoctrine()->getManager();
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        if (get_class($user) == 'AppBundle\Entity\Prestataire') return $this->redirectToRoute('prestataire_detail', ["slug" => $user->getSlug()]);
-        $commentaires = $this->getDoctrine()->getManager()
-            ->getRepository('AppBundle\Entity\Commentaire')
-            ->findBy(['internaute' => $user]);
 
-        return $this->render('profile/profile-detail.html.twig', ['internaute' => $user]);
+        if ($this->get('app.verify_profile')->getClassName($user) == 'prestataire') {
+
+            $promos = $manager->getRepository('AppBundle:Promotion')->getListByUser($user);
+            $stages = $manager->getRepository('AppBundle:Stage')->getListByUser($user);
+
+            return $this->render('public/Prestataires/prestataire-detail.html.twig', [
+                'prestataire' => $user,
+                'promos' => $promos,
+                'stages' => $stages]);
+
+        } else {
+            $commentaires = $manager->getRepository('AppBundle\Entity\Commentaire')
+                ->findBy(['internaute' => $user]);
+
+            return $this->render('profile/profile-detail.html.twig', [
+                'internaute' => $user,
+                'commentaires' => $commentaires]);
+        }
     }
 
     /**
-     * @Route("/update/profile", name="profile_update")
+     * @Route("/profile/update", name="profile_update")
      */
     public function updateAction(Request $request)
     {
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        if (!is_object($user)) {
-            $this->addFlash('error', 'Veuillez vous reconnecter ou peut-être vous inscrire. ');
-            return $this->redirectToRoute('login');
-        }
+        $user = $this->get('app.verify_profile')->getUser();
+        if (!$user) return $this->redirectToRoute('login');
 
-        $class = $this->getClassName($user);
+        $userType = $this->get('app.verify_profile')->getClassName($user);
 
-        switch ($class):
-            case "Prestataire":
-                $uid=$user->getId();
-                $manager=$this->getDoctrine()->getManager();
-                $stages=$manager->getRepository('AppBundle:Stage')->getListByUser($uid);
-                $promos=$manager->getRepository('AppBundle:Promotion')->getListByUser($uid);
+        switch ($userType):
+            case "prestataire":
+                $manager = $this->getDoctrine()->getManager();
+                $stages = $manager->getRepository('AppBundle:Stage')->getListByUser($user);
+                $promos = $manager->getRepository('AppBundle:Promotion')->getListByUser($user);
                 $form = $this->createForm(UpdatePrestataireType::class, $user);
                 break;
-            case "Internaute":
+
+            case "internaute":
                 $form = $this->createForm(UpdateInternauteType::class, $user);
                 break;
+
         endswitch;
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
 
-            if ($form->get('perso')->get('supprimer')->isClicked()) {
-                return $this->redirectToRoute('profile_delete');
-            }
+        if ($form->isValid()) {
 
-            if ($this->persistOrDelete($user)) {
-                $this->addFlash('succes', 'Mise à jour effectuée ');
-                return $this->redirectToRoute('profile_detail', ["slug" => $user->getSlug()]);
-            }
+            if ($form->get('perso')->get('supprimer')->isClicked()) return $this->redirectToRoute('profile_delete');
+            if (!$this->get('app.persist_or_remove')->persist($user)) return $this->redirectToRoute('/');
 
+            else return $this->redirectToRoute('profile_detail');
         }
-        return $this->render('forms/update-'.strtolower($class).'.html.twig', ['form' => $form->createView(), 'stages'=>$stages, 'promos'=>$promos]);
+
+        return $this->render('forms/update-' . $userType . '.html.twig', ['form' => $form->createView(), 'stages' => $stages, 'promos' => $promos]);
     }
 
 
@@ -74,44 +84,22 @@ class ProfileController extends Controller
      */
     public function deleteAction(Request $request)
     {
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $user = $this->get('app.verify_profile')->getUser();
+
         $form = $this->createFormBuilder($user)
             ->add('supprimer', SubmitType::class, ['label' => 'OUI Supprimer !', 'attr' => ['class' => 'label label-lg label-danger']])
             ->getForm();
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            // ici il y a quelque chose à implémenter pour la suppression
-            die('a modifier: ajouter un champs bool actif');
-            $this->getDoctrine()->getManager()->remove($user);
-
-            $this->addFlash('success', 'l\'élement a bien été supprimé');
-            $this->redirectToRoute('homepage');
-
+        if ($form->isValid()) {
+           $this->get('app.persist_or_remove')->desactivate($user);
+            return $this->redirectToRoute('homepage');
 
         }
 
         return $this->render('profile/profile-delete.html.twig', ['user' => $user, 'form' => $form->createView()]);
     }
 
-    /*
-     * methodes utiles pour eviter la réplication de code
-     * sera certainement déplacé dans un service
-     */
-    private function getClassName($user)
-    {
-        $class = explode('\\', get_class($user));
-        $class = end($class); // en attendant de trouver mieux
-        return $class;
-    }
-
-    private function persistOrDelete($user)
-    {
-
-        $manager = $this->getDoctrine()->getManager();
-        $manager->persist($user);
-        $manager->flush();
-    }
 
 }

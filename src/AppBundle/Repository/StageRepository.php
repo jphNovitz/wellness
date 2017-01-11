@@ -30,7 +30,7 @@ class StageRepository extends \Doctrine\ORM\EntityRepository
         $qb = $this->createQueryBuilder('s')
             ->andWhere('s.prestataire = :uid')
            ->setParameter('uid', $uid)
-            //->orderBy('s.fin', 'ASC');
+           ->orderBy('s.fin', 'ASC');
 ;
 
         return $qb->getQuery()->getArrayResult();

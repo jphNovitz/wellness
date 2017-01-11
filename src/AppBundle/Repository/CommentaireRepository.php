@@ -10,4 +10,13 @@ namespace AppBundle\Repository;
  */
 class CommentaireRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getListByUser($uid)
+    {
+
+        $qb = $this->createQueryBuilder('co')
+            ->andWhere('co.prestataire = :uid')
+            ->setParameter('uid', $uid)
+            ->addOrderBy('co.encodageDate', 'DESC');
+        return $qb->getQuery()->getArrayResult();;
+    }
 }

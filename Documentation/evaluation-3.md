@@ -82,13 +82,16 @@ la charte graphique du site.
 - gestion Promotions: ajout, modification, suppression
 - utilisation de 'inherit_data'
 
+**11-01-2017**
+- refactor Profil Controller: ajout de deux services 
+  * PersistOrRemove : s'occupe de persiter ou de supprimer un objet (persist et inactive pour l'instant).
+  * VerifyProfile: une methode pour récuperer le $user une autre pour récupérer le nom de la classe.
+- ajout de documentation [ProfileController.md](/Documentation/ProfileController.md)
 
 
 TO-DO
 
 
-* plusieurs fois l'action de supprimer et duplication de code -> voir si possible de diminuer le code en créant une méthode
-utilisable ou un service.
 * essyer de diminuer le code du controller pour un stage
 * ajout stage :  
   - verifier l'utilisateur

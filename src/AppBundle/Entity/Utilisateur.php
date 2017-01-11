@@ -132,6 +132,13 @@ class Utilisateur implements UserInterface
      */
     private $confirmation = false;
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="actif", type="boolean")
+     */
+    private $actif = false;
+
 
     /**
      * @var string
@@ -147,6 +154,8 @@ class Utilisateur implements UserInterface
      * @ORM\Column(length=255, unique=true)
      */
     private $slug;
+
+
 
     public function __construct()
     {
@@ -556,5 +565,29 @@ class Utilisateur implements UserInterface
             $this->username,
             $this->password,
             ) = unserialize($serialized);
+    }
+
+    /**
+     * Set actif
+     *
+     * @param boolean $actif
+     *
+     * @return Utilisateur
+     */
+    public function setActif($actif)
+    {
+        $this->actif = $actif;
+
+        return $this;
+    }
+
+    /**
+     * Get actif
+     *
+     * @return boolean
+     */
+    public function getActif()
+    {
+        return $this->actif;
     }
 }

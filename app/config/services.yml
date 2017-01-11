@@ -23,6 +23,14 @@ services:
         class: AppBundle\Util\PrepareBeforePersist
         arguments: ["@doctrine.orm.entity_manager"]
 
+    app.verify_profile:
+        class: AppBundle\Util\VerifyProfile
+        arguments: ["@security.token_storage"]
+
+    app.persist_or_remove:
+        class: AppBundle\Util\PersistOrRemove
+        arguments: ["@doctrine.orm.entity_manager", "@session"]
+
 
 #    service_name:
 #        class: AppBundle\Directory\ClassName

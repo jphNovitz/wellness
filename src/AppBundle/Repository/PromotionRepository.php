@@ -39,10 +39,9 @@ class PromotionRepository extends \Doctrine\ORM\EntityRepository
 
         $qb = $this->createQueryBuilder('pr')
             ->andWhere('pr.prestataire = :uid')
-            ->setParameter('uid', $uid);
-        //->orderBy('pr.fin', 'ASC');
-            return $qb->getQuery()->getArrayResult();
-        ;
+            ->setParameter('uid', $uid)
+            ->addOrderBy('pr.fin', 'ASC');
+        return $qb->getQuery()->getArrayResult();;
     }
 
 
