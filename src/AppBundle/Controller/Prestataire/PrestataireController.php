@@ -14,6 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
@@ -22,10 +23,10 @@ class PrestataireController extends Controller
     /**
      * @Route("prestataires/{page}", name="prestataires_list", requirements={"page": "\d+"}),
      */
-    public function listAction(Request $request, $page=1)
+    public function listAction(Request $request, $page = 1)
     {
         //$n = $request->query->get('n');
-        $prestataires_par_page=10;
+        $prestataires_par_page = 10;
         $repo = $this->getDoctrine()->getManager()->getRepository('AppBundle\Entity\Prestataire');
 
         $prestataires = $repo->myFindAll($page);
@@ -33,16 +34,15 @@ class PrestataireController extends Controller
         $pages_nombre = ceil($prestataires_nombre / $prestataires_par_page);
         // ceil() arrondi à l'unité superieur ex 7 au lieu de 6.3
 
-
-
         return $this->render('public/Prestataires/prestataires-list.html.twig', [
             'prestataires' => $prestataires,
-            'pagination' =>[
-                'page'=>$page,
-                'prestataire_nombre'=>$prestataires_nombre,
-                'pages_nombre'=>$pages_nombre,
+            'pagination' => [
+                'page' => $page,
+                'prestataire_nombre' => $prestataires_nombre,
+                'pages_nombre' => $pages_nombre,
             ]
         ]);
+
     }
 
 
@@ -74,10 +74,10 @@ class PrestataireController extends Controller
      * le but est que ce controller soit 'leger' et que le bloc soit réutilisable
      */
 
-    /**
-     * @Route("/prestataires/menu", name="prestataires_menu")
-     */
-    public function menuAction($max, $class = "")
+
+     // @Route("/prestataires/menu", name="prestataires_menu")
+
+   /* public function menuAction($max, $class = "")
     {
         $manager = $this->getDoctrine()->getManager();
         $repo = $manager->getRepository('AppBundle\Entity\Prestataire');
@@ -85,7 +85,7 @@ class PrestataireController extends Controller
 
         return $this->render('_partials/menu-elements.html.twig',
             ['elements' => $prestataires, 'chemin' => 'prestataires_list', 'class' => $class]);
-    }
+    }*/
 
 
     /**
@@ -145,5 +145,15 @@ class PrestataireController extends Controller
         }
     }
 
+    /**
+     * @Route("/essai", name="essai")
+     */
+    public function essaiAction($max, $class = "")
+    {
+        $em = $this->getDoctrine()->getManager();
 
+        $prestataires = $em->getRepository('AppBundle\Entity\Prestataire')->getList($max);
+
+        var_dump($prestataires); die();
+    }
 }

@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Service\Utils;
+
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class PromoController extends Controller
@@ -43,34 +43,24 @@ class PromoController extends Controller
     public function createAction(Request $request)
     {
 
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+        try {
+            $user = $this->get('app.verify_profile')->checkUser();
+        }catch (\Exception $e){
+            $this->addFlash('error',"Cette zone n'est pas accessible !");
+            return $this->redirectToRoute('homepage');
+        }
         $form = $this->createForm(PromotionType::class, $promo=new Promotion());
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isValid()) {
             $promo->setPrestataire($user);
-            $manager = $this->getDoctrine()->getManager();
-            $manager->persist($promo);
-
-            $manager->flush();
-
-            $this->addFlash('succes', 'Votre promotion a été ajouté.');
-            return $this->redirectToRoute('profile_update');
-
+            if ($this->get('app.persist_or_remove')->persist($promo))
+                return $this->redirectToRoute('profile_update');
         }
         return $this->render('profile/promo/promo-create.html.twig', ['form' => $form->createView()]);
 
 
-    }
-
-    /**
-     * @Route("/promo/{id}", name="promo_view")
-     */
-    public function viewAction(Request $request)
-    {
-        // ici viendra le code qui renvoie vers un promo
-        return $this->render('profile/profiles/promo-detail.html.twig');
     }
 
     /**
@@ -79,17 +69,20 @@ class PromoController extends Controller
      */
     public function updateAction(Request $request, $promo)
     {
+        try {
+            $user = $this->get('app.verify_profile')->checkUser();
+        }catch (\Exception $e){
+            $this->addFlash('error',"Cette zone n'est pas accessible !");
+            return $this->redirectToRoute('homepage');
+        }
+
         $form = $this->createForm(PromotionType::class, $promo);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isValid()) {
 
-            $manager = $this->getDoctrine()->getManager();
-            $manager->persist($promo);
-            $manager->flush();
-
-            $this->addFlash('succes', 'Votre stage a été modifié.');
-            return $this->redirectToRoute('profile_update');
+            if ($this->get('app.persist_or_remove')->persist($promo))
+                return $this->redirectToRoute('profile_update');
 
         }
         return $this->render('/profile/promo/promo-up.html.twig', ['form'=>$form->createView()]);
@@ -101,6 +94,12 @@ class PromoController extends Controller
      */
     public function deleteAction(Request $request, Promotion $promo)
     {
+        try {
+            $user = $this->get('app.verify_profile')->checkUser();
+        }catch (\Exception $e){
+            $this->addFlash('error',"Cette zone n'est pas accessible !");
+            return $this->redirectToRoute('homepage');
+        }
 
         $form = $this->createFormBuilder($promo)
             ->add('supprimer', SubmitType::class, ['label' => 'OUI Supprimer !', 'attr' => ['class' => 'label label-lg label-danger']])
@@ -108,13 +107,13 @@ class PromoController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isValid()) {
 
-            $manager=$this->getDoctrine()->getManager();
-            $manager->remove($promo);
-            $manager->flush();
+            if ($form->isValid()) {
 
-            $this->addFlash('succes', 'Stage Supprimé.');
+                if ($this->get('app.persist_or_remove')->remove($promo))
+                    return $this->redirectToRoute('profile_update');
+            }
             return $this->redirectToRoute('profile_update');
 
 

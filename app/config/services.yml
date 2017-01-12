@@ -25,7 +25,7 @@ services:
 
     app.verify_profile:
         class: AppBundle\Util\VerifyProfile
-        arguments: ["@security.token_storage"]
+        arguments: ["@security.token_storage","@security.authorization_checker"]
 
     app.persist_or_remove:
         class: AppBundle\Util\PersistOrRemove

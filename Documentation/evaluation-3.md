@@ -87,20 +87,25 @@ la charte graphique du site.
   * PersistOrRemove : s'occupe de persiter ou de supprimer un objet (persist et inactive pour l'instant).
   * VerifyProfile: une methode pour récuperer le $user une autre pour récupérer le nom de la classe.
 - ajout de documentation [ProfileController.md](/Documentation/ProfileController.md)
+- persistOrRemove: ajout de la methode delete
+- modification stageController et promoController pour utiliser le nouveau service 'PersistOrRemove'
+- ajout de conraintes sur les dates pour les stages et les promos
+  
+**12-01-2017**  
+- securistaion des stage/promos pour les ajout/update/delete:
+  * les routes updates create et delete sont toutes derrière /profile pour ne pas  être accessible sans connection.
+  * utilisation d'une méthode 'check' du service [app.verify.profile](../Util/VerifyProfile.php) qui lève des erreurs
+  si l'utilisateur n'a pas le ROLE_PRESTATAIRE.  Dans le controlleur si une erreur a été levée -> redirection vers la page
+  d'accueil avec un flashmessage.  
+- modification menu.  les menus dynamiques Prestataires, Stages et promo ne sont plus visibles pour les prestataires. 
+ Ils sont remplacés par un 'menu profile' et un menu 'divers' qui renvoie vers les listes de prestataires, de stages et de promos  
 
 
 TO-DO
 
 
-* essyer de diminuer le code du controller pour un stage
-* ajout stage :  
-  - verifier l'utilisateur
-  -  catcher les erreurs  
-  - bloquer les cas ou la date de fin est antérieure à la date de début.
   
-* faire l'update des infos de connection, images, stages et promos  
-* ajouter setConfirmation(true) dans la confirmation
-* trouver un moyen de faire update/profile internaute sans trop faire de code dupliqué
+* faire l'update des images 
 * empecher champs nullable dans le formulaire de confirmation
 * mettre des petits tests pour détecter problèmes dans exécution
 

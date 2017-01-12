@@ -19,7 +19,7 @@ class ProfileController extends Controller
     public function viewAction(Request $request)
     {
         $manager = $this->getDoctrine()->getManager();
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $user = $this->get('app.verify_profile')->getUser();
 
         if ($this->get('app.verify_profile')->getClassName($user) == 'prestataire') {
 

@@ -15,7 +15,7 @@ class StageController extends Controller
 {
 
     /**
-     * @Route("/stage", name="stages_list")
+     * @Route("/stages", name="stages_list")
      */
     public function listAction()
     {
@@ -39,51 +39,47 @@ class StageController extends Controller
      */
     public function createAction(Request $request)
     {
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-
-        if (!$user) {
-            $this->addFlash('error', 'Nous avons rencontré un problème, veuillez assayer après reconexion');
-            return $this->redirectToRoute('login');
+        try {
+            $user = $this->get('app.verify_profile')->checkUser();
+        } catch (\Exception $e) {
+            $this->addFlash('error', "Cette zone n'est pas accessible !");
+            return $this->redirectToRoute('homepage');
         }
-        // le code ci dessus ne sert probablement à rien
         $form = $this->createForm(StageType::class, $stage = new Stage());
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+
+        if ($form->isValid()) {
+
             $stage->setPrestataire($user);
-            $manager = $this->getDoctrine()->getManager();
-            $manager->persist($stage);
-
-            $manager->flush();
-
-            $this->addFlash('succes', 'Votre stage a été ajouté.');
-            return $this->redirectToRoute('profile_update');
-
+            if ($this->get('app.persist_or_remove')->persist($stage)) return $this->redirectToRoute('profile_update');
         }
         return $this->render('profile/stage/stage-create.html.twig', ['form' => $form->createView()]);
     }
 
 
     /**
-     * @Route("/update/stage/{slug}", name="stage_update")
+     * @Route("profile/stage/update/{slug}", name="stage_update")
      * @ParamConverter("stage", class="AppBundle:Stage")
      */
     public function updateAction(Request $request, $stage)
     {
+        try {
+            $user = $this->get('app.verify_profile')->checkUser();
+        } catch (\Exception $e) {
+            $this->addFlash('error', "Cette zone n'est pas accessible !");
+            return $this->redirectToRoute('homepage');
+        }
         $form = $this->createForm(StageType::class, $stage);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isValid()) {
 
-            $manager = $this->getDoctrine()->getManager();
-            $manager->persist($stage);
-            $manager->flush();
-
-            $this->addFlash('succes', 'Votre stage a été modifié.');
-            return $this->redirectToRoute('profile_update');
+            if ($this->get('app.persist_or_remove')->persist($stage)) return $this->redirectToRoute('profile_update');
 
         }
-        return $this->render('/profile/stage/stage-up.html.twig', ['form'=>$form->createView()]);
+
+        return $this->render('/profile/stage/stage-up.html.twig', ['form' => $form->createView()]);
     }
 
     /**
@@ -92,6 +88,12 @@ class StageController extends Controller
      */
     public function deleteAction(Request $request, Stage $stage)
     {
+        try {
+            $user = $this->get('app.verify_profile')->checkUser();
+        } catch (\Exception $e) {
+            $this->addFlash('error', "Cette zone n'est pas accessible !");
+            return $this->redirectToRoute('homepage');
+        }
 
         $form = $this->createFormBuilder($stage)
             ->add('supprimer', SubmitType::class, ['label' => 'OUI Supprimer !', 'attr' => ['class' => 'label label-lg label-danger']])
@@ -99,18 +101,14 @@ class StageController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isValid()) {
 
-            $manager=$this->getDoctrine()->getManager();
-            $manager->remove($stage);
-            $manager->flush();
-
-            $this->addFlash('succes', 'Stage Supprimé.');
-            return $this->redirectToRoute('profile_update');
-
+            if ($this->get('app.persist_or_remove')->remove($stage)) return $this->redirectToRoute('profile_update');
 
         }
-        return $this->render('profile/stage/stage-delete.html.twig', ["stage"=>$stage, "form"=>$form->createView()]);
+
+
+        return $this->render('profile/stage/stage-delete.html.twig', ["stage" => $stage, "form" => $form->createView()]);
     }
 
 }

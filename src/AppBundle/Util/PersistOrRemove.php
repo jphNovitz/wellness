@@ -51,6 +51,29 @@ class PersistOrRemove
 
     }
 
+    public function remove($element)
+    {
+        try {
+            $this->manager->remove($element);
+            $this->manager->flush();
+            $this->session->getFlashBag()->add('succes', 'Element supprimé ! ');
+
+            return true;
+
+        } catch (\Exception $e) {
+            $this->session->getFlashBag()->add('error', 'Il y a eu une erreur');
+
+            return false;
+
+        }
+
+
+    }
+
+    /**
+     * @param $element
+     * @return bool
+     */
     public function desactivate($element)
     {
         try {

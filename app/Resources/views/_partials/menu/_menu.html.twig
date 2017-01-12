@@ -1,5 +1,6 @@
 <ul class="header-nav-primary nav nav-pills collapse navbar-collapse">
-    <li class="active">
+
+    <li>
         <a href="{{ path('homepage') }}">Accueil<i class="fa fa-chevron-down"></i></a>
 
         <ul class="sub-menu">
@@ -11,7 +12,30 @@
         </ul>
 
     </li>
-    {{  render(controller('AppBundle:Default:menu',  { 'max': 5})) }}
+
+    {% if is_granted('ROLE_PRESTATAIRE') %}
+        <li class="active">
+            <a href="{{ path('homepage') }}">Menu profile<i class="fa fa-chevron-down"></i></a>
+
+            <ul class="sub-menu">
+                <li><a href="{{ path('profile_update') }}">Modifier profil</a></li>
+                <li><a href="{{ path('stage_create') }}">Ajouter un Stage</a></li>
+                <li><a href="{{ path('promo_create') }}">Ajouter une Promotion</a></li>
+            </ul>
+
+        </li>
+        <li>
+            <a href="{{ path('homepage') }}">Divers<i class="fa fa-chevron-down"></i></a>
+
+            <ul class="sub-menu">
+                <li><a href="{{ path('prestataires_list') }}">Prestataires</a></li>
+                <li><a href="{{ path('stages_list') }}">Stages</a></li>
+                <li><a href="{{ path('promos_list') }}">Promotions</a></li>
+                <li><a href="{{ path('services_list') }}">Categories</a></li>
+            </ul>
+
+        </li>
+    {% endif %}
     {% if is_granted('ROLE_ADMIN') %}
         <li>
             <a href="{{ path('homepage') }}">Admin <i class="fa fa-chevron-down"></i></a>
@@ -20,5 +44,17 @@
             </ul>
         </li>
     {% endif %}
+    {% if is_granted('ROLE_PRESTATAIRE') == false %}
+        {{ render(controller('AppBundle:Default:menu',  { 'max': 5})) }}
+    {% endif %}
+
+    <li>
+        <a href="#">Contact <i class="fa fa-chevron-down"></i></a>
+        <ul class="sub-menu">
+            <li><a href="contact-1.html">Contact v1</a></li>
+
+        </ul>
+    </li>
 </ul>
+
 {# plus de qutre renderController pour le menu -> a modifier #}

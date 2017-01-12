@@ -83,6 +83,7 @@ class SecurityController extends Controller
              */
 
         }
+
         $image = new Image();
         $type = $test->getType();
 
@@ -122,7 +123,7 @@ class SecurityController extends Controller
                  *  --- Sinon alors on continue
                  */
                 if ($this->get('app.compare_json')->mEncode($user, $test)) {
-$user->addRole("ROLE_USER");
+                    $user->addRole("ROLE_USER");
                     try {
                         if ($type == "prestataire") {
                             $this->get('app.prepare_before_persist')->prestatairePersist($user, $image, $test);
