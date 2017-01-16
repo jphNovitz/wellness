@@ -18,19 +18,24 @@
                 </span>
 
                         <div class="review-overall-rating">
-                            <span class="overall-rating-title">Total Score:</span>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-half-o"></i>
-                            <i class="fa fa-star-o"></i>
+                            <span class="overall-rating-title">Son évaluation:</span>
+
+                            {% for i in 1..5 %}
+                                {% if loop.index <= commentaire.cote %}
+                                    <i class="fa fa-star"></i>
+                                {% else %}
+                                    <i class="fa fa-star-o"></i>
+                                {% endif %}
+                            {% endfor %}
+
                         </div><!-- /.review-rating -->
                     </div><!-- /.review-title -->
 
                     <div class="review-content-wrapper">
                         <div class="review-content">
                             <div class="review-pros">
-                                <p>{{ commentaire.contenu }}</p>
+                                <p><strong>{{ commentaire.titre }}</strong>
+                                    <br />{{ commentaire.contenu }}</p>
                             </div><!-- /.pros -->
                         </div><!-- /.review-content -->
 

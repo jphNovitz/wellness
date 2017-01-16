@@ -5,10 +5,13 @@ namespace AppBundle\Controller\Profile;
 use AppBundle\AppBundle;
 use AppBundle\Entity\Commentaire;
 use AppBundle\Entity\Prestataire;
+use AppBundle\Form\EventListener\CommentListener;
+use AppBundle\Form\Type\CommentaireType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class CommentController extends Controller
 {
@@ -40,12 +43,38 @@ class CommentController extends Controller
     }
 
     /**
-     * @Route("/admin/comment/new", name="admin_comment_create")
+     * @Route("/profile/comment/new", name="comment_create")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, Prestataire $prestataire = null)
     {
-        // ici viendra le code qui renvoie vers le formulaire creation d'un comment (Admin)
-        return $this->render('admin/comment/comment-create.html.twig');
+
+
+        $user = $this->get('app.verify_profile')->getUser();
+        $comment = new Commentaire();
+
+       $comment->setInternaute($user);
+       $comment->setPrestataire($prestataire);
+
+        $form = $this->createForm(CommentaireType::class, $comment/*,[
+            'action' => $this->generateUrl('comment_create',["prestataire"=>$prestataire])
+        ]*/);
+
+        $form->handleRequest($request);
+
+     if ($form->isValid()) {
+
+            if ($this->get('app.persist_or_remove')->persist($comment)) {
+
+                return new Response(' <div class="alert alert-icon alert-success" role="alert">
+                               Votre commentaire a été envoyé !
+                            </div>');
+            } else die('nooooooooo');
+
+        }
+
+
+
+        return $this->render('profile/Comment/comment-create.html.twig', ['form' => $form->createView()]);
     }
 
     /**

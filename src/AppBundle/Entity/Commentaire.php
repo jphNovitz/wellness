@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Commentaire
@@ -44,8 +45,8 @@ class Commentaire
     private $contenu;
 
     /**
-     * @var \DateTime
-     *
+     * @var \DateTime $encodageDate
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="encodageDate", type="date")
      */
     private $encodageDate;

@@ -1,6 +1,17 @@
-{% extends 'base.html.twig' %}
 
 {% block body %}
-Admin Comment CREATE
+<h2 class="page-title">Ajout d'un commentaire</h2>
+
+    {{ form_start(form)}}
+    <div class="form-group">
+        {{ form_widget(form.titre, {'attr':{'class':'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_widget(form.contenu, {'attr':{'class':'form-control', 'size': '5'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_widget(form.cote) }}
+    </div>
+    {{ form_end(form)}}
 {% endblock %}
 

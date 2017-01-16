@@ -35,7 +35,9 @@
                                 allowfullscreen></iframe>
                     </div>
                 {% endif %}
+
                 {{ render(controller("AppBundle:Profile/Comment:viewCommentPrestataire", { 'id': prestataire.id, 'class':'menu' })) }}
+                {{ render(controller("AppBundle:Profile/Comment:create", { 'prestataire': prestataire, 'request': request})) }}
             </div>
             <div class="col-sm-5">
                 <h2>Tout sur <span class="text-secondary"> {{ prestataire.username }} </span></h2>
@@ -112,7 +114,9 @@
                         <h2>Ses Services</h2>
                         <ul class="menu">
                             {% for categorie in prestataire.categories %}
-                                <li><a href="{{ path('service_detail', {'slug':categorie.slug}) }}"> {{ categorie.nom }} </a></li>
+                                <li>
+                                    <a href="{{ path('service_detail', {'slug':categorie.slug}) }}"> {{ categorie.nom }} </a>
+                                </li>
                             {% endfor %}
                         </ul>
 
