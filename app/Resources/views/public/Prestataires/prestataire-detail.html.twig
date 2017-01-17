@@ -37,7 +37,9 @@
                 {% endif %}
 
                 {{ render(controller("AppBundle:Profile/Comment:viewCommentPrestataire", { 'id': prestataire.id, 'class':'menu' })) }}
-                {{ render(controller("AppBundle:Profile/Comment:create", { 'prestataire': prestataire, 'request': request})) }}
+                {% if is_granted('ROLE_PRESTATAIRE') == false %}
+                    {{ render(controller("AppBundle:Profile/Comment:create", { 'prestataire': prestataire, 'request': request})) }}
+                {% endif %}
             </div>
             <div class="col-sm-5">
                 <h2>Tout sur <span class="text-secondary"> {{ prestataire.username }} </span></h2>
@@ -50,7 +52,9 @@
                                 <img src="{{ asset('assets/img/tmp/no-photo.jpg') }}">
                             {% endif %}
 
+
                         </div><!-- /.detail-logo -->
+
 
                         <div class="detail-contact">
                             <div class="detail-contact-email">
@@ -75,12 +79,13 @@
                                 {% endif %}
 
                             </div>
-                        </div><!-- /.detail-contact -->
 
+                        </div><!-- /.detail-contact -->
 
                         <div class="detail-description">
 
                         </div>
+
                     </div><!-- /.detail-vcard -->
                     <div class="detail-follow">
                         <h5>Reseaux Sociaux:</h5>
@@ -92,6 +97,10 @@
                             <a class="follow-btn google-plus" href="#"><i class="fa fa-google-plus"></i></a>
                         </div><!-- /.follow-wrapper -->
                     </div><!-- /.detail-follow -->
+                    {% if is_granted('ROLE_PRESTATAIRE') == false %}
+                        <a class="btn btn-xs btn-primary"
+                           href="{{ path('prestataire_contact', {'slug':prestataire.slug}) }}">Contacter</a>
+                    {% endif %}
                 </div>
                 <div class="sidebar">
 
