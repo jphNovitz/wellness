@@ -7,6 +7,7 @@ use AppBundle\Entity\Image;
 use AppBundle\Entity\Prestataire;
 use AppBundle\Entity\Stage;
 use AppBundle\Entity\Utilisateur;
+use AppBundle\Form\Prestataire\PrestataireContactType;
 use AppBundle\Form\Type\PrestataireType;
 use Gedmo\Mapping\Annotation\Slug;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -17,6 +18,7 @@ use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class PrestataireController extends Controller
 {
@@ -92,7 +94,7 @@ class PrestataireController extends Controller
      * @Route("prestataire/{slug}", name="prestataire_detail")
      * @ParamConverter("prestataire", class="AppBundle:Prestataire")
      */
-    public function detailAction(Prestataire $prestataire)
+    public function detailAction(Prestataire $prestataire, Request $request)
     {
         $manager = $this->getDoctrine()->getManager();
         $stages = $manager->getRepository('AppBundle\Entity\Stage')->findByPrestataire($prestataire);
@@ -102,7 +104,8 @@ class PrestataireController extends Controller
         return $this->render('public/prestataires/prestataire-detail.html.twig', [
             'prestataire' => $prestataire,
             'stages' => $stages,
-            'promos' => $promos
+            'promos' => $promos,
+            'request'=>$request
         ]);
     }
 
@@ -146,14 +149,35 @@ class PrestataireController extends Controller
     }
 
     /**
-     * @Route("/essai", name="essai")
+     * @Route("prestataire/{slug}/contact", name="prestataire_contact")
+     * @ParamConverter("prestataire", class="AppBundle:Prestataire")
      */
-    public function essaiAction($max, $class = "")
+    public function contactAction(Request $request, $prestataire)
     {
-        $em = $this->getDoctrine()->getManager();
+$user=$this->get('app.verify_profile')->getUser();
 
-        $prestataires = $em->getRepository('AppBundle\Entity\Prestataire')->getList($max);
+     $form=$this->createFormBuilder()
+         ->add('sujet', TextType::class)
+         ->add('message', TextType::class)
+         ->add('submit', SubmitType::class)
+         ->getForm();
 
-        var_dump($prestataires); die();
+        $form->handleRequest($request);
+
+       if ($form->isValid()){
+           $message['sujet']=$form->get('sujet')->getData();
+           $message['message']=$form->get('message')->getData();
+           $message['internaute']=$user->getNom();
+           $message['source']=$user->getEmail();
+           $message['destination']=$prestataire->getEmail();
+           if ($this->get('app.message_to_prestataire')->sendMessage($message))
+               return $this->redirectToRoute('prestataire_detail', [
+                   "slug"=>$prestataire->getSlug()
+               ]);
+           return $this->redirectToRoute('homepage');
+       }
+
+        return $this->render('prestataires/prestataire-contact.html.twig', ['form'=>$form->createView()]);
+
     }
 }

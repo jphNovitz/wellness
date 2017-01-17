@@ -104,6 +104,9 @@ la charte graphique du site.
 - formulaire commentaire: titre et contenu
 * note -> note de 1 à 5 - autant d'étoiles s'affichent au dessus du commentaire.
 
+**17-01-2017**  
+- Contacter un prestataire (controller - vue - service)
+
 TO-DO
 
 

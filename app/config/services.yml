@@ -31,6 +31,10 @@ services:
         class: AppBundle\Util\PersistOrRemove
         arguments: ["@doctrine.orm.entity_manager", "@session"]
 
+    app.message_to_prestataire:
+        class: AppBundle\Util\MessageToPrestataire
+        arguments: ["@mailer", "@templating", "@session"]
+
 
 #    service_name:
 #        class: AppBundle\Directory\ClassName
