@@ -107,10 +107,16 @@ la charte graphique du site.
 **17-01-2017**  
 - Contacter un prestataire (controller - vue - service)
 
+**18-01-2017**  
+- modification contacter un prestataire  / mail
+* déplacement vers nouveau contactController
+* déplacement de logique dans le service MessageToPrestataire
+* contactController = contact_prestataire - contact_wellness - contact
+
 TO-DO
 
 
-  
+* contacts -> mettre du texte dans les formulaire et faire page pour les non connectés.
 * faire l'update des images 
 * empecher champs nullable dans le formulaire de confirmation
 * mettre des petits tests pour détecter problèmes dans exécution
