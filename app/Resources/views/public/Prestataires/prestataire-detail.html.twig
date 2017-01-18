@@ -99,7 +99,11 @@
                     </div><!-- /.detail-follow -->
                     {% if is_granted('ROLE_PRESTATAIRE') == false %}
                         <a class="btn btn-xs btn-primary"
-                           href="{{ path('prestataire_contact', {'slug':prestataire.slug}) }}">Contacter</a>
+                           href="{{ path('contact_prestataire', {'slug':prestataire.slug}) }}">Contacter le prestataire</a>
+                    {% endif %}
+                    {% if app.user %}
+                        <a class="btn btn-xs btn-primary"
+                           href="{{ path('contact_wellness') }}">Nous Contacter</a>
                     {% endif %}
                 </div>
                 <div class="sidebar">

@@ -4,6 +4,7 @@ namespace AppBundle\Form\Type;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -29,7 +30,8 @@ class UtilisateurType extends AbstractType
             ->add('adresseNum', TextType::class)
             ->add('adresseRue', TextType::class)
             ->add('localite', EntityType::class, ['class'=>'AppBundle\Entity\Localite'])
-            ->remove('plainPassword')
+
+            //->remove('plainPassword')
         ;
     }
 
@@ -43,13 +45,7 @@ class UtilisateurType extends AbstractType
         ));
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix()
-    {
-        return 'appbundle_utilisateur';
-    }
+
 
 
 }
