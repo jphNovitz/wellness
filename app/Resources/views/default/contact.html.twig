@@ -5,6 +5,42 @@
 
 {% block body %}
 
-   Ceci n'est pas une page blanche
+    <div class="row">
+        <div class="col-sm-6">
+            {% if form is defined %}
+                {% include 'forms/form-contact.html.twig' with{'form':form} %}
+            {% endif %}
+        </div> <!-- col 6-->
+        <div class="col-sm-6">
+            <h3>Nous Contacter</h3>
+
+            <p>
+                Donec congue egestas nisi id varius. Curabitur ullamcorper consectetur risus, eget dapibus lacus.
+                Maecenas sit amet dui dictum, tincidunt ante vel, semper purus. In hac habitasse platea dictumst.
+                Vivamus hendrerit sem a rutrum ornare. Donec vehicula auctor eros. Etiam et enim tellus.
+            </p>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <h3>Address</h3>
+
+                    <p>
+                        13/2 Elizabeth Street,<br>
+                        Melbourne, Australia
+                    </p>
+                </div><!-- /.col-* -->
+
+                <div class="col-sm-6">
+                    <h3>Contacts</h3>
+
+                    <p>
+                        1900-CO-WORKER<br>
+                        1800-3322-4453
+                    </p>
+                </div><!-- /.col-* -->
+            </div><!-- /.row -->
+        </div><!-- /.col-* -->
+    </div><!-- /.row -->
+
 {% endblock %}
 

@@ -97,17 +97,21 @@
                             <a class="follow-btn google-plus" href="#"><i class="fa fa-google-plus"></i></a>
                         </div><!-- /.follow-wrapper -->
                     </div><!-- /.detail-follow -->
-                    {% if is_granted('ROLE_PRESTATAIRE') == false %}
-                        <a class="btn btn-xs btn-primary"
-                           href="{{ path('contact_prestataire', {'slug':prestataire.slug}) }}">Contacter le prestataire</a>
-                    {% endif %}
-                    {% if app.user %}
-                        <a class="btn btn-xs btn-primary"
-                           href="{{ path('contact_wellness') }}">Nous Contacter</a>
-                    {% endif %}
+
                 </div>
                 <div class="sidebar">
 
+                    <div class="widget">
+                        {% if is_granted('ROLE_PRESTATAIRE') == false %}
+                            <a class="btn btn-xs btn-primary"
+                               href="{{ path('contact_prestataire', {'slug':prestataire.slug}) }}">Contacter le
+                                prestataire</a>
+                        {% endif %}
+                        {% if app.user %}
+                            <a class="btn btn-xs btn-primary"
+                               href="{{ path('contact_wellness') }}">Nous Contacter</a>
+                        {% endif %}
+                    </div>
                     <div class="background-white p20" style="margin-top: 1em">
                         <div class="widget">
                             {% if promos is not empty %}

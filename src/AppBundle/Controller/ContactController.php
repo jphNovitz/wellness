@@ -38,7 +38,7 @@ class ContactController extends Controller
             return $this->redirectToRoute('homepage');
         }
 
-        return $this->render('prestataires/prestataire-contact.html.twig', ['form' => $form->createView()]);
+        return $this->render('default/contact.html.twig', ['form' => $form->createView()]);
 
     }
 
@@ -63,7 +63,7 @@ class ContactController extends Controller
         }
 
 
-        return $this->render('prestataires/prestataire-contact.html.twig', ['form' => $form->createView()]);
+        return $this->render('default/contact.html.twig', ['form' => $form->createView()]);
 
     }
 
@@ -72,7 +72,7 @@ class ContactController extends Controller
      */
     public function defaultContactAction(Request $request)
     {
-        // ici viendra le code qui renvoie vers la vue contact
+
         return $this->render('default/contact.html.twig');
     }
 
@@ -86,7 +86,7 @@ class ContactController extends Controller
             ->getForm();
     }
 
-    private function composeMessage($form, Internaute $user, Prestataire $prestataire = null)
+   /* private function composeMessage($form, Internaute $user, Prestataire $prestataire = null)
     {
         $message['sujet'] = $form->get('sujet')->getData();
         $message['message'] = $form->get('message')->getData();
@@ -95,5 +95,5 @@ class ContactController extends Controller
         if ($prestataire) $message['destination'] = $prestataire->getEmail();
         else  $message['destination'] = 'fakemail@mailtrap.io';
         return $message;
-    }
+    }*/
 }
