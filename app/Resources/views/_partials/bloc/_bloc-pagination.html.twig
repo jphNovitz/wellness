@@ -1,9 +1,13 @@
 <div class="pager">
-    {%  if pagination.page>1 %}<li><a href=""> page précédente</a></li> {% endif %}
-    {% for i in 1..pagination.pages_nombre %}
-        <li class="{% if pagination.page == i %}active{% endif %}"><a href="{{ path('prestataires_list', {'page':i}) }}">{{ i }}</a> </li>
-    {% endfor %}
-    {%  if pagination.page<pagination.pages_nombre%}
-        <li><a href="{{ path('prestataires_list', {'page':(pagination.page)+1}) }}"> page suivante</a></li>
+    {% if pagination is defined %}
+        {% if pagination.page>1 %}
+            <li><a href=""> page précédente</a></li> {% endif %}
+        {% for i in 1..pagination.pages_nombre %}
+            <li class="{% if pagination.page == i %}active{% endif %}"><a
+                        href="{{ path('prestataires_list', {'page':i}) }}">{{ i }}</a></li>
+        {% endfor %}
+        {% if pagination.page<pagination.pages_nombre %}
+            <li><a href="{{ path('prestataires_list', {'page':(pagination.page)+1}) }}"> page suivante</a></li>
+        {% endif %}
     {% endif %}
 </div>

@@ -130,5 +130,21 @@ class PrestataireRepository extends \Doctrine\ORM\EntityRepository
         return new Paginator($qb);
     }
 
+    public function getFavoris($user)
+    {
+
+        $qb = $this->createQueryBuilder('p')
+            ->join('p.favoris', 'fav')
+            ->join('p.logos', 'logos')
+            ->join('p.localite', 'loc')
+            ->select('p, loc, logos')
+            ->andWhere('fav.id = :uid')
+            ->setParameter('uid', $user->getId())
+            //->groupBy('fav')
+        ;
+
+
+        return $qb->getQuery()->getResult();
+    }
 
 }

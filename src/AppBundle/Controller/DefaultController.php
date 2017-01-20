@@ -26,15 +26,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/contact", name="contact")
-     */
-    public function contactAction(Request $request)
-    {
-        // ici viendra le code qui renvoie vers la vue contact
-        return $this->render('default/contact.html.twig');
-    }
-
-    /**
      * @Route("/about", name="about")
      */
     public function aboutAction(Request $request)
