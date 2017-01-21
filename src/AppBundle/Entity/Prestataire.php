@@ -71,7 +71,10 @@ class Prestataire extends Utilisateur
      */
     private $logos;
 
-
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Internaute", mappedBy="favoris")
+     */
+    private $favoris;
 
 
     public function __construct()
@@ -80,6 +83,7 @@ class Prestataire extends Utilisateur
         $this->categories = new ArrayCollection();
         $this->photos = new ArrayCollection();
         $this->logos = new ArrayCollection();
+        $this->favoris= new ArrayCollection();
     }
 
 
@@ -258,5 +262,41 @@ class Prestataire extends Utilisateur
     public function getLogos()
     {
         return $this->logos;
+    }
+
+
+
+    /**
+     * Add favori
+     *
+     * @param \AppBundle\Entity\Internaute $favori
+     *
+     * @return Prestataire
+     */
+    public function addFavori(\AppBundle\Entity\Internaute $favori)
+    {
+        $this->favoris[] = $favori;
+
+        return $this;
+    }
+
+    /**
+     * Remove favori
+     *
+     * @param \AppBundle\Entity\Internaute $favori
+     */
+    public function removeFavori(\AppBundle\Entity\Internaute $favori)
+    {
+        $this->favoris->removeElement($favori);
+    }
+
+    /**
+     * Get favoris
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFavoris()
+    {
+        return $this->favoris;
     }
 }

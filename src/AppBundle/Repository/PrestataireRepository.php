@@ -130,7 +130,7 @@ class PrestataireRepository extends \Doctrine\ORM\EntityRepository
         return new Paginator($qb);
     }
 
-    public function getFavoris($user)
+    public function getFavoris($user, $n=null)
     {
 
         $qb = $this->createQueryBuilder('p')
@@ -140,7 +140,7 @@ class PrestataireRepository extends \Doctrine\ORM\EntityRepository
             ->select('p, loc, logos')
             ->andWhere('fav.id = :uid')
             ->setParameter('uid', $user->getId())
-            //->groupBy('fav')
+            ->setMaxResults($n)
         ;
 
 

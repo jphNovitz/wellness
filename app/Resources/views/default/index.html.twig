@@ -17,8 +17,14 @@
             <div class="content">
                 <div class="cards-row">
                     {{ render(url('prestataire_search_form')) }}  {# formulaire pour la recheche d'un prestataire #}
+
                     {{ render(controller("AppBundle:Prestataire/Prestataire:last", {},{'n':4, 'view':'grid'})) }}
 
+
+                    {% if is_granted('ROLE_INTERNAUTE') %}
+                        <h2>Récement ajouté à vos favoris: </h2>
+                        {{ render(controller("AppBundle:Profile/Favoris:last")) }}
+                    {% endif %}
                 </div><!-- /.cards-row -->
             </div><!-- /.content -->
         </div><!-- /.col-* -->

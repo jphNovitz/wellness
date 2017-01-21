@@ -58,6 +58,11 @@ class Internaute extends Utilisateur
      */
     private $positions;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Prestataire", inversedBy="favoris")
+     */
+    private $favoris;
+
 
 
     public function __construct()
@@ -65,8 +70,11 @@ class Internaute extends Utilisateur
         $this->commentaires = new ArrayCollection();
         $this->abus = new ArrayCollection();
         $this->photos=new ArrayCollection();
+        $this->favoris=new ArrayCollection();
         $this->newsletter=1;
+
     }
+
 
     public function __toString()
     {
@@ -224,5 +232,41 @@ class Internaute extends Utilisateur
     public function getPhotos()
     {
         return $this->photos;
+    }
+
+
+
+    /**
+     * Add favori
+     *
+     * @param \AppBundle\Entity\Prestataire $favori
+     *
+     * @return Internaute
+     */
+    public function addFavori(\AppBundle\Entity\Prestataire $favori)
+    {
+        $this->favoris[] = $favori;
+
+        return $this;
+    }
+
+    /**
+     * Remove favori
+     *
+     * @param \AppBundle\Entity\Prestataire $favori
+     */
+    public function removeFavori(\AppBundle\Entity\Prestataire $favori)
+    {
+        $this->favoris->removeElement($favori);
+    }
+
+    /**
+     * Get favoris
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFavoris()
+    {
+        return $this->favoris;
     }
 }

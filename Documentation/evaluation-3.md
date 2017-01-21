@@ -113,10 +113,17 @@ la charte graphique du site.
 * déplacement de logique dans le service MessageToPrestataire
 * contactController = contact_prestataire - contact_wellness - contact
 
+**21-01-2017**  
+Implémentation mis en favoris: 
+- controller FavorisController
+* getList, GetLast, Add, Remove
+* réutilisation du service persisrt_or_remove
+* affichage des cin derniers favoris sur la page d'accueil
+
+
 TO-DO
 
 
-* contacts -> mettre du texte dans les formulaire et faire page pour les non connectés.
 * faire l'update des images 
 * empecher champs nullable dans le formulaire de confirmation
 * mettre des petits tests pour détecter problèmes dans exécution

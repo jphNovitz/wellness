@@ -37,12 +37,17 @@
                 {% endif %}
 
                 {{ render(controller("AppBundle:Profile/Comment:viewCommentPrestataire", { 'id': prestataire.id, 'class':'menu' })) }}
-                {% if is_granted('ROLE_PRESTATAIRE') == false %}
+                {% if is_granted('ROLE_INTERNAUTE') %}
                     {{ render(controller("AppBundle:Profile/Comment:create", { 'prestataire': prestataire, 'request': request})) }}
                 {% endif %}
             </div>
             <div class="col-sm-5">
-                <h2>Tout sur <span class="text-secondary"> {{ prestataire.username }} </span></h2>
+                <h2>Tout sur <span class="text-secondary"> {{ prestataire.username }} </span>
+                    {% if is_granted('ROLE_INTERNAUTE') %}
+                        <a href="{{ path('favoris_add', {'slug': prestataire.slug}) }}"><i class="fa fa-bookmark"
+                                                                                           aria-hidden="true"></i></a>
+                    {% endif %}
+                </h2>
                 <div class="background-white p20">
                     <div class="detail-vcard">
                         <div class="detail-logo">
@@ -102,7 +107,7 @@
                 <div class="sidebar">
 
                     <div class="widget">
-                        {% if is_granted('ROLE_PRESTATAIRE') == false %}
+                        {% if is_granted('ROLE_INTERNAUTE') %}
                             <a class="btn btn-xs btn-primary"
                                href="{{ path('contact_prestataire', {'slug':prestataire.slug}) }}">Contacter le
                                 prestataire</a>

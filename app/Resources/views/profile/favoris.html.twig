@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block document_title %}
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="background-white p20 mb50">
+        <h2 class="page-title">Mes prestataires favoris</h2>
+
+        <table class="table table-striped mb0">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Nom</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for provider in providers %}
+            <tr>
+                <th scope="row">{{ loop.index }}</th>
+                <td>{{ provider.nom }}</td>
+
+
+                <td>
+                   <a href="{{ path('prestataire_detail',{'slug':provider.slug}) }}"> <i class="fa fa-eye" aria-hidden="true"></i></a>
+
+                   <a href="{{ path('favoris_remove',{'slug':provider.slug}) }}"> <i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                </td>
+
+            </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
