@@ -44,7 +44,7 @@ class PromoController extends Controller
     {
 
         try {
-            $user = $this->get('app.verify_profile')->checkUser();
+            $user = $this->get('app.verify_profile')->checkUser('prestataire');
         }catch (\Exception $e){
             $this->addFlash('error',"Cette zone n'est pas accessible !");
             return $this->redirectToRoute('homepage');
@@ -70,7 +70,7 @@ class PromoController extends Controller
     public function updateAction(Request $request, $promo)
     {
         try {
-            $user = $this->get('app.verify_profile')->checkUser();
+            $user = $this->get('app.verify_profile')->checkUser('prestataire');
         }catch (\Exception $e){
             $this->addFlash('error',"Cette zone n'est pas accessible !");
             return $this->redirectToRoute('homepage');
@@ -95,7 +95,7 @@ class PromoController extends Controller
     public function deleteAction(Request $request, Promotion $promo)
     {
         try {
-            $user = $this->get('app.verify_profile')->checkUser();
+            $user = $this->get('app.verify_profile')->checkUser('prestataire');
         }catch (\Exception $e){
             $this->addFlash('error',"Cette zone n'est pas accessible !");
             return $this->redirectToRoute('homepage');

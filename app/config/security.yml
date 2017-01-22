@@ -6,11 +6,17 @@ security:
     providers:
         chain_provider:
             chain:
-                providers: [utilisateur_db, userTemp_db]
+                providers: [in_memory, utilisateur_db, userTemp_db]
         utilisateur_db:
             entity: { class: AppBundle\Entity\Utilisateur, property: username}
         userTemp_db:
             entity: { class: AppBundle\Entity\userTemp, property: username}
+        in_memory:
+            memory:
+                users:
+                    admin:
+                        password: nhDr7OyKlXQju+Ge/WKGrPQ9lPBSUFfpK+B1xqx/+8zLZqRNX0+5G1zBQklXUFy86lCpkAofsExlXiorUcKSNQ==
+                        roles: ['ROLE_ADMIN', 'ROLE_USER',]
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs

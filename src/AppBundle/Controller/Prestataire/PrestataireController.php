@@ -77,18 +77,6 @@ class PrestataireController extends Controller
      */
 
 
-    // @Route("/prestataires/menu", name="prestataires_menu")
-
-    /* public function menuAction($max, $class = "")
-     {
-         $manager = $this->getDoctrine()->getManager();
-         $repo = $manager->getRepository('AppBundle\Entity\Prestataire');
-         $prestataires = $repo->findNames($max);
-
-         return $this->render('_partials/menu-elements.html.twig',
-             ['elements' => $prestataires, 'chemin' => 'prestataires_list', 'class' => $class]);
-     }*/
-
 
     /**
      * @Route("prestataire/{slug}", name="prestataire_detail")
@@ -96,6 +84,7 @@ class PrestataireController extends Controller
      */
     public function detailAction(Prestataire $prestataire, Request $request)
     {
+
         $manager = $this->getDoctrine()->getManager();
         $stages = $manager->getRepository('AppBundle\Entity\Stage')->findByPrestataire($prestataire);
         $promos = $manager->getRepository('AppBundle\Entity\Promotion')->findByPrestataire($prestataire);
@@ -148,36 +137,5 @@ class PrestataireController extends Controller
         }
     }
 
-    ///
-    // * @Route("prestataire/{slug}/contact", name="prestataire_contact")
-    // * @ParamConverter("prestataire", class="AppBundle:Prestataire")
-    // */
-    /*public function contactAction(Request $request, $prestataire)
-    {
-        $user = $this->get('app.verify_profile')->getUser();
 
-        $form = $this->createFormBuilder()
-            ->add('sujet', TextType::class)
-            ->add('message', TextType::class)
-            ->add('submit', SubmitType::class)
-            ->getForm();
-
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $message['sujet'] = $form->get('sujet')->getData();
-            $message['message'] = $form->get('message')->getData();
-            $message['internaute'] = $user->getNom();
-            $message['source'] = $user->getEmail();
-            $message['destination'] = $prestataire->getEmail();
-            if ($this->get('app.message_to_prestataire')->sendMessage($message))
-                return $this->redirectToRoute('prestataire_detail', [
-                    "slug" => $prestataire->getSlug()
-                ]);
-            return $this->redirectToRoute('homepage');
-        }
-
-        return $this->render('prestataires/prestataire-contact.html.twig', ['form' => $form->createView()]);
-
-    }*/
 }

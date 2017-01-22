@@ -120,11 +120,19 @@ Implémentation mis en favoris:
 * réutilisation du service persisrt_or_remove
 * affichage des cin derniers favoris sur la page d'accueil
 
+**22-01-2017** 
+* configuration security pour utilisateur admin (password: admin)  
+* Gestion des prestataire:
+  - le premier logo est pour afficher le détail
+  - logo poubelle désactive le prestataire il est affiché en rouge dans la liste
+  - logo v active le prestataire il est affiché normalement
+  - modification des fixtures pour mettre actif : true  
+* modification methode checkUser pour faire la différence entre prestataire et admin
+
 
 TO-DO
 
 
-* faire l'update des images 
 * empecher champs nullable dans le formulaire de confirmation
 * mettre des petits tests pour détecter problèmes dans exécution
 

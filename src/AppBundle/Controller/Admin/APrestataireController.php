@@ -2,9 +2,12 @@
 
 namespace AppBundle\Controller\Admin;
 
+use AppBundle\Entity\Prestataire;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class APrestataireController extends Controller
 {
@@ -16,37 +19,46 @@ class APrestataireController extends Controller
         $repo = $this->getDoctrine()->getManager()->getRepository('AppBundle\Entity\Prestataire');
         $providers = $repo->getList();
 
-        return $this->render('admin/prestataires/prestataires-list.html.twig', ['providers' => $providers]);
+        return $this->render('prestataires/prestataires-list.html.twig', ['providers' => $providers]);
     }
 
     /**
-     * @Route("/admin/prestataire/new", name="admin_prestataire_create")
+     * @Route("/admin/prestataire/delete/{slug}", name="admin_prestataire_delete")
+     * @ParamConverter("prestataire", class="AppBundle:Prestataire")
      */
-    public function createAction(Request $request)
+    public function deleteAction(Request $request, Prestataire $prestataire)
     {
+        try {
+            $user = $this->get('app.verify_profile')->checkUser('admin');
+        } catch (\Exception $e) {
+            $this->addFlash('error', "Cette zone n'est pas accessible !");
+            return $this->redirectToRoute('homepage');
+        }
 
+        $form = $this->createFormBuilder($prestataire)
+            ->add('supprimer', SubmitType::class, ['label' => 'OUI Supprimer !', 'attr' => ['class' => 'label label-lg label-danger']])
+            ->getForm();
 
-        // ici viendra le code qui renvoie vers le formulaire creation d'un prestataire (Admin)
-        return $this->render('admin/prestataires/prestataire-create.html.twig');
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+
+            if ($this->get('app.persist_or_remove')->desactivate($prestataire))
+                return $this->redirectToRoute('admin_prestataires_list');
+
+        }
+
+        return $this->render('admin/Prestataires/prestataire-delete.html.twig', ["prestataire" => $prestataire, "form" => $form->createView()]);
     }
 
     /**
-     * @Route("/admin/prestataire/update", name="admin_prestataire_update")
+     * @Route("/admin/prestataire/activate/{slug}", name="admin_prestataire_activate")
+     * @ParamConverter("prestataire", class="AppBundle:Prestataire")
      */
-    public function updateAction(Request $request)
+    public function activateAction(Request $request, Prestataire $prestataire)
     {
-        // ici viendra le code qui renvoie vers le formulaire update d'un prestataire (Admin)
-        return $this->render('admin/prestataires/prestataires-update.html.twig');
+        if ($this->get('app.persist_or_remove')->activate($prestataire))
+            return $this->redirectToRoute('admin_prestataires_list');
     }
-
-    /**
-     * @Route("/admin/prestataire/delete", name="admin_prestataire_delete")
-     */
-    public function deleteAction(Request $request)
-    {
-        // ici viendra le code qui renvoie vers le formulaire suppression d'un prestataire (Admin)
-        return $this->render('admin/prestataire/prestataires-delete.html.twig');
-    }
-
 
 }

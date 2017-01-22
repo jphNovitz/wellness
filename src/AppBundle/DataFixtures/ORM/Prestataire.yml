@@ -30,6 +30,7 @@ AppBundle\Entity\Prestataire:
         adresseNum: '<randomDigitNotNull()>'
         adresseRue  (unique): '<streetName()>'
         banni: false
+        actif: true
         confirmation: false
         password  (unique): '<password()>'
         essais: 3

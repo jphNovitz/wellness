@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block document_title %}
-<div class="document-title">
-    <h1>{% block document_title_h1 %}Zone Admin: Gestion des Prestataires {% endblock %}</h1>
+    <div class="document-title">
+        <h1>{% block document_title_h1 %}Zone Admin: Gestion des Prestataires {% endblock %}</h1>
 
-    <ul class="breadcrumb">
-        {% block document_title_list %}
+        <ul class="breadcrumb">
+            {% block document_title_list %}
 
-        {% endblock %}
-    </ul>
+            {% endblock %}
+        </ul>
 
 
-</div><!-- /.document-title -->
+    </div><!-- /.document-title -->
 {% endblock %}
 
 {% block body %}
@@ -30,22 +30,28 @@
             </thead>
 
             <tbody>
+
             {% for provider in providers %}
-            <tr>
-                <th scope="row">{{ loop.index }}</th>
-                <td>{{ provider.nom }}</td>
+
+                <tr {% if not provider.actif %} style="background-color: palevioletred; color: #FFFFFF" {% endif %}>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>{{ provider.nom }}
+                    </td>
 
 
-                <td>
-                   <a href="{{ path('prestataire_detail',{'slug':provider.slug}) }}"> <i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    <i class="fa fa-minus-circle" aria-hidden="true"></i>
-                </td>
-                <td>
-                    <i class="fa fa-ban" aria-hidden="true"></i>
+                    <td>
+                        <a href="{{ path('prestataire_detail',{'slug':provider.slug}) }}">
+                            <i class="fa fa-eye" style="color: #ffffff;" aria-hidden="true"></i></a>
+                        <a href="{{ path('admin_prestataire_delete', {'slug': provider.slug}) }}">
+                            <i class="fa fa-trash-o" style="color: #ffffff;" aria-hidden="true"></i></a>
+                        <a href="{{ path('admin_prestataire_activate', {'slug': provider.slug}) }}">
+                            <i class="fa fa-check-circle-o" style="color: #ffffff;" aria-hidden="true"></i> </a>
+                    </td>
+                    <td>
+                        <i class="fa fa-ban" aria-hidden="true"></i>
 
-                </td>
-            </tr>
+                    </td>
+                </tr>
             {% endfor %}
 
             </tbody>

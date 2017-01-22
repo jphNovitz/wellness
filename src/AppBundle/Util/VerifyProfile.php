@@ -40,18 +40,28 @@ class VerifyProfile
      * - Si l'utilisateur n'est pas un PRESTATAIRE -> retourne une AccessDeniedException
      * - Si la variable user n'est pas un objet c'est qu'il y a un probleme -> retourne aussi une exception
      */
-    public function checkUser()
+    public function checkUser($userRole)
     {
+        switch ($userRole) {
+            case 'admin':
 
-            if (false === $this->authorizationChecker->isGranted('ROLE_PRESTATAIRE')) {
-                throw new AccessDeniedException('vous n\'avez pas accès à cette zone');
-            }
-            $user = $this->token->getToken()->getUser();
-            if (!is_object($user)) {
-                throw new \Exception();
-            }
-            return $user;
+                if (false === $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+                    throw new AccessDeniedException('vous n\'avez pas accès à cette zone');
+                }
+                break;
+            case 'prestataire':
+                if (false === $this->authorizationChecker->isGranted('ROLE_PRESTATAIRE')) {
+                    throw new AccessDeniedException('vous n\'avez pas accès à cette zone');
+                }
+                break;
 
+        }
+
+        $user = $this->token->getToken()->getUser();
+        if (!is_object($user)) {
+            throw new \Exception();
+        }
+        return $user;
 
 
     }

@@ -53,6 +53,7 @@ class PersistOrRemove
 
     public function remove($element)
     {
+
         try {
             $this->manager->remove($element);
             $this->manager->flush();
@@ -80,7 +81,31 @@ class PersistOrRemove
             $element->setActif(false);
             $this->manager->persist($element);
             $this->manager->flush();
-            $this->session->getFlashBag()->add('succes', 'Votre profil a été supprimé, vous n\'êtes plus visible sur notre plateforme');
+            $this->session->getFlashBag()->add('succes', 'Le  profil a été supprimé, il  n\'est plus visible sur notre plateforme');
+
+            return true;
+
+        } catch (\Exception $e) {
+            $this->session->getFlashBag()->add('error', 'Il y a eu une erreur');
+
+            return false;
+
+        }
+
+
+    }
+
+    /**
+     * @param $element
+     * @return bool
+     */
+    public function activate($element)
+    {
+        try {
+            $element->setActif(true);
+            $this->manager->persist($element);
+            $this->manager->flush();
+            $this->session->getFlashBag()->add('succes', 'Le  profil a été activé, il est  visible sur notre plateforme');
 
             return true;
 

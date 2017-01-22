@@ -23,7 +23,7 @@ class PrestataireRepository extends \Doctrine\ORM\EntityRepository
     public function getList($max = null)
     {
         $qb = $this->createQueryBuilder('p');
-        $qb->select('p.slug, p.nom, p.dateInscription')
+        $qb->select('p.slug, p.nom, p.dateInscription, p.actif')
             ->orderBy('p.dateInscription', 'DESC')
             ->setMaxResults($max);
 

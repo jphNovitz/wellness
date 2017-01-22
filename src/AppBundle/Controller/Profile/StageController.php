@@ -40,7 +40,7 @@ class StageController extends Controller
     public function createAction(Request $request)
     {
         try {
-            $user = $this->get('app.verify_profile')->checkUser();
+            $user = $this->get('app.verify_profile')->checkUser('prestataire');
         } catch (\Exception $e) {
             $this->addFlash('error', "Cette zone n'est pas accessible !");
             return $this->redirectToRoute('homepage');
@@ -65,7 +65,7 @@ class StageController extends Controller
     public function updateAction(Request $request, $stage)
     {
         try {
-            $user = $this->get('app.verify_profile')->checkUser();
+            $user = $this->get('app.verify_profile')->checkUser('prestataire');
         } catch (\Exception $e) {
             $this->addFlash('error', "Cette zone n'est pas accessible !");
             return $this->redirectToRoute('homepage');
@@ -89,7 +89,7 @@ class StageController extends Controller
     public function deleteAction(Request $request, Stage $stage)
     {
         try {
-            $user = $this->get('app.verify_profile')->checkUser();
+            $user = $this->get('app.verify_profile')->checkUser('prestataire');
         } catch (\Exception $e) {
             $this->addFlash('error', "Cette zone n'est pas accessible !");
             return $this->redirectToRoute('homepage');
