@@ -10,4 +10,20 @@ namespace AppBundle\Repository;
  */
 class InternauteRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * getList
+     * ne récupère que le minimum d'infos nécessaire pour un minimum de requetes
+     * si j'appelle cette methode c'est que je n'ai besoin que d'une liste
+     */
+    public function getList($max = null)
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb->select('p.slug, p.nom, p.dateInscription, p.actif')
+            ->orderBy('p.dateInscription', 'DESC')
+            ->setMaxResults($max);
+
+        return $qb->getQuery()->execute();
+
+    }
+
 }

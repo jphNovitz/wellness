@@ -122,7 +122,7 @@ Implémentation mis en favoris:
 
 **22-01-2017** 
 * configuration security pour utilisateur admin (password: admin)  
-* Gestion des prestataire:
+* Gestion des prestataire / gestion des internautes
   - le premier logo est pour afficher le détail
   - logo poubelle désactive le prestataire il est affiché en rouge dans la liste
   - logo v active le prestataire il est affiché normalement
@@ -130,9 +130,5 @@ Implémentation mis en favoris:
 * modification methode checkUser pour faire la différence entre prestataire et admin
 
 
-TO-DO
 
-
-* empecher champs nullable dans le formulaire de confirmation
-* mettre des petits tests pour détecter problèmes dans exécution
 

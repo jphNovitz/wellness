@@ -2,7 +2,7 @@
 
 {% block document_title %}
     <div class="document-title">
-        <h1>{% block document_title_h1 %}Zone Admin: Gestion des Prestataires {% endblock %}</h1>
+        <h1>{% block document_title_h1 %}Zone Admin: Gestion des {{ type }} {% endblock %}</h1>
 
         <ul class="breadcrumb">
             {% block document_title_list %}
@@ -31,23 +31,22 @@
 
             <tbody>
 
-            {% for provider in providers %}
+            {% for user in users %}
 
-                <tr {% if not provider.actif %} style="background-color: palevioletred; color: #FFFFFF" {% endif %}>
+                <tr {% if not user.actif %} style="background-color: palevioletred; color: #FFFFFF" {% endif %}>
                     <th scope="row">{{ loop.index }}</th>
-                    <td>{{ provider.nom }}
+                    <td>{{ user.nom }}
                     </td>
 
 
                     <td>
-                        <a href="{{ path('prestataire_detail',{'slug':provider.slug}) }}">
-                            <i class="fa fa-eye" style="color: #000000;" aria-hidden="true"></i></a>
-                        {% if provider.actif %}
-                            <a href="{{ path('admin_prestataire_delete', {'slug': provider.slug}) }}">
-                                <i class="fa fa-trash-o" style="color: #000000;" aria-hidden="true"></i></a>
-                        {% else %}
-                            <a href="{{ path('admin_prestataire_activate', {'slug': provider.slug}) }}">
-                                <i class="fa fa-check-circle-o" style="color: #000000;" aria-hidden="true"></i> </a>
+                        <a href="{{ path('profile_detail',{'slug':user.slug}) }}">
+                            <i class="fa fa-eye"  style="color: #000000;" aria-hidden="true"></i></a>
+                        {% if user.actif %}
+                        <a href="{{ path('admin_internaute_delete', {'slug': user.slug}) }}">
+                            <i class="fa fa-trash-o" style="color: #000000;" aria-hidden="true"></i></a>
+                        {% else %}<a href="{{ path('admin_internaute_activate', {'slug': user.slug}) }}">
+                            <i class="fa fa-check-circle-o" style="color: #000000;" aria-hidden="true"></i> </a>
                         {% endif %}
                     </td>
                     <td>

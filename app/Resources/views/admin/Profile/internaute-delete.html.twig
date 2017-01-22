@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block document_title %}
+    <div class="document-title">
+        <h1>{% block document_title_h1 %}Zone Admin : Suppression deprofil {% endblock %}</h1>
+
+        <ul class="breadcrumb">
+
+        </ul>
+
+
+    </div><!-- /.document-title -->
+{% endblock %}
+
+{% block body %}
+    <span class="alert alert-icon alert-danger">  La suppression est irréversible  </span>
+    <h1><span>CONFIRMATION ! </span> Suppression</h1>
+
+
+    <div id="status">
+        <p>
+            {{ user.nom }}
+        </p>
+
+    </div>
+
+    {{ form(form) }}
+    <p><a href="{{ path('homepage') }}">Home page </a></p>
+
+{% endblock %}
+
