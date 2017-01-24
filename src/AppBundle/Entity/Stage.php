@@ -58,9 +58,8 @@ class Stage
      * @var \DateTime
      *
      * @ORM\Column(name="debut", type="date")
-     * @Assert\NotNull()
+     * @Assert\NotBlank()
      * @Assert\Date()
-     * @Assert\GreaterThanOrEqual("today", message="La date de début n'est pas valide")
      */
     private $debut;
 
@@ -69,7 +68,6 @@ class Stage
      *
      * @ORM\Column(name="fin", type="date", nullable=true)
      * @Assert\Date()
-     * @Assert\GreaterThan("+1days", message="La date de fin n'est pas valide")
      */
     private $fin;
 

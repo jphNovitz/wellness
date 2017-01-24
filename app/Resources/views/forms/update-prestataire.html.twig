@@ -78,22 +78,28 @@
                         <div class="col-md-5">
                             <h2>Vous proposez les stages suivants</h2>
                             {% for stage in stages %}
-                            <br/>
-                            <a href="{{ path('stage_update', {'slug':stage.slug}) }}"> <i class="fa fa-pencil-square-o alert-info"></i></a>
-                            <a href="{{ path('stage_delete', {'slug':stage.slug}) }}"><i class="fa fa-trash-o alert-danger" aria-hidden="true"></i></a>
+                                <br/>
+                                <a href="{{ path('stage_update', {'slug':stage.slug}) }}"> <i
+                                            class="fa fa-pencil-square-o alert-info"></i></a>
+                                <a href="{{ path('stage_delete', {'slug':stage.slug}) }}"><i
+                                            class="fa fa-trash-o alert-danger" aria-hidden="true"></i></a>
 
                                 {{ stage.nom }}
-                                {% endfor %}
-                                <p><a href="{{ path('stage_create') }}">Ajouter un stage</a></p>
+                            {% endfor %}
+                            <p><a href="{{ path('stage_create') }}">Ajouter un stage</a></p>
                             <h2>Voici vos promotions</h2>
                             {% for promo in promos %}
-                            <br/>
-                            <a href="{{ path('promo_update', {'slug':promo.slug}) }}"> <i class="fa fa-pencil-square-o alert-info"></i></a>
-                            <a href="{{ path('promo_delete', {'slug':promo.slug}) }}"><i class="fa fa-trash-o alert-danger" aria-hidden="true"></i></a>
+                                <br/>
+                                <a href="{{ path('promo_update', {'slug':promo.slug}) }}"> <i
+                                            class="fa fa-pencil-square-o alert-info"></i></a>
+                                <a href="{{ path('promo_delete', {'slug':promo.slug}) }}"><i
+                                            class="fa fa-trash-o alert-danger" aria-hidden="true"></i></a>
 
                                 {{ promo.nom }}
-                                {% endfor %}
-                                <p><a href="{{ path('promo_create') }}">Ajouter une promo</a></p>
+                            {% endfor %}
+                            <p><a href="{{ path('promo_create') }}">Ajouter une promo</a></p>
+
+                            <p><br/><a href="{{ path('image_add') }}">Ajouter une image</a></p>
                         </div> <!-- col 5 -->
                     </div> <!-- row -->
                     <div class="row">

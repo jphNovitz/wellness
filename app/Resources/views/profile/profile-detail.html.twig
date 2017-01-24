@@ -11,7 +11,7 @@
                 {% if internaute.photos is not empty %}
                         <div class="detail-gallery-preview">
                             <a href="assets/img/tmp/gallery-1.jpg">
-                                <img src="{{ internaute.photos.first().url }}">
+                                <img src="{{ internaute.photos.last().url }}">
                             </a>
                         </div>
 

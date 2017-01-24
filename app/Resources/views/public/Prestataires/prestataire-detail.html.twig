@@ -10,9 +10,9 @@
             <div class="col-sm-7">
                 {% if prestataire.photos is not empty %}
                     <div class="detail-gallery">
-                        <div class="detail-gallery-preview">
+                        <div class="{{ prestataire.photos.last().url }}">
                             <a href="assets/img/tmp/gallery-1.jpg">
-                                <img src="{{ prestataire.photos.first().url }}">
+                                <img src="{{ prestataire.photos.last().url }}">
                             </a>
                         </div>
 

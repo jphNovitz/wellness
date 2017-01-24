@@ -10,12 +10,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class StageController extends Controller
 {
 
     /**
      * @Route("/stages", name="stages_list")
+     * @Method({"POST"})
      */
     public function listAction()
     {
@@ -27,6 +29,7 @@ class StageController extends Controller
 
     /**
      * @Route("/stage/{slug}", name="stage_detail")
+     * @Method({"POST"})
      * @ParamConverter("stage", class="AppBundle:Stage")
      */
     public function detailAction(Stage $stage)
@@ -36,6 +39,7 @@ class StageController extends Controller
 
     /**
      * @Route("/profile/stage/new", name="stage_create")
+     * @Method({"POST"})
      */
     public function createAction(Request $request)
     {

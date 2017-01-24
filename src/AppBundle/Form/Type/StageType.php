@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\Form\EventListener\CheckDateListener;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -19,6 +20,7 @@ class StageType extends AbstractType
         $builder
             ->add('promostage', PromoStageType::class)
             ->add('info', TextType::class)//  ->add('submit', submitType::class, ['label' => 'Ajout'])
+            ->addEventSubscriber(new CheckDateListener())
         ;
     }
 
@@ -28,7 +30,8 @@ class StageType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Stage'
+            'data_class' => 'AppBundle\Entity\Stage',
+            'validation_groups' => array('validation_full')
         ));
     }
 

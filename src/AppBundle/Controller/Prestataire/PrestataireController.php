@@ -19,11 +19,13 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class PrestataireController extends Controller
 {
     /**
-     * @Route("prestataires/{page}", name="prestataires_list", requirements={"page": "\d+"}),
+     * @Route("prestataires/{page}", name="prestataires_list", requirements={"page": "\d+"})
+     * @Method({"GET"})
      */
     public function listAction(Request $request, $page = 1)
     {
@@ -50,6 +52,7 @@ class PrestataireController extends Controller
 
     /**
      * @Route("prestataires/last", name="prestataires_last")
+     *
      */
     public function lastAction(Request $request)
     {
@@ -80,6 +83,7 @@ class PrestataireController extends Controller
 
     /**
      * @Route("prestataire/{slug}", name="prestataire_detail")
+     * @Method({"GET"})
      * @ParamConverter("prestataire", class="AppBundle:Prestataire")
      */
     public function detailAction(Prestataire $prestataire, Request $request)
@@ -101,6 +105,7 @@ class PrestataireController extends Controller
 
     /**
      * @route("prestataire/update", name="prestataire_update")
+     * @Method({"POST"})
      */
     public function updateAction(Request $request)
     {

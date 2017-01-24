@@ -76,4 +76,29 @@ class SearchController extends Controller
 
 
     }
+
+    /**
+     * @Route("/search_lite", name="search_lite")
+     */
+    public function searchLiteAction(Request $request)
+    {
+        $formLite = $this->createFormBuilder()
+            ->setAction($this->generateUrl('search_lite'))
+            ->add('search', searchType::class)
+            ->getForm();
+        $formLite -> handleRequest($request);
+
+        // si le formulaire a été soumis -> je le traite
+        if ($formLite->isSubmitted() && $formLite->isValid()) {
+            $s = $formLite['search']->getData();
+
+            $prestataires = $this
+                ->getDoctrine()->getManager()
+                ->getRepository('AppBundle\Entity\Prestataire')
+                ->searchPrestataire($s);
+            return $this->render('public/Prestataires/prestataires-resultat.html.twig', ['prestataires' => $prestataires]);
+        }
+
+        return $this->render('forms/search-lite.html.twig', ['formLite' => $formLite->createView()]);
+    }
 }
