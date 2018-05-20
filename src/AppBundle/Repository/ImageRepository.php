@@ -10,7 +10,7 @@ namespace AppBundle\Repository;
  */
 class ImageRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findFrontImages($nbre = 5)
+    public function findFrontImages($nbre = 1)
     {
         $qb = $this->createQueryBuilder('i')
             ->select('i.url, i.imageType, i.id')
@@ -19,7 +19,7 @@ class ImageRepository extends \Doctrine\ORM\EntityRepository
             ->andWhere('i.imageType= :type')
             ->setParameter('type', 'photo')
             ->setMaxResults($nbre)
-            ->groupBy('prest.nom')
+            //->groupBy('prest.nom')
             ->orderBy('i.id', 'DESC');
 
         return $qb->getQuery()->execute();

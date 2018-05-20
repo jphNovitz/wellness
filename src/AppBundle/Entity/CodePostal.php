@@ -25,7 +25,7 @@ class CodePostal
     /**
      * @var string
      *
-     * @ORM\Column(name="code", type="string", length=6, unique=true)
+     * @ORM\Column(name="code", type="string", length=8, unique=true)
      */
     private $code;
 

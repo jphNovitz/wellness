@@ -38,7 +38,7 @@ class Prestataire extends Utilisateur
     /**
      * @var string
      *
-     * @ORM\Column(name="tel", type="string", nullable=true, length=15)
+     * @ORM\Column(name="tel", type="string", nullable=true, length=50)
      */
     private $tel;
 

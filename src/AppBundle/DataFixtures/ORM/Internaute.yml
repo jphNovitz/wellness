@@ -20,7 +20,7 @@
 
 
 AppBundle\Entity\Internaute:
-    internaute{1..10}:
+    internaute{1..2}:
         nom (unique): '<lastName()>'
         username (unique): '<lastName()>'
         salt: ''
@@ -41,10 +41,3 @@ AppBundle\Entity\Internaute:
    #     description: '<sentence($nbWords = 4)>'
     #    imageType: 'logo'
      #   internaute: '@internaute*'
-
-
-
-
-
-
-

@@ -4,7 +4,7 @@ parameters:
     database_port: null
     database_name: isl_wellness
     database_user: root
-    database_password: null
+    database_password: no
     mailer_transport: smtp
     mailer_host: smtp.mailtrap.io
     mailer_user: ea00ff69931fb1
