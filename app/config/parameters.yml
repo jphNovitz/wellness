@@ -8,5 +8,5 @@ parameters:
     mailer_transport: smtp
     mailer_host: smtp.mailtrap.io
     mailer_user: ea00ff69931fb1
-    mailer_password:  f33d0fe9151183
+    mailer_password: f33d0fe9151183
     secret: ThisTokenIsNotSoSecretChangeIt
