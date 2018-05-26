@@ -17,7 +17,7 @@ class StageController extends Controller
 
     /**
      * @Route("/stages", name="stages_list")
-     * @Method({"POST"})
+     * @Method({"GET"})
      */
     public function listAction()
     {
@@ -29,7 +29,7 @@ class StageController extends Controller
 
     /**
      * @Route("/stage/{slug}", name="stage_detail")
-     * @Method({"POST"})
+     * @Method({"GET","POST"})
      * @ParamConverter("stage", class="AppBundle:Stage")
      */
     public function detailAction(Stage $stage)

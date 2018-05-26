@@ -15,6 +15,7 @@ class ServiceController extends Controller
 
     /**
      * @Route("/services", name="services_list")
+     * @Route("/services/")
      */
     public function listAction(Request $request)
     {
@@ -40,7 +41,7 @@ class ServiceController extends Controller
     public function detailAction(\AppBundle\Entity\Categorie $category)
     {
 
-        return $this->render('public/services/service-detail.html.twig', ['service' => $category]);
+        return $this->render('public/Services/service-detail.html.twig', ['service' => $category]);
     }
 
     /**

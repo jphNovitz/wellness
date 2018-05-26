@@ -94,7 +94,7 @@ class PrestataireController extends Controller
         $promos = $manager->getRepository('AppBundle\Entity\Promotion')->findByPrestataire($prestataire);
 
 
-        return $this->render('public/prestataires/prestataire-detail.html.twig', [
+        return $this->render('public/Prestataires/prestataire-detail.html.twig', [
             'prestataire' => $prestataire,
             'stages' => $stages,
             'promos' => $promos,
