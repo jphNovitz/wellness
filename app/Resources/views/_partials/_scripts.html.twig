@@ -40,4 +40,8 @@
     <script src="{{ asset('assets/js/superlist.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/perso.js') }}" type="text/javascript"></script>
 
+
+        {#{{ encore_entry_script_tags('app') }}#}
+        <script src="{{ asset('build/runtime.js') }}"></script>
+        <script src="{{ asset('build/nav.js') }}"></script>
 {% endblock %}

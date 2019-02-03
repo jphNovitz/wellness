@@ -2,7 +2,6 @@
  * javascript code personnel
  */
 
-<script>
 
 $("<div class='card-rows'>").appendTo('#liste');
 
@@ -19,9 +18,6 @@ $('.card-row .card-row-inner').each(function () {
 
 
 });
-
-
-</script>
 
 /*
 $(document).ready(

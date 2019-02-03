@@ -1,0 +1,10 @@
+{
+  "entrypoints": {
+    "nav": {
+      "js": [
+        "/build/runtime.js",
+        "/build/nav.js"
+      ]
+    }
+  }
+}
