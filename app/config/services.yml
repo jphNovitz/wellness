@@ -43,6 +43,10 @@ services:
   #   class: Twig_Extensions_Extension_Text
    #  tags:
     #     - { name: twig.extension }
+    twig.json_decode:
+        class: AppBundle\Twig\AppExtension
+        tags:
+            - { name: twig.extension }
 
 
 

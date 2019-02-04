@@ -5,9 +5,11 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Entity\Prestataire;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\Response;
 
 class APrestataireController extends Controller
 {
@@ -60,5 +62,17 @@ class APrestataireController extends Controller
         if ($this->get('app.persist_or_remove')->activate($prestataire))
             return $this->redirectToRoute('admin_prestataires_list');
     }
+
+    /**
+     * @Route(name="admin_prestataires_list")
+     */
+    public function jsonListAction()
+    {
+        $repo = $this->getDoctrine()->getManager()->getRepository('AppBundle\Entity\Prestataire');
+        $providers = $repo->getList();
+
+        return new JsonResponse($repo->getList());
+    }
+
 
 }
