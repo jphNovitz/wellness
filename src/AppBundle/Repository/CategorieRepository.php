@@ -14,12 +14,12 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class CategorieRepository extends \Doctrine\ORM\EntityRepository
 {
 
-    public function getList($max = null)
+    public function getList($max = null, $orderby = 'DES')
     {
         $qb = $this->createQueryBuilder('c');
 
         $qb->select('c.id, c.slug, c.nom')
-            ->orderBy('c.id', 'DESC')
+            ->orderBy('c.id', $orderby)
             ->setMaxResults($max);
 
         return $qb->getQuery()->execute();

@@ -1,3 +1,20 @@
+{% set prestataires =  render(
+    controller('AppBundle:Admin\\APrestataire:jsonList',
+    { 'max': 10 }))|json_decode %}
+
+{% set utilisateurs =  render(
+    controller('AppBundle:Admin\\Internaute:jsonList',
+    { 'max': 10 }))|json_decode %}
+
+{% set services =  render(
+    controller('AppBundle:Admin\\Categorie:jsonList',
+    { 'max': 10 }))|json_decode %}
+
+{% set promotions =  render(
+    controller('AppBundle:Admin\\Promotion:jsonList',
+    { 'max': 10 }))|json_decode %}
+
+
 <!DOCTYPE html>
 <html lang="fr">
 

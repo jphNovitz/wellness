@@ -3,10 +3,10 @@
 {% block body %}
 Accueil ADMIN
 
-    {% set prestataires =  render(controller('AppBundle:Admin\\APrestataire:jsonList'))|json_decode %}
+    {#{% set prestataires =  render(#}
+        {#controller('AppBundle:Admin\\APrestataire:jsonList',#}
+        {#{ 'max': 10 }))|json_decode %}#}
 
-    {{ dump(prestataires) }}
-    {% for prestataire in prestataires %}
-        {{ dump(prestataire) }}
-    {% endfor %}
+
+
 {% endblock %}

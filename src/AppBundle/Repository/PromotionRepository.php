@@ -11,12 +11,12 @@ namespace AppBundle\Repository;
 class PromotionRepository extends \Doctrine\ORM\EntityRepository
 {
 
-    public function getList($max)
+    public function getList($max, $orderby = 'DES')
     {
         $qb = $this->createQueryBuilder('pr');
 
         $qb->select('pr.slug, pr.nom, pr.fin')
-            ->orderBy('pr.fin', 'ASC')
+            ->orderBy('pr.fin', $orderby)
             ->setMaxResults($max);
 
         return $qb->getQuery()->execute();

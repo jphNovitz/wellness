@@ -5,6 +5,7 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Entity\Internaute;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -61,4 +62,13 @@ class InternauteController extends Controller
             return $this->redirectToRoute('admin_internautes_list');
     }
 
+
+    /**
+     * @Route(name="admin_internautes_json_list")
+     */
+    public function jsonListAction($max = null, $orderby = 'DESC')
+    {
+        $repo = $this->getDoctrine()->getManager()->getRepository('AppBundle\Entity\Internaute');
+        return new JsonResponse($repo->getList($max, $orderby));
+    }
 }

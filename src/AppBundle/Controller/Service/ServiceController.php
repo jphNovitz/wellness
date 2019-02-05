@@ -64,4 +64,5 @@ class ServiceController extends Controller
                 'route' => 'service_detail']);
     }
 
+
 }

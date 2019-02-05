@@ -64,14 +64,12 @@ class APrestataireController extends Controller
     }
 
     /**
-     * @Route(name="admin_prestataires_list")
+     * @Route(name="admin_prestataires_json_list")
      */
-    public function jsonListAction()
+    public function jsonListAction($max = null, $orderby = 'DESC')
     {
         $repo = $this->getDoctrine()->getManager()->getRepository('AppBundle\Entity\Prestataire');
-        $providers = $repo->getList();
-
-        return new JsonResponse($repo->getList());
+        return new JsonResponse($repo->getList($max, $orderby));
     }
 
 

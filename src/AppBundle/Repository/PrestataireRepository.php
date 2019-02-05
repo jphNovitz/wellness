@@ -20,11 +20,11 @@ class PrestataireRepository extends \Doctrine\ORM\EntityRepository
      * ne récupère que le minimum d'infos nécessaire pour un minimum de requetes
      * si j'appelle cette methode c'est que je n'ai besoin que d'une liste
      */
-    public function getList($max = null)
+    public function getList($max = null, $orderby = 'DESC')
     {
         $qb = $this->createQueryBuilder('p');
         $qb->select('p.slug, p.nom, p.dateInscription, p.actif')
-            ->orderBy('p.dateInscription', 'DESC')
+            ->orderBy('p.dateInscription', $orderby)
             ->setMaxResults($max);
 
         return $qb->getQuery()->execute();
