@@ -46,7 +46,7 @@
         </li>
     {% endif %}
     {% if is_granted('ROLE_PRESTATAIRE') == false %}
-        {{ render(controller('AppBundle:Default:menu',  { 'max': 5})) }}
+        {#{{ render(controller('AppBundle:Default:menu',  { 'max': 5})) }}#}
     {% endif %}
 
     <li>
