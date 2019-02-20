@@ -1,0 +1,142 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block document_title_h1 %}Gestion des {{ type }} {% endblock %}
+
+    {% block document_title_list %}
+        <h2 class="page-title">{{ prestataire.nom }}: detail</h2>
+    {% endblock %}
+
+{% block body %}
+
+    <div class="background-white p30 mb50 container">
+        {#<div class="grid">#}
+            <div class="col-sm-4">
+                    <div class="card-system">
+                        <h2>
+                            <a href="{{ path('admin_prestataire_detail', {'slug': prestataire.slug}) }}">
+                                {{ prestataire.nom }}
+                            </a>
+                        </h2>
+                        <div class="card-system-inner">
+                            {% if prestataire.logos | length > 0 %}
+                                    <div class="card-system-image"
+                                         data-background-image="{{ prestataire.logos[0].url }}"
+                                         style="background-image: url({{ prestataire.logos[0].url }});">
+                                        <a href="{{ path('admin_prestataire_detail', {'slug': prestataire.slug}) }}"> </a>
+                                    </div><!-- /.card-system-image -->
+                            {% else %}
+                                <div class="card-system-image"
+                                     data-background-image="{{ asset('assets/images/no-photo.jpg') }}"
+                                     style="background-image: url({{ asset('assets/images/no-photo.jpg') }});">
+                                    <a href="{{ path('admin_prestataire_detail', {'slug': prestataire.slug}) }}"> </a>
+                                </div><!-- /.card-system-image -->
+                            {% endif %}
+                            <div class="card-system-content">
+                                <p>
+                                    <a href="#" class="btn btn-primary btn-md  btn-block">Visuel</a>
+                                        {% if prestataire.actif %}
+                                            <a href="#" class="btn btn-secondary btn-md btn-block ">Désactiver</a>
+                                        {% else %}
+                                            <a href="#" class="btn btn-secondary btn-md btn-block">Activer</a>
+                                        {% endif %}
+                                    <a href="#" class="btn btn-secondary btn-block">message</a>
+                                    <a href="#" class="btn btn-danger btn-block">Supprimer</a>
+                                </p>
+                            </div>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                Inscription: {{prestataire.DateInscription.date|date("m/d/Y")}}
+                            </li>
+                            <li class="list-group-item">
+                                Site Web: <a href="{{prestataire.siteWeb}}">{{prestataire.siteWeb}}</a>
+                            </li>
+                            <li class="list-group-item">
+                                Adresse: {{prestataire.adresseRue}}, {{prestataire.adresseNum}}
+                            </li>
+                            <li class="list-group-item">
+                                Téléphone: <a href="tel:+0{{prestataire.tel}}">{{prestataire.tel}}</a>
+                            </li>
+                            <li class="list-group-item">
+                                T.V.A: <a href="{{prestataire.tva}}">{{prestataire.tva}}</a>
+                            </li>
+                        </ul>
+
+                        {% if prestataire.logos | length > 1 %}
+                            {% for logo in prestataire.logos %}
+                                <div class="card-system-image"
+                                     data-background-image="{{ logo.url }}"
+                                     style="background-image: url({{ logo.url }});">
+                                    <a href="{{ path('admin_prestataire_detail', {'slug': prestataire.slug}) }}"> </a>
+                                </div><!-- /.card-system-image -->
+                            {% endfor %}
+                        {% endif %}
+                        {% if prestataire.photos | length > 0 %}
+                            {% for photo in prestataire.photos %}
+                                <div class="card-system-image"
+                                     data-background-image="{{ photo.url }}"
+                                     style="background-image: url({{ photo.url }});">
+                                    <a href="{{ path('admin_prestataire_detail', {'slug': prestataire.slug}) }}"> </a>
+                                </div><!-- /.card-system-image -->
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="card-simple">
+                    <div class="post-meta-tags p30 clearfix">
+                        <h2 class="header">  Categories:</h2>
+                        {% if prestataire.categories | length > 0 %}
+                            <ul>
+                                {% for categorie in prestataire.categories %}
+                                    <li class="tag">
+                                        <a href="#">
+                                            {{categorie.nom}}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            Aucune Categorie
+                        {% endif %}
+                    </div>
+                    <div class="post-meta-tags p30 clearfix">
+                        <h2 class="header">  Favoris:</h2>
+                        {% if prestataire.favoris | length > 0 %}
+                            <ul>
+                                {% for favoris in prestataire.favoris %}
+                                    <li class="tag">
+                                        <a href="#">
+                                            {{favoris.nom}}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            Aucun Favoris
+                        {% endif %}
+                    </div>
+                    {#<div class="post-meta-tags p30 clearfix">#}
+                        {#<h2 class="header">  Commentaires:</h2>#}
+                        {#{% if prestataire.commentaires | length > 0 %}#}
+                            {#<ul>#}
+                                {#{% for commentaire in prestataire.commentaires %}#}
+                                    {#<li class="tag">#}
+                                        {#<a href="#">#}
+                                            {#{{commentaire.titre}}#}
+                                        {#</a>#}
+                                    {#</li>#}
+                                {#{% endfor %}#}
+                            {#</ul>#}
+                        {#{% else %}#}
+                            {#Aucun commentaire#}
+                        {#{% endif %}#}
+                    {#</div>#}
+
+
+                </div>
+            </div>
+        </div>
+    {#</div>#}
+{% endblock %}
+

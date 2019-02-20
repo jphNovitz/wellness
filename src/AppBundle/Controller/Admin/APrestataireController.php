@@ -72,5 +72,16 @@ class APrestataireController extends Controller
         return new JsonResponse($repo->getList($max, $orderby));
     }
 
+    /**
+     * @Route("/admin/prestataire/{slug}", name="admin_prestataire_detail")
+     */
+    public function detailAction(Prestataire $prestataire){
+
+        return $this->render('admin/Prestataires/prestataire-card.html.twig', [
+            'type' => 'prestataires',
+            'prestataire' => $prestataire
+        ]);
+    }
+
 
 }

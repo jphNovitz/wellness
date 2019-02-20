@@ -1,0 +1,120 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block document_title_h1 %}Gestion des {{ type }} {% endblock %}
+
+    {% block document_title_list %}
+        <h2 class="page-title">{{ internaute.nom }}: detail</h2>
+    {% endblock %}
+
+{% block body %}
+
+    <div class="background-white p30 mb50 container">
+        {#<div class="grid">#}
+            <div class="col-sm-4">
+                    <div class="card-system">
+                        <h2>
+                            <a href="{{ path('admin_internaute_detail', {'slug': internaute.slug}) }}">
+                                {{ internaute.nom }}
+                            </a>
+                        </h2>
+                        <div class="card-system-inner">
+                            {% if internaute.photos | length > 0 %}
+                                {% for photo in internaute.photos %}
+                                    <div class="card-system-image"
+                                         data-background-image="{{ photo.url }}"
+                                         style="background-image: url({{ internaute.photos[0].url }});">
+                                        <a href="{{ path('admin_internaute_detail', {'slug': internaute.slug}) }}"> </a>
+                                    </div><!-- /.card-system-image -->
+                                {% endfor %}
+                            {% else %}
+                                <div class="card-system-image"
+                                     data-background-image="{{ asset('assets/images/no-photo.jpg') }}"
+                                     style="background-image: url({{ asset('assets/images/no-photo.jpg') }});">
+                                    <a href="{{ path('admin_internaute_detail', {'slug': internaute.slug}) }}"> </a>
+                                </div><!-- /.card-system-image -->
+                            {% endif %}
+                            <div class="card-system-content">
+                                <p>
+                                    <a href="#" class="btn btn-primary btn-md  btn-block">Visuel</a>
+                                        {% if internaute.actif %}
+                                            <a href="#" class="btn btn-secondary btn-md btn-block ">Désactiver</a>
+                                        {% else %}
+                                            <a href="#" class="btn btn-secondary btn-md btn-block">Activer</a>
+                                        {% endif %}
+                                    <a href="#" class="btn btn-secondary btn-block">message</a>
+                                    <a href="#" class="btn btn-danger btn-block">Supprimer</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="p20">
+                            {% if internaute.newsletter == true %}
+                                Est
+                            {% else %}
+                                N'est pas
+                            {% endif %}
+                            inscrit à la <strong>newsletter</strong>
+                        </div>
+                        <div class="p15 clearfix">
+                            <h2 class="header">Abus Signalés:</h2>
+                            {% if internaute.abus | length > 0 %}
+                                <ul>
+                                    {% for abus in internaute.abus %}
+                                        <li class="tag">
+                                            <a href="">
+                                                {{abus.commentaire.titre}}
+                                            </a>
+                                            (<a href="#">
+                                                {{abus.encodageDate.date|date("m/d/Y")}}
+                                            </a>)
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                Aucun abus
+                            {% endif %}
+                        </div>
+                    </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="card-simple">
+                    <div class="post-meta-tags p30 clearfix">
+                        <h2 class="header">  Favoris:</h2>
+                        {% if internaute.favoris | length > 0 %}
+                            <ul>
+                                {% for favoris in internaute.favoris %}
+                                    <li class="tag">
+                                        <a href="#">
+                                            {{favoris.nom}}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            Aucun Favoris
+                        {% endif %}
+                    </div>
+                    <div class="post-meta-tags p30 clearfix">
+                        <h2 class="header">  Commentaires:</h2>
+                        {% if internaute.commentaires | length > 0 %}
+                            <ul>
+                                {% for commentaire in internaute.commentaires %}
+                                    <li class="tag">
+                                        <a href="#">
+                                            {{commentaire.titre}}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            Aucun commentaire
+                        {% endif %}
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    {#</div>#}
+{% endblock %}
+

@@ -1,0 +1,67 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block document_title_h1 %}Gestion des {{ type }} {% endblock %}
+
+    {% block document_title_list %}
+        <h2 class="page-title">{{ service.nom }}: detail</h2>
+    {% endblock %}
+
+{% block body %}
+
+    <div class="background-white p30 mb50 container">
+        {#<div class="grid">#}
+            <div class="col-sm-4">
+                    <div class="card-system">
+                        <h2>
+                            <a href="{{ path('admin_service_detail', {'slug': service.slug}) }}">
+                                {{ service.nom }}
+                            </a>
+                        </h2>
+                        <div class="card-system-inner">
+                            <div class="card-system-image"
+                                 data-background-image="{{ service.image.url }}"
+                                 style="background-image: url({{ service.image.url }});">
+                                <a href="{{ path('admin_service_detail', {'slug': service.slug}) }}"> </a>
+                            </div><!-- /.card-system-image -->
+
+                            <div class="card-system-content">
+
+                                <p>
+                                    <a href="#" class="btn btn-primary btn-md  btn-block">Visuel</a>
+                                        {% if service.valide %}
+                                            <a href="#" class="btn btn-secondary btn-md btn-block ">Invalider</a>
+                                        {% else %}
+                                            <a href="#" class="btn btn-secondary btn-md btn-block">valider</a>
+                                        {% endif %}
+                                    <a href="#" class="btn btn-secondary btn-block">message</a>
+                                    <a href="#" class="btn btn-danger btn-block">Supprimer</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="card-simple">
+                        <h2 class="header"> Description:</h2>
+                            <p>
+                                {{ service.description }}
+                            </p>
+                    <div class="post-meta-tags clearfix">
+                        <h2 class="header">  Proposé par:</h2>
+                        <ul>
+                            {% for prestataire in service.prestataires %}
+                                <li class="tag">
+                                    <a href="#">
+                                        {{prestataire.nom}}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    {#</div>#}
+{% endblock %}
+

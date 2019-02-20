@@ -22,22 +22,25 @@
 
             <tbody>
 
-            {% for user in users %}
+            {% for service in services %}
 
-                <tr {% if not user.actif %} style="background-color: palevioletred; color: #FFFFFF" {% endif %}>
+                <tr /> {# {% if not service.valid %} style="background-color: palevioletred; color: #FFFFFF" {% endif %} #}>
                     <th scope="row">{{ loop.index }}</th>
-                    <td>{{ user.nom }}
+                    <td>{{ service.nom }}
                     </td>
 
 
                     <td>
-                        <a href="{{ path('profile_detail',{'slug':user.slug}) }}">
+                        <a href="{{ path('admin_service_detail',{'slug':service.slug}) }}">
                             <i class="fa fa-eye"  style="color: #000000;" aria-hidden="true"></i></a>
-                        {% if user.actif %}
-                        <a href="{{ path('admin_internaute_delete', {'slug': user.slug}) }}">
-                            <i class="fa fa-trash-o" style="color: #000000;" aria-hidden="true"></i></a>
-                        {% else %}<a href="{{ path('admin_internaute_activate', {'slug': user.slug}) }}">
-                            <i class="fa fa-check-circle-o" style="color: #000000;" aria-hidden="true"></i> </a>
+                        {% if service.valide %}
+                        {#<a href="{{ path('admin_internaute_delete', {'slug': user.slug}) }}">#}
+                            <i class="fa fa-trash-o" style="color: #000000;" aria-hidden="true"></i>
+                            {#</a>#}
+                        {% else %}
+                            {#<a href="{{ path('admin_internaute_activate', {'slug': user.slug}) }}">#}
+                                <i class="fa fa-check-circle-o" style="color: #000000;" aria-hidden="true"></i>
+                            {#</a>#}
                         {% endif %}
                     </td>
                     <td>

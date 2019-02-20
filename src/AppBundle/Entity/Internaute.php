@@ -63,7 +63,15 @@ class Internaute extends Utilisateur
      */
     private $favoris;
 
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Commentaire", mappedBy="internaute")
+     */
+    private $commentaires;
 
+    /**
+     * Internaute constructor
+     */
 
     public function __construct()
     {
@@ -269,4 +277,32 @@ class Internaute extends Utilisateur
     {
         return $this->favoris;
     }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getCommentaires()
+    {
+        return $this->commentaires;
+    }
+
+    /**
+     * @param mixed $commentaire
+     */
+    public function addCommentaire($commentaire)
+    {
+        $this->commentaires->add($commentaire);
+        $commentaire->setInternaute($this);
+    }
+
+    /**
+     * @param mixed $commentaire
+     */
+    public function removeCommentaire($commentaire)
+    {
+        $this->commentaires->removeElement($commentaire);
+        $commentaire->setInternaute(null);
+    }
+
+
 }

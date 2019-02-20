@@ -58,8 +58,11 @@ class InternauteController extends Controller
      */
     public function activateAction(Request $request, Internaute $internaute)
     {
-        if ($this->get('app.persist_or_remove')->activate($internaute))
+        if ($this->get('app.persist_or_remove')->activate($internaute)) {
             return $this->redirectToRoute('admin_internautes_list');
+        } else {
+            return false;
+        }
     }
 
 
@@ -70,5 +73,17 @@ class InternauteController extends Controller
     {
         $repo = $this->getDoctrine()->getManager()->getRepository('AppBundle\Entity\Internaute');
         return new JsonResponse($repo->getList($max, $orderby));
+    }
+
+
+    /**
+     * @Route("/admin/profile/{slug}", name="admin_internaute_detail")
+     */
+    public function detailAction(Internaute $internaute){
+
+        return $this->render('admin/Profile/internaute-card.html.twig', [
+            'type' => 'internautes',
+            'internaute' => $internaute
+        ]);
     }
 }

@@ -18,8 +18,8 @@ class CategorieRepository extends \Doctrine\ORM\EntityRepository
     {
         $qb = $this->createQueryBuilder('c');
 
-        $qb->select('c.id, c.slug, c.nom')
-            ->orderBy('c.id', $orderby)
+        $qb->select('c.id, c.slug, c.nom, c.valide')
+            ->orderBy('c.id')
             ->setMaxResults($max);
 
         return $qb->getQuery()->execute();

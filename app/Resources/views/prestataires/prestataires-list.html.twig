@@ -1,23 +1,14 @@
 {% extends 'base_admin.html.twig' %}
 
-{% block document_title %}
-    <div class="document-title">
-        <h1>{% block document_title_h1 %}Zone Admin: Gestion des Prestataires {% endblock %}</h1>
+    {% block document_title_h1 %}Gestion des Prestataires {% endblock %}
 
-        <ul class="breadcrumb">
-            {% block document_title_list %}
-
-            {% endblock %}
-        </ul>
-
-
-    </div><!-- /.document-title -->
-{% endblock %}
+    {% block document_title_list %}
+        <h2 class="page-title">Liste</h2>
+    {% endblock %}
 
 {% block body %}
 
     <div class="background-white p20 mb50">
-        <h2 class="page-title">Prestataires</h2>
 
         <table class="table table-striped mb0">
             <thead>
