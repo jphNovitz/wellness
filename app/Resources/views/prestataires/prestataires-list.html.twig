@@ -26,12 +26,13 @@
 
                 <tr {% if not provider.actif %} style="background-color: palevioletred; color: #FFFFFF" {% endif %}>
                     <th scope="row">{{ loop.index }}</th>
-                    <td>{{ provider.nom }}
-                    </td>
-
-
                     <td>
-                        <a href="{{ path('prestataire_detail',{'slug':provider.slug}) }}">
+                        <a href="{{ path('admin_prestataire_detail',{'slug':provider.slug}) }}">
+                            {{ provider.nom }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ path('admin_prestataire_detail',{'slug':provider.slug}) }}">
                             <i class="fa fa-eye" style="color: #000000;" aria-hidden="true"></i></a>
                         {% if provider.actif %}
                             <a href="{{ path('admin_prestataire_delete', {'slug': provider.slug}) }}">

@@ -26,12 +26,13 @@
 
                 <tr {% if not user.actif %} style="background-color: palevioletred; color: #FFFFFF" {% endif %}>
                     <th scope="row">{{ loop.index }}</th>
-                    <td>{{ user.nom }}
-                    </td>
-
-
                     <td>
-                        <a href="{{ path('profile_detail',{'slug':user.slug}) }}">
+                        <a href="{{ path('admin_internaute_detail',{'slug':user.slug}) }}">
+                            {{ user.nom }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ path('admin_internaute_detail',{'slug':user.slug}) }}">
                             <i class="fa fa-eye"  style="color: #000000;" aria-hidden="true"></i></a>
                         {% if user.actif %}
                         <a href="{{ path('admin_internaute_delete', {'slug': user.slug}) }}">

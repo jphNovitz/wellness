@@ -38,7 +38,12 @@ class APrestataireController extends Controller
         }
 
         $form = $this->createFormBuilder($prestataire)
-            ->add('supprimer', SubmitType::class, ['label' => 'OUI Supprimer !', 'attr' => ['class' => 'label label-lg label-danger']])
+            ->add('supprimer', SubmitType::class, [
+                'label' => 'OUI Supprimer !',
+                'attr' => [
+                    'class' => 'label label-lg label-danger'
+                ]
+            ])
             ->getForm();
 
         $form->handleRequest($request);
