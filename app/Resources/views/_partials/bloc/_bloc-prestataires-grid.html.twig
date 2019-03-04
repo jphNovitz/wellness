@@ -13,9 +13,9 @@
 
              data-background-image="
                 {% block cadre_background %}
-                {% if prestataire.logos is not empty %}
-                        {{ prestataire.logos[0].url }}
-                        {% else %}
+                    {% if prestataire.url is not empty %}
+                        {{ prestataire.url }}
+                    {% else %}
                         {{ asset('assets/img/tmp/no-photo.jpg') }}
                     {% endif %}
                 {% endblock %}">
@@ -26,25 +26,33 @@
                         <a href="{{ path('prestataire_detail',{'slug':prestataire.slug}) }}">{% block cadre_centre %}{{ prestataire.nom }} {% endblock %}</a>
                     </h2>
                     <div class="card-simple-rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"> </i>
+                        <i class="fa fa-star"> </i>
+                        <i class="fa fa-star"> </i>
+                        <i class="fa fa-star"> </i>
+                        <i class="fa fa-star"> </i>
                     </div><!-- /.card-rating -->
 
                     <div class="card-simple-actions">
-                        <a href="#" class="fa fa-star-o"></a>
-                        <a href="listing-detail.html" class="fa fa-search"></a>
-                        <a href="#" class="fa fa-heart-o"></a>
+                        <a href="#" class="fa fa-star-o"> </a>
+                        <a href="listing-detail.html" class="fa fa-search"> </a>
+                        <a href="#" class="fa fa-heart-o"> </a>
                     </div><!-- /.card-simple-actions -->
                 </div><!-- /.card-simple-content -->
 
                 {% if prestataire.localite is not empty %}
-                    <div class="card-simple-label">{% block cadre_haut %} {{ prestataire.localite.commune }}{% endblock %}</div>
+                    <div class="card-simple-label">
+                        {% block cadre_haut %}
+                            {{ prestataire.localite }}
+                        {% endblock %}
+                    </div>
                 {% endif %}
                 {% if prestataire.tel is not empty %}
-                    <div class="card-simple-price">{% block cadre_bas %}{{ prestataire.tel }}{% endblock %}</div>
+                    <div class="card-simple-price">
+                        {% block cadre_bas %}
+                            {{ prestataire.tel }}
+                        {% endblock %}
+                    </div>
                 {% endif %}
 
             </div><!-- /.card-simple-background -->

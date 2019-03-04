@@ -14,7 +14,7 @@ class CategorieController extends Controller
 {
 
     /**
-     * @Route(name="admin_categories_json_list")
+     * @Route("/admin/categories/json", name="admin_categories_json_list")
      */
     public function jsonListAction($max = null, $orderby = 'DESC')
     {

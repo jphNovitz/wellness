@@ -45,7 +45,7 @@ class PromotionController extends Controller
     }
 
     /**
-     * @Route(name="admin_promotions_json_list")
+     * @Route("/admin/promotions/json", name="admin_promotions_json_list")
      */
     public function jsonListAction($max = null, $orderby = 'DESC')
     {

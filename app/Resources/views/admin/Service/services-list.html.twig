@@ -16,7 +16,6 @@
                 <th>#</th>
                 <th>Nom</th>
                 <th>Actions</th>
-                <th>S</th>
             </tr>
             </thead>
 
@@ -25,12 +24,12 @@
 
                 <tr> {# {% if not service.valid %} style="background-color: palevioletred; color: #FFFFFF" {% endif %} >#}
                     <th scope="row">{{ loop.index }}</th>
+
                     <td>
                         <a href="{{ path('admin_service_detail',{'slug':service.slug}) }}">
                             {{ service.nom }}
                         </a>
                     </td>
-
 
                     <td>
                         <a href="{{ path('admin_service_detail',{'slug':service.slug}) }}">
@@ -38,9 +37,6 @@
                         <a href="{{ path('admin_service_delete', {'slug': service.slug}) }}">
                             <i class="fa fa-trash-o" style="color: #000000;" aria-hidden="true"> </i>
                             </a>
-                    </td>
-                    <td>
-                        <i class="fa fa-ban" aria-hidden="true"> </i>
                     </td>
                 </tr>
             {% endfor %}

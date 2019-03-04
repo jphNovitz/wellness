@@ -69,7 +69,7 @@ class APrestataireController extends Controller
     }
 
     /**
-     * @Route(name="admin_prestataires_json_list")
+     * @Route("/admin/prestataires/json", name="admin_prestataires_json_list")
      */
     public function jsonListAction($max = null, $orderby = 'DESC')
     {

@@ -88,7 +88,7 @@ class PrestataireRepository extends \Doctrine\ORM\EntityRepository
             ->leftJoin('local.commune', 'comm')
             ->addSelect('comm.commune')
             ->leftJoin('p.logos', 'logos')
-            ->addSelect('logos.url')
+            ->addSelect('logos.id, logos.url')
             ->addOrderBy('p.dateInscription', 'DESC')
             ->setMaxResults($max);
 

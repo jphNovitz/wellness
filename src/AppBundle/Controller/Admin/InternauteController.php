@@ -67,7 +67,7 @@ class InternauteController extends Controller
 
 
     /**
-     * @Route(name="admin_internautes_json_list")
+     * @Route("/admin/internautes/json", name="admin_internautes_json_list")
      */
     public function jsonListAction($max = null, $orderby = 'DESC')
     {

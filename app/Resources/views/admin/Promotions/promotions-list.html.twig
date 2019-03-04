@@ -16,7 +16,6 @@
                 <th>#</th>
                 <th>Nom</th>
                 <th>Actions</th>
-                <th>S</th>
             </tr>
             </thead>
 
@@ -37,10 +36,6 @@
                         <a href="{{ path('admin_promotion_delete',{'slug':promotion.slug}) }}">
                             <i class="fa fa-trash-o" style="color: #000000;" aria-hidden="true"> </i>
                         </a>
-                    </td>
-                    <td>
-                        <i class="fa fa-ban" aria-hidden="true"> </i>
-
                     </td>
                 </tr>
             {% endfor %}

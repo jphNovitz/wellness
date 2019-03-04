@@ -8,8 +8,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class LoginController extends Controller
 {
-
-
     /**
      * @Route("/signup", name="signup")
      */
