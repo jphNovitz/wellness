@@ -45,7 +45,6 @@ class SearchController extends Controller
                 'localite' => $l,
                 'service' => $s
             ]);
-
         }
         //si le formumaine n'a pas été soumis alors il est affiché
         return $this->render('forms/search.html.twig', ['form' => $form->createView()]);

@@ -16,17 +16,17 @@
 
                         <ul class="header-nav-social social-links nav nav-pills">
                            <!-- <li><a href="https://twitter.com/isl_wellness"><i class="fa fa-twitter"></i></a></li>-->
-                            <li><a href="https://www.facebook.com/wellness360.be"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="https://instagram.com/wellness_360_be"><i class="fa fa-instagram"></i></a></li>
+                            <li><a href="https://www.facebook.com/wellness360.be"><i class="fa fa-facebook"> </i></a></li>
+                            <li><a href="https://instagram.com/wellness_360_be"><i class="fa fa-instagram"> </i></a></li>
                         </ul><!-- /.header-nav-social -->
 
                         <ul class="header-nav-secondary nav nav-pills">
                             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                                <li><a href="{{ path('logout') }}"> <i class="fa fa-sign-out" aria-hidden="true"></i> </a></li>
+                                <li><a href="{{ path('logout') }}"> <i class="fa fa-sign-out" aria-hidden="true"> </i> </a></li>
                                 <li> Connecté en tant que  {{ app.user.username }} </li>
 
                             {% else %}
-                                <li><a href="{{ path('login') }}"><i class="fa fa-sign-in" aria-hidden="true"></i></a></li>
+                                <li><a href="{{ path('login') }}"><i class="fa fa-sign-in" aria-hidden="true"> </i></a></li>
                                 <li><a href="{{ path('registration') }}"> Internaute</a></li>
                                 <li><a href="{{ path('registration', {'type':"prestataire"}) }}"> Prestataire</a></li>
                             {% endif %}
@@ -36,9 +36,9 @@
 
                     <div class="header-bottom">
                         <div class="header-action">
-                            <a href="listing-submit.html" class="header-action-inner" title="Add Listing"
+                            <a href="#" class="header-action-inner" title="Add Listing"
                                data-toggle="tooltip" data-placement="bottom">
-                                <i class="fa fa-plus"></i>
+                                <i class="fa fa-plus"> </i>
                             </a><!-- /.header-action-inner -->
                         </div><!-- /.header-action -->
 
@@ -47,9 +47,9 @@
                         <button class="navbar-toggle collapsed" type="button" data-toggle="collapse"
                                 data-target=".header-nav-primary">
                             <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
+                            <span class="icon-bar"> </span>
+                            <span class="icon-bar"> </span>
+                            <span class="icon-bar"> </span>
                         </button>
 
                     </div><!-- /.header-bottom -->
