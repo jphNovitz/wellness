@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Prestataire;
 
 use AppBundle\Entity\Prestataire;
+use AppBundle\Form\Type\PrestataireSearchType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Gedmo\Mapping\Annotation\Slug;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -20,6 +21,23 @@ class SearchController extends Controller
      * @route("/prestataires/searchForm", name="prestataire_search_form")
      */
     public function searchFormAction(Request $request)
+    {
+        $form = $this->createForm(PrestataireSearchType::class, null, [
+            'action' => $this->generateUrl('prestataire_search')
+        ])
+
+        ;
+
+        return $this->render('forms/search.html.twig', [
+            'form' =>$form->createView()
+        ]);
+
+    }
+
+    /**
+     * @route("/prestataires/searchDisplay", name="prestataire_search_form-2")
+     */
+    public function searchForm2Action(Request $request)
     {
         // creation du formulaire
         $form = $this->createFormBuilder()
@@ -57,12 +75,11 @@ class SearchController extends Controller
      */
     public function searchAction(Request $request)
     {
-
+        $raw = $request->request->get('prestataire_search');
         // recoit les variable
-        $prestataire = $request->query->get('prestataire');
-        $service = $request->query->get('service');
-        $localite = $request->query->get('localite');
-
+        $prestataire = $raw['nom'];
+        $service = $raw['service'];
+        $localite = $raw['localite'];
 
         // utilise les variables pour interroger le repository via la methode searchPrestataire
 

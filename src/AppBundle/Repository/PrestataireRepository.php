@@ -98,8 +98,6 @@ class PrestataireRepository extends \Doctrine\ORM\EntityRepository
 
     public function searchPrestataire($prestataire = null, $localite = null, $service = null)
     {
-
-
         $qb = $this->createQueryBuilder('p')
             ->leftJoin('p.logos', 'lg')
             ->leftJoin('p.localite', 'l')
@@ -112,7 +110,6 @@ class PrestataireRepository extends \Doctrine\ORM\EntityRepository
             ->addSelect('c');
 
         if (!empty ($prestataire)) {
-
             $qb->andwhere("p.nom LIKE :nom")
                 ->setParameter('nom', "%" . $prestataire . "%");
         }
@@ -123,7 +120,7 @@ class PrestataireRepository extends \Doctrine\ORM\EntityRepository
         }
 
         if (!empty($service)) {
-            $qb->andWhere('c.nom like :categorie')
+            $qb->andWhere('c.id like :categorie')
                 ->setParameter('categorie', "%" . $service . "%");
         }
 

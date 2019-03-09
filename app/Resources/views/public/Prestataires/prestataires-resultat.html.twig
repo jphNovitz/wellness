@@ -6,7 +6,7 @@
     {% block document_title_list %} {% endblock %}
 
     {% block body %}
-        {{ render(url('prestataire_form')) }}  {# formulaire pour la recheche d'un prestataire #}
+        {{ render(url('prestataire_search_form')) }} {# formulaire pour la recheche d'un prestataire #}
         {% if prestataires is not empty %}
            <h2> {{ prestataires|length }} prestataires trouvé(s) </h2>
         {% include '_partials/bloc/_bloc-prestataires.html.twig' with{'prestataires':prestataires} %}
