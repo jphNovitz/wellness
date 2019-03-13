@@ -5,8 +5,8 @@
 
     {% include'_partials/_head-meta.html.twig' %}
     {# toutes les balises meta  generales se trouvent dans le fichier _head-meta.html.twig C'est dans ce fichier qu'il faudra aller pour modificer les balises style #}
-    <title> {% block title %} BASE  {% endblock %} - Annuaire Wellness </title>
-
+    <title> {{ site_title }} {% block title %}{% endblock %} </title>
+    <meta name="description" content="{{ site_description }}"> </meta>
 </head>
 
 <body>
