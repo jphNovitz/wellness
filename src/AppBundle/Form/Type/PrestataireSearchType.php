@@ -4,6 +4,7 @@ namespace AppBundle\Form\Type;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,8 +19,8 @@ class PrestataireSearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom', TextType::class)
-            ->add('localite', TextType::class)
+            ->add('nom', SearchType::class, ['required' => false])
+            ->add('localite', searchType::class, ['required' => false])
             ->add('service', EntityType::class,[
                 'class' => 'AppBundle\Entity\Categorie',
                 'choice_label' => 'nom'

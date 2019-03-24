@@ -22,13 +22,12 @@ class SearchController extends Controller
      */
     public function searchFormAction(Request $request)
     {
-        $form = $this->createForm(PrestataireSearchType::class, null, [
-            'action' => $this->generateUrl('prestataire_search')
-        ])
+//        $form = $this->createForm(PrestataireSearchType::class, null, [
+//            'action' => $this->generateUrl('prestataire_search')
+//        ]);
+        $form = $this->makeForm();
 
-        ;
-
-        return $this->render('forms/search.html.twig', [
+        return $this->render('forms/search-prestataire.html.twig', [
             'form' =>$form->createView()
         ]);
 
@@ -40,32 +39,12 @@ class SearchController extends Controller
     public function searchForm2Action(Request $request)
     {
         // creation du formulaire
-        $form = $this->createFormBuilder()
-            ->setAction($this->generateUrl('prestataire_search_form'))
-            ->setMethod('GET')
-            ->add('prestataire', searchType::class, ['required' => false])
-            ->add('localite', searchType::class, ['required' => false])
-            ->add('service', searchType::class, ['required' => false])
-            ->add('recherche', submitType::class)
-            ->getForm();
 
-        $form->handleRequest($request);
-
-        // si le formulaire a été soumis -> je le traite
-        if ($form->isSubmitted() && $form->isValid()) {
-            $p = $form['prestataire']->getData();
-            $l = $form['localite']->getData();
-            $s = $form['service']->getData();
-
-            // je récupère les variable venant du formulaire -> je les transmets au formulaire traitant la recherche
-            return $this->redirectToRoute('prestataire_search', [
-                'prestataire' => $p,
-                'localite' => $l,
-                'service' => $s
-            ]);
-        }
-        //si le formumaine n'a pas été soumis alors il est affiché
-        return $this->render('forms/search.html.twig', ['form' => $form->createView()]);
+//        $form = $this->createForm(PrestataireSearchType::class, null, [
+//            'action' => $this->generateUrl('prestataire_search')
+//        ]);
+        $form = $this->makeForm();
+        return $this->render('forms/search-standalone.html.twig', ['form' => $form->createView()]);
 
     }
 
@@ -76,7 +55,7 @@ class SearchController extends Controller
     public function searchAction(Request $request)
     {
         $raw = $request->request->get('prestataire_search');
-        // recoit les variable
+        // recoite les variable
         $prestataire = $raw['nom'];
         $service = $raw['service'];
         $localite = $raw['localite'];
@@ -116,5 +95,11 @@ class SearchController extends Controller
         }
 
         return $this->render('forms/search-lite.html.twig', ['formLite' => $formLite->createView()]);
+    }
+
+    public function makeForm(){
+        return $this->createForm(PrestataireSearchType::class, null, [
+            'action' => $this->generateUrl('prestataire_search')
+        ]);
     }
 }
