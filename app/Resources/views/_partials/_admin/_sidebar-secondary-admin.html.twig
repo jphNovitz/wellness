@@ -2,9 +2,9 @@
 
 <div class="sidebar-secondary-admin">
     <ul>
-        <li>
-            <a href="#">
-                <span class="icon"><i class="fa fa-tachometer"></i></span>
+        <li class="{% if mcfly == 'admin_config' %}active{% endif %}">
+            <a href="{{ path('admin_config') }}">
+                <span class="icon"><i class="fa fa-tachometer"> </i></span>
                 <span class="title">Configuration</span>
                 <span class="subtitle">Gérer les paramètres</span>
             </a>
@@ -12,7 +12,7 @@
 
         <li class="{% if mcfly == 'admin_prestataires_list' %}active{% endif %}">
             <a href="{{ path('admin_prestataires_list') }}">
-                <span class="icon"><i class="fa fa-user"></i></span>
+                <span class="icon"><i class="fa fa-user"> </i></span>
                 <span class="title">Prestataires </span>
                 <span class="subtitle">Gestion des prestataires</span>
             </a>
@@ -20,21 +20,21 @@
 
         <li class="{% if mcfly == 'admin_internautes_list' %}active{% endif %}">
             <a href="{{ path('admin_internautes_list') }}">
-                <span class="icon"><i class="fa fa-users"></i></span>
+                <span class="icon"><i class="fa fa-users"> </i></span>
                 <span class="title">Internautes</span>
                 <span class="subtitle">Gestion des internautes</span>
             </a>
         </li>
         <li class="{% if mcfly == 'admin_services_list' %}active{% endif %}">
             <a href="{{ path('admin_services_list') }}">
-                <span class="icon"><i class="fa fa-medkit"></i></span>
+                <span class="icon"><i class="fa fa-medkit"> </i></span>
                 <span class="title">Services</span>
                 <span class="subtitle">Services proposés</span>
             </a>
         </li>
         <li class="{% if mcfly == 'admin_promotions_list' %} active {% endif %}">
             <a href="{{ path('admin_promotions_list') }}">
-                <span class="icon"><i class="fa fa-briefcase"></i></span>
+                <span class="icon"><i class="fa fa-briefcase"> </i></span>
                 <span class="title">Promotions</span>
                 <span class="subtitle">Promotions proposées</span>
             </a>
@@ -42,7 +42,7 @@
 
         <li>
             <a href="#">
-                <span class="icon"><i class="fa fa-envelope"></i></span>
+                <span class="icon"><i class="fa fa-envelope"> </i></span>
                 <span class="title">Messages </span>
                 <span class="subtitle">Messages recus</span>
             </a>

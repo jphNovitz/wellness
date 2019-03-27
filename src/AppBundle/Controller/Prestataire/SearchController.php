@@ -22,15 +22,11 @@ class SearchController extends Controller
      */
     public function searchFormAction(Request $request)
     {
-//        $form = $this->createForm(PrestataireSearchType::class, null, [
-//            'action' => $this->generateUrl('prestataire_search')
-//        ]);
         $form = $this->makeForm();
 
         return $this->render('forms/search-prestataire.html.twig', [
             'form' =>$form->createView()
         ]);
-
     }
 
     /**
@@ -39,15 +35,9 @@ class SearchController extends Controller
     public function searchForm2Action(Request $request)
     {
         // creation du formulaire
-
-//        $form = $this->createForm(PrestataireSearchType::class, null, [
-//            'action' => $this->generateUrl('prestataire_search')
-//        ]);
         $form = $this->makeForm();
         return $this->render('forms/search-standalone.html.twig', ['form' => $form->createView()]);
-
     }
-
 
     /**
      * @route("/prestataires/s", name="prestataire_search")
