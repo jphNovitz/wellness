@@ -1,9 +1,0 @@
-<ul class="{{ class }}">
-    {% for element in elements %}
-        <li><a href="{{ path(route,{'slug':element.slug}) }}">{{ element.nom }}</a></li>
-    {% endfor %}
-        <li>  <a href="{{ path(chemin) }}">  >> plus <<  </a> </li>
-</ul>
-
-{# Je boucle sur les elements recus  - une fois sorti de la boucle j'ajoute un lien vers la  page liste des elements #}
-
