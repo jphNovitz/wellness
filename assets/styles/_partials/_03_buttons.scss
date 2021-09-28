@@ -1,0 +1,88 @@
+/*------------------------------------------------------------------
+[ 3. Buttons ]
+*/
+.btn, .detail-gallery .owl-next, .detail-gallery .owl-prev {
+  border: 0px;
+  border-radius: 8px;
+  padding: 9px 15px;
+  position: relative;
+  transition: background-color 0.15s linear;
+}
+
+.btn:after, .detail-gallery .owl-next:after, .detail-gallery .owl-prev:after {
+  background-color: rgba(0, 0, 0, 0.15);
+  bottom: 0px;
+  content: '';
+  display: block;
+  height: 2px;
+  left: 4px;
+  position: absolute;
+  width: calc(100% - 8px);
+}
+
+.btn-primary, .fileinput-upload-button, .detail-gallery .owl-next, .detail-gallery .owl-prev {
+  background-color: $primary;
+  display: inline-block;
+  padding: 9px 15px;
+  transition: background-color 0.15s linear;
+}
+
+.btn-primary:active, .fileinput-upload-button:active, .detail-gallery .owl-next:active, .detail-gallery .owl-prev:active, .btn-primary:focus, .fileinput-upload-button:focus, .detail-gallery .owl-next:focus, .detail-gallery .owl-prev:focus, .btn-primary:hover, .fileinput-upload-button:hover, .detail-gallery .owl-next:hover, .detail-gallery .owl-prev:hover {
+  background-color: #008675 !important;
+  box-shadow: none !important;
+  outline: 0px !important;
+  text-decoration: none;
+}
+
+.btn-danger, .fileinput-remove-button {
+  background-color: #d9534f;
+  display: inline-block;
+  padding: 9px 15px;
+  transition: background-color 0.15s linear;
+}
+
+.btn-danger:active, .fileinput-remove-button:active, .btn-danger:focus, .fileinput-remove-button:focus, .btn-danger:hover, .fileinput-remove-button:hover {
+  background-color: #d43f3a !important;
+  box-shadow: none !important;
+  outline: 0px !important;
+  text-decoration: none;
+}
+
+.btn-secondary {
+  background-color: #c6af5c;
+  color: #fff;
+  display: inline-block;
+  padding: 9px 15px;
+  transition: background-color 0.15s linear;
+}
+
+.btn-secondary:active, .btn-secondary:focus, .btn-secondary:hover {
+  background-color: #bfa649 !important;
+  box-shadow: none !important;
+  color: #fff;
+  outline: 0px !important;
+  text-decoration: none;
+}
+
+.btn-transparent {
+  background-color: rgba(0, 0, 0, 0.4);
+  color: #fff;
+}
+
+.btn-transparent:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+}
+
+.btn-transparent .fa {
+  font-size: 11px;
+  margin-left: 9px;
+}
+
+.btn-lg, .btn-group-lg > .btn, .detail-gallery .btn-group-lg > .owl-next, .detail-gallery .btn-group-lg > .owl-prev {
+  padding: 16px 30px;
+}
+
+.btn-xs, .btn-group-xs > .btn, .detail-gallery .btn-group-xs > .owl-next, .detail-gallery .btn-group-xs > .owl-prev {
+  padding: 6px 12px;
+}

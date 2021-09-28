@@ -1,19 +1,83 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
-        {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
-        {% endblock %}
+<html lang="fr">
 
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+<head>
+
+
+    {# {% include'_partials/_head-meta.html.twig' %} #}
+    {# toutes les balises meta  generales se trouvent dans le fichier _head-meta.html.twig C'est dans ce fichier qu'il faudra aller pour modificer les balises style #}
+{#    <title> {{ site_title }} {% block title %}{% endblock %} </title>#}
+{#    <meta name="description" content="{{ site_description }}"></meta>#}
+
+    {% block stylesheets %}
+        {# parent() #}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {# parent() #}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+
+<body>
+<div class="page-wrapper">
+    {# haut de page contien le logo les liens vers reseaux sociaux et menu #}
+    {# {% include '_partials/_header.html.twig' %} #}
+    <div class="main">
+        <div class="main-inner">
+            <div class="container">
+                {# Document-title
+                    Affiche le nom de la page en grand dans un encadré en haut de la page
+                    En dessous il u a une liste horozontale pour les liens #}
+                {% block document_title %}
+                    {# <div class="document-title">
+                             <h1>{% block document_title_h1 %}Titre de la page {% endblock %}</h1>
+                             <ul class="breadcrumb">
+                                 {% block document_title_list %}
+                                     <li><a href="#">un lien</a></li>
+                                     <li><a href="#">un autre lien</a></li>
+                                 {% endblock %}
+                             </ul>
+                         </div><!-- /.document-title --> #}
+                {% endblock %}
+
+                {# bloc message Flash à mettre dans un include vers fichier externe #}
+                {% block messagesFlash %}
+                    {% for flash_message in app.session.flashBag.get('succes') %}
+                        <div class="alert alert-icon alert-success" role="alert">
+                            {{ flash_message }}
+                        </div>
+                    {% endfor %}
+                    {% for flash_message in app.session.flashBag.get('error') %}
+                        <div class="alert alert-icon alert-danger" role="alert">
+                            {{ flash_message }}
+                        </div>
+                    {% endfor %}
+                    {% for flash_message in app.session.flashBag.get('info') %}
+                        <div class="alert alert-icon alert-info" role="alert">
+                            {{ flash_message }}
+                        </div>
+                    {% endfor %}
+
+                {% endblock %}
+                {# fin de block a refactorer et déplacer #}
+
+                <div class="content">
+
+                    {% block body %}
+
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {# c'est ici qu'il faudra aller pour modifier les fichiers javascripts #}
+    {# {% include '_partials/_scripts.html.twig' %} #}
+
+    {# pied de page #}
+    {# {% include '_partials/_footer.html.twig' %} #}
+
+</div>
+</body>
 </html>

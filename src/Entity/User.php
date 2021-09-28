@@ -5,11 +5,11 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
-
  */
 /**
  * User
@@ -19,6 +19,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({"User" = "User", "provider" = "Provider", "customer" = "Customer"})
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
 class User implements UserInterface
 {
@@ -65,7 +66,7 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="address_num", type="string", length=3)
+     * @ORM\Column(name="address_num", type="string", length=3, nullable=true)
      *
      */
     private $addressNum;
@@ -73,7 +74,7 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="adress_street", type="string", length=125)
+     * @ORM\Column(name="adress_street", type="string", length=125, nullable=true)
      *
      */
     private $adressStreet;
@@ -88,7 +89,7 @@ class User implements UserInterface
 
 
     /**
-     * @Gedmo\Slug(fields={"nom","id"})
+     * @Gedmo\Slug(fields={"username","id"})
      * @ORM\Column(length=255, unique=true)
      */
     private $slug;
@@ -121,6 +122,16 @@ class User implements UserInterface
      * @ORM\Column(name="active", type="boolean")
      */
     private $active = false;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isVerified = false;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $agreeTerms = false;
 
     public function getId(): ?int
     {
@@ -326,6 +337,30 @@ class User implements UserInterface
     public function setLocality(?Locality $locality): self
     {
         $this->locality = $locality;
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getAgreeTerms(): ?bool
+    {
+        return $this->agreeTerms;
+    }
+
+    public function setAgreeTerms(bool $agreeTerms): self
+    {
+        $this->agreeTerms = $agreeTerms;
 
         return $this;
     }

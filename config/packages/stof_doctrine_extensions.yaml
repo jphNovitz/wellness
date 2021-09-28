@@ -1,4 +1,9 @@
 # Read the documentation: https://symfony.com/doc/current/bundles/StofDoctrineExtensionsBundle/index.html
 # See the official DoctrineExtensions documentation for more details: https://github.com/Atlantic18/DoctrineExtensions/tree/master/doc/
 stof_doctrine_extensions:
-    default_locale: en_US
+    default_locale: fr_BE
+    orm:
+        default: # Ici, laissez "default" sauf si vous avez plusieurs connexions différentes à vos bases de données et dans ce cas, mettez le nom de votre connexion
+            sluggable: true
+            timestampable: true
+
